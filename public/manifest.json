@@ -1,6 +1,6 @@
 {
-  "name": "homebrowse-i",
-  "short_name": "homebrowse-i",
+  "name": "hb-i",
+  "short_name": "hb-i",
   "icons": [
     {
       "src": "./img/icons/android-chrome-192x192.png",

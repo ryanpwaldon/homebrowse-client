@@ -1,4 +1,4 @@
-# homebrowse-i
+# hb-i
 
 ## Project setup
 ```

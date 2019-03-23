@@ -1,5 +1,5 @@
 <template>
-  <img class="base-logo" src="@/assets/img/logo.svg" alt="Homebrowse">
+  <img class="base-logo" src="@/assets/img/logo.svg" alt="hb">
 </template>
 
 <script>
