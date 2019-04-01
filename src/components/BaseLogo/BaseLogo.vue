@@ -1,5 +1,5 @@
 <template>
-  <img class="base-logo" src="@/assets/img/logo.svg" alt="hb">
+  <img class="base-logo" src="@/assets/img/logo.svg">
 </template>
 
 <script>
@@ -9,7 +9,6 @@ export default {
 
 <style lang="scss" scoped>
 .base-logo {
-  width: 40px;
-  height: 40px;
+  height: 33px;
 }
 </style>

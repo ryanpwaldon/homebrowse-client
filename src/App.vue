@@ -1,17 +1,5 @@
 <template>
   <div id="app">
-    <component :is="layout">
-      <router-view/>
-    </component>
+    <router-view/>
   </div>
 </template>
-
-<script>
-export default {
-  data () {
-    return {
-      layout: () => import('@/layouts/CardContainerFixedLayout/CardContainerFixedLayout')
-    }
-  }
-}
-</script>

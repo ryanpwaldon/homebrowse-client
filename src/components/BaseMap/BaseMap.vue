@@ -1,5 +1,5 @@
 <template>
-  <div class="base-map" ref="base-map"/>
+  <div class="base-map" ref="base-map" @click="getSuburbs()"/>
 </template>
 
 <script>
@@ -64,6 +64,10 @@ export default {
         })
       })
     },
+    getSuburbs () {
+      const suburbs = this.map.queryRenderedFeatures(undefined, { layers: ['place-label'] }).map(el => el.properties.SSC_NAME16)
+      console.log(suburbs)
+    },
     watchParentResize () {
       this.resizeObserver = new ResizeObserver(([entry]) => this.map.resize())
       this.resizeObserver.observe(this.$refs['base-map'])
@@ -77,5 +81,11 @@ export default {
   width: 100%;
   height: 100%;
   resize: both;
+}
+</style>
+
+<style>
+.mapboxgl-canvas:focus {
+  outline: 0;
 }
 </style>
