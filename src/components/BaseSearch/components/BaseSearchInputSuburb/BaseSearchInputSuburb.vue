@@ -4,6 +4,7 @@
     ref="base-search-input-suburb"
     placeholder="Search for a suburb"
     type="text"
+    @keydown.enter="onEnterPressed"
     v-focus>
 </template>
 
@@ -21,6 +22,7 @@ export default {
       { types: ['(cities)'], componentRestrictions: { country: 'aus' } }
     )
     this.autocomplete.addListener('place_changed', this.updateFilter)
+    this.autocomplete.setFields(['address_components'])
   },
   computed: mapState([
     'filter'
@@ -35,6 +37,9 @@ export default {
         postcode: addressComponents.find(item => item.types[0] === 'postal_code').short_name
       }
       this.$store.commit('updateFilter', filter)
+    },
+    onEnterPressed (e) {
+      console.log(this.autocomplete.getPlace())
     }
   },
   directives: {

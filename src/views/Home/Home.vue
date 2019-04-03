@@ -38,7 +38,7 @@ export default {
     BaseSearch
   },
   mounted () {
-    this.$store.commit('updateFilter', {
+    this.$store.dispatch('fetchListings', {
       locationTerms: 'glebe'
     })
   },

@@ -1,33 +1,30 @@
 <template>
-  <select
-    class="base-form-select"
-    v-model="selected">
-    <option
-      v-for="(option, index) in options"
-      :value="option.value"
-      :key="index">
-      {{ option.display }}
-    </option>
-  </select>
+  <input
+    class="base-field-input"
+    ref="base-field-input"
+    :placeholder="placeholder"
+    :value="value"
+    @input="$emit('input', $event.target.value)"
+    type="text">
 </template>
 
 <script>
 export default {
   props: {
-    options: {
-      type: Array,
-      required: true
-    },
-    selected: {
+    value: {
       type: string,
       required: true
+    },
+    placeholder: {
+      type: string,
+      default: ''
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.base-form-select {
+.base-field-input {
   background: var(--color-white);
   border-radius: var(--border-radius-1);
   font-weight: var(--font-weight-bold);

@@ -6,9 +6,9 @@
     />
     <div class="content">
       <div class="features">
-        {{ listing.features.bedrooms }}
-        {{ listing.features.bathrooms }}
-        {{ listing.features.carspaces }}
+        {{ listing.bedrooms }}
+        {{ listing.bathrooms }}
+        {{ listing.carspaces }}
       </div>
       <div class="price">{{listing.price}}</div>
     </div>
