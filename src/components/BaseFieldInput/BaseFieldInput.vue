@@ -12,11 +12,11 @@
 export default {
   props: {
     value: {
-      type: string,
+      type: String,
       required: true
     },
     placeholder: {
-      type: string,
+      type: String,
       default: ''
     }
   }

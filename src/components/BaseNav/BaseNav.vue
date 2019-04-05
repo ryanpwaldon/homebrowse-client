@@ -1,20 +1,21 @@
 <template>
   <div class="base-nav" ref="base-nav">
-    <BaseLogo/>
-    <BaseButtonSearch/>
-    <BaseProfile/>
+    <div class="section left">
+      <BaseLogo/>
+    </div>
+    <div class="section right">
+      <BaseProfile/>
+    </div>
   </div>
 </template>
 
 <script>
 import BaseLogo from '@/components/BaseLogo/BaseLogo'
 import BaseProfile from '@/components/BaseProfile/BaseProfile'
-import BaseButtonSearch from '@/components/BaseButtonSearch/BaseButtonSearch'
 export default {
   components: {
     BaseLogo,
-    BaseProfile,
-    BaseButtonSearch
+    BaseProfile
   }
 }
 </script>
@@ -24,13 +25,13 @@ export default {
   width: 100%;
   padding: 40px;
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   position: relative;
 }
-.base-nav > *:not(:last-child) {
-  margin-right: var(--spacing-1);
-}
-.base-button-search {
-  margin-right: auto !important;
+.section {
+  display: grid;
+  grid-auto-flow: column;
+  align-items: center;
+  grid-gap: var(--spacing-1);
 }
 </style>

@@ -80,7 +80,6 @@ export default {
 .base-map {
   width: 100%;
   height: 100%;
-  resize: both;
 }
 </style>
 

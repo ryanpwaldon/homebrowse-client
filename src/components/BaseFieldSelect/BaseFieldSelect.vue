@@ -1,7 +1,8 @@
 <template>
   <select
     class="base-field-select"
-    v-model="selected">
+    :value="selected"
+    @input="$emit('select', $event.target.value)">
     <option
       v-for="(option, index) in options"
       :value="option.value"
@@ -19,7 +20,7 @@ export default {
       required: true
     },
     selected: {
-      type: string,
+      type: String,
       required: true
     }
   }
@@ -33,7 +34,9 @@ export default {
   font-weight: var(--font-weight-bold);
   box-shadow: var(--box-shadow-1);
   padding: var(--spacing-2);
-  font-size: 18px;
+  color: var(--color-gray);
+  font-size: 16px;
   line-height: normal;
+  text-align-last: center;
 }
 </style>
