@@ -27,7 +27,7 @@ export default {
 .base-field-input {
   background: var(--color-white);
   border-radius: var(--border-radius-1);
-  font-weight: var(--font-weight-bold);
+  font-weight: var(--font-weight-semibold);
   box-shadow: var(--box-shadow-1);
   padding: var(--spacing-2);
   font-size: 18px;

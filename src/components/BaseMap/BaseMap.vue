@@ -80,6 +80,7 @@ export default {
 .base-map {
   width: 100%;
   height: 100%;
+  box-shadow: var(--box-shadow-1);
 }
 </style>
 

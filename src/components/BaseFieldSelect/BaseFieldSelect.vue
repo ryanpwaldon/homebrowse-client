@@ -31,12 +31,13 @@ export default {
 .base-field-select {
   background: var(--color-white);
   border-radius: var(--border-radius-1);
-  font-weight: var(--font-weight-bold);
+  font-weight: var(--font-weight-semibold);
   box-shadow: var(--box-shadow-1);
   padding: var(--spacing-2);
   color: var(--color-gray);
   font-size: 16px;
   line-height: normal;
   text-align-last: center;
+  cursor: pointer;
 }
 </style>

@@ -1,29 +1,41 @@
 <template>
   <div class="base-listings">
-    <BaseListing
-      v-for="(listing, index) in listings"
-      :listing="listing"
-      :key="index"
-    />
+    <div class="title">Listings</div>
+    <div class="content">
+      <BaseListingThumbnail
+        v-for="(listing, index) in listings"
+        :listing="listing"
+        :key="index"
+      />
+    </div>
   </div>
 </template>
 
 <script>
-import ListingThumbnail from './components/ListingThumbnail/ListingThumbnail'
+import BaseListingThumbnail from '@/components/BaseListingThumbnail/BaseListingThumbnail'
 import { mapState } from 'vuex'
 export default {
-  name: 'home',
+  name: 'base-listings',
   components: {
-    ListingThumbnail
+    BaseListingThumbnail
   },
-  computed: mapState([
-    'listings'
-  ])
+  props: {
+    listings: {
+      type: Array,
+      required: true
+    }
+  }
 }
 </script>
 
 <style lang="scss" scoped>
-.base-listings {
+.title {
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--spacing-1);
+  text-align: center;
+  font-size: 14px;
+}
+.content {
   width: 100%;
   display: grid;
   grid-gap: var(--spacing-1);

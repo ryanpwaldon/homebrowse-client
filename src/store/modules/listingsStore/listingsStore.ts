@@ -1,24 +1,35 @@
 import listingsService from '@/services/listingsService/listingsService'
-import { FindAllDto } from '@/services/listingsService/dto/FindAllDto'
+import vueSetDeep from '@/utils/vueSetDeep'
 
 export default {
   state: {
-    filter: {},
+    search: {
+      location: {
+        suburb: '',
+        state: '',
+        postCode: ''
+      },
+      bedrooms: 'Any',
+      bathrooms: 'Any',
+      carspaces: 'Any',
+      listingType: 'Sale'
+    },
     listings: [],
     suburbStatistics: {}
   },
   mutations: {
-    updateFilter (state, filter: FindAllDto) {
-      state.filter = filter
+    updateSearch (state, { property, value }) {
+      vueSetDeep(state, property, value)
     },
     updateListings (state, value) {
       state.listings = value
     }
   },
   actions: {
-    async fetchListings ({ commit }, value) {
-      const listings = await listingsService.findAll(value)
+    async fetchListings ({ state, commit }) {
+      const listings = await listingsService.findAll(state.search)
       commit('updateListings', listings)
+      commit('updateSearchState', false)
     }
   }
 }

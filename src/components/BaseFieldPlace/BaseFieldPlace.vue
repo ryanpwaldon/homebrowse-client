@@ -3,13 +3,14 @@
     class="base-field-place"
     ref="base-field-place"
     :placeholder="placeholder"
-    @keydown.enter.prevent
+    @keydown.enter="onEnter"
     type="text"
   >
 </template>
 
 <script>
 import loadGoogleMapsApi from 'load-google-maps-api'
+import { inspect } from 'util'
 export default {
   props: {
     placeholder: {
@@ -33,12 +34,18 @@ export default {
   methods: {
     onPlaceSelected () {
       const placeComponents = this.autocomplete.getPlace().address_components
+      if (!placeComponents) return
       const place = {
         suburb: placeComponents.find(item => item.types[0] === 'locality').short_name,
         state: placeComponents.find(item => item.types[0] === 'administrative_area_level_1').short_name,
         postCode: placeComponents.find(item => item.types[0] === 'postal_code').short_name
       }
       this.$emit('placeChanged', place)
+    },
+    onEnter (e) {
+      if (document.querySelector('.pac-container').style.display !== 'none') {
+        e.preventDefault()
+      }
     }
   }
 }
@@ -48,7 +55,7 @@ export default {
 .base-field-place {
   background: var(--color-white);
   border-radius: var(--border-radius-1);
-  font-weight: var(--font-weight-bold);
+  font-weight: var(--font-weight-semibold);
   box-shadow: var(--box-shadow-1);
   padding: var(--spacing-2);
   font-size: 18px;

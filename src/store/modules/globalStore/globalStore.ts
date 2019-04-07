@@ -1,10 +1,10 @@
 export default {
   state: {
-    showSearch: false
+    searchState: true
   },
   mutations: {
-    updateShowSearch (state, value) {
-      state.showSearch = value
+    updateSearchState (state, value) {
+      state.searchState = value
     }
   }
 }

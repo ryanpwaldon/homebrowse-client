@@ -2,22 +2,37 @@
   <div class="home">
     <div class="container">
       <BaseNav/>
-      <div class="content">
+      <div class="search" v-if="searchState">
         <BaseFormSearch/>
       </div>
+      <div class="results" v-else>
+        <!-- BaseSearchInfo -->
+        <!-- BaseStatistics -->
+        <BaseListings :listings="listings"/>
+      </div>
     </div>
+    <BaseMap/>
   </div>
 </template>
 
 <script>
 import BaseNav from '@/components/BaseNav/BaseNav'
+import BaseMap from '@/components/BaseMap/BaseMap'
 import BaseFormSearch from '@/components/BaseFormSearch/BaseFormSearch'
+import BaseListings from '@/components/BaseListings/BaseListings'
+import { mapState } from 'vuex'
 export default {
   name: 'home',
   components: {
+    BaseNav,
+    BaseMap,
     BaseFormSearch,
-    BaseNav
-  }
+    BaseListings
+  },
+  computed: mapState({
+    searchState: state => state.globalStore.searchState,
+    listings: state => state.listingsStore.listings
+  })
 }
 </script>
 
@@ -26,23 +41,26 @@ export default {
   width: 100%;
   height: 100%;
   display: flex;
-  justify-content: center;
+  & > * {
+    width: 50%;
+  }
 }
 .container {
-  width: 100%;
-  max-width: 1100px;
   display: flex;
   flex-direction: column;
-}
-.content {
-  height: 100%;
-  display: flex;
-  justify-content: flex-start;
   align-items: center;
-  flex-direction: column;
-  padding: var(--spacing-1);
+  overflow: auto;
+  padding: 40px;
 }
-.base-form-search {
+.search {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
   width: 100%;
+}
+.results {
+  width: 100%;
+  max-width: 590px;
 }
 </style>

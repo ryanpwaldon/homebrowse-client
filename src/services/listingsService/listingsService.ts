@@ -3,9 +3,9 @@ import { FindAllDto } from './dto/FindAllDto'
 
 export default {
 
-  async findAll (query: FindAllDto) {
+  async findAll (query) {
     const response = await api().get('/listings', {
-      params: query
+      params: new FindAllDto(query)
     })
     return response.data
   },

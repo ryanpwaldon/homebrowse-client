@@ -2,12 +2,12 @@ import { api } from '@/services/api'
 
 export default {
 
-  login (credentials) {
-    return api().post('/login', credentials)
+  auth (credentials) {
+    return api().post('/auth', credentials)
   },
 
-  register (newUser) {
-    return api().post('/register', newUser)
+  register (user) {
+    return api().post('/register', user)
   }
 
 }

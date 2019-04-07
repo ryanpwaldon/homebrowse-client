@@ -23,10 +23,10 @@ export default {
 <style lang="scss" scoped>
 .base-nav {
   width: 100%;
-  padding: 40px;
   display: flex;
-  justify-content: space-between;
   position: relative;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-1);
 }
 .section {
   display: grid;
