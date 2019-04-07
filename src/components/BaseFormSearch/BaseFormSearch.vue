@@ -3,17 +3,24 @@
     class="base-form-search"
     @submit.prevent>
     <BaseFieldPlace
-      @placeChanged="
-        form.locations[0].suburb = $event.suburb
-        form.locations[0].state = $event.state
-        form.locations[0].postCode = $event.postCode
-      "
+      @placeChanged="$store.commit('updateSearchLocation', $event)"
       placeholder="Search for a suburb"
     />
     <BaseFieldSelect
+      @select="$store.commit('updateSearchListings', { listingType: $event })"
+      selected="Sale"
+      :options="[
+        { value: 'Sale', display: 'Buy' },
+        { value: 'Rent', display: 'Rent' },
+        { value: 'Sold', display: 'Sold' }
+      ]"
+    />
+    <BaseFieldSelect
       @select="
-        form.minBedrooms = map[$event][0]
-        form.maxBedrooms = map[$event][1]
+        $store.commit('updateSearchListings', {
+          minBedrooms: map[$event][0],
+          maxBedrooms: map[$event][1]
+        })
       "
       selected="ANY"
       :options="[
@@ -28,8 +35,10 @@
     />
     <BaseFieldSelect
       @select="
-        form.minBathrooms = map[$event][0]
-        form.maxBathrooms = map[$event][1]
+        $store.commit('updateSearchListings', {
+          minBathrooms: map[$event][0],
+          maxBathrooms: map[$event][1]
+        })
       "
       selected="ANY"
       :options="[
@@ -44,8 +53,10 @@
     />
     <BaseFieldSelect
       @select="
-        form.minCarspaces = map[$event][0]
-        form.maxCarspaces = map[$event][1]
+        $store.commit('updateSearchListings', {
+          minCarspaces: map[$event][0],
+          maxCarspaces: map[$event][1]
+        })
       "
       selected="ANY"
       :options="[
@@ -77,20 +88,6 @@ export default {
   },
   data () {
     return {
-      form: {
-        locations: [{
-          suburb: '',
-          state: '',
-          postCode: '',
-          includeSurroundingSuburbs: false
-        }],
-        minBedrooms: '',
-        maxBedrooms: '',
-        minBathrooms: '',
-        maxBathrooms: '',
-        minCarspaces: '',
-        maxCarspaces: ''
-      },
       map: {
         'ANY': ['', ''],
         'S': ['S', 'S'],
@@ -105,8 +102,8 @@ export default {
   },
   methods: {
     async submit () {
-      await this.$store.dispatch('fetchListings', this.form)
-      this.$router.push('/app')
+      await this.$store.dispatch('updateResults')
+      this.$router.push('/search')
     }
   }
 }

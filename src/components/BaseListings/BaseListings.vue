@@ -1,6 +1,6 @@
 <template>
   <div class="base-listings">
-    <BaseListing
+    <ListingThumbnail
       v-for="(listing, index) in listings"
       :listing="listing"
       :key="index"
@@ -16,9 +16,9 @@ export default {
   components: {
     ListingThumbnail
   },
-  computed: mapState([
-    'listings'
-  ])
+  computed: mapState({
+    listings: state => state.searchStore.results.listings
+  })
 }
 </script>
 
