@@ -2,7 +2,7 @@
   <div class="base-listings">
     <div class="title">Listings</div>
     <div class="content">
-      <BaseListingThumbnail
+      <BaseListingCard
         v-for="(listing, index) in listings"
         :listing="listing"
         :key="index"
@@ -12,19 +12,16 @@
 </template>
 
 <script>
-import BaseListingThumbnail from '@/components/BaseListingThumbnail/BaseListingThumbnail'
+import BaseListingCard from '@/components/BaseListingCard/BaseListingCard'
 import { mapState } from 'vuex'
 export default {
   name: 'base-listings',
   components: {
-    BaseListingThumbnail
+    BaseListingCard
   },
-  props: {
-    listings: {
-      type: Array,
-      required: true
-    }
-  }
+  computed: mapState({
+    listings: state => state.listingsStore.listings
+  })
 }
 </script>
 

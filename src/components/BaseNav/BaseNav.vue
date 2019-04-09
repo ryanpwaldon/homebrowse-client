@@ -26,7 +26,7 @@ export default {
   display: flex;
   position: relative;
   justify-content: space-between;
-  margin-bottom: var(--spacing-1);
+  margin-bottom: var(--spacing-0);
 }
 .section {
   display: grid;

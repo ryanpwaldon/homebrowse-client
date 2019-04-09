@@ -1,4 +1,5 @@
 import listingsService from '@/services/listingsService/listingsService'
+import statisticsService from '@/services/statisticsService/statisticsService'
 import vueSetDeep from '@/utils/vueSetDeep'
 
 export default {
@@ -9,10 +10,10 @@ export default {
         state: '',
         postCode: ''
       },
-      bedrooms: 'Any',
-      bathrooms: 'Any',
-      carspaces: 'Any',
-      listingType: 'Sale'
+      bedrooms: '',
+      bathrooms: '',
+      carspaces: '',
+      listingType: 'buy'
     },
     listings: [],
     suburbStatistics: {}
@@ -23,13 +24,28 @@ export default {
     },
     updateListings (state, value) {
       state.listings = value
+    },
+    updateStatistics (state, value) {
+      state.statistics = value
     }
   },
   actions: {
+    async fetchResults ({ state, commit }) {
+      await Promise.all([
+        this.dispatch('fetchListings'),
+        this.dispatch('fetchStatistics')
+      ])
+      commit('updateSearchState', false)
+    },
     async fetchListings ({ state, commit }) {
       const listings = await listingsService.findAll(state.search)
       commit('updateListings', listings)
-      commit('updateSearchState', false)
+      return Promise.resolve()
+    },
+    async fetchStatistics ({ state, commit }) {
+      const statistics = await statisticsService.findStatistics(state.search)
+      commit('updateStatistics', statistics)
+      return Promise.resolve()
     }
   }
 }

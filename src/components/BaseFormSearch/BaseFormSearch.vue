@@ -13,8 +13,7 @@
         @select="updateSearch({ property: 'search.bedrooms', value: $event })"
         :selected="search.bedrooms"
         :options="[
-          { value: 'Any', display: 'Any' },
-          { value: 'S', display: 'S' },
+          { value: '', display: 'Any' },
           { value: '1', display: '1' },
           { value: '2', display: '2' },
           { value: '3', display: '3' },
@@ -26,7 +25,7 @@
         @select="updateSearch({ property: 'search.bathrooms', value: $event })"
         :selected="search.bathrooms"
         :options="[
-          { value: 'Any', display: 'Any' },
+          { value: '', display: 'Any' },
           { value: '0', display: '0' },
           { value: '1', display: '1' },
           { value: '2', display: '2' },
@@ -39,7 +38,7 @@
         @select="updateSearch({ property: 'search.carspaces', value: $event })"
         :selected="search.carspaces"
         :options="[
-          { value: 'Any', display: 'Any' },
+          { value: '', display: 'Any' },
           { value: '0', display: '0' },
           { value: '1', display: '1' },
           { value: '2', display: '2' },
@@ -54,9 +53,9 @@
         @select="updateSearch({ property: 'search.listingType', value: $event })"
         :selected="search.listingType"
         :options="[
-          { value: 'Sale', display: 'Buy' },
-          { value: 'Rent', display: 'Rent' },
-          { value: 'Sold', display: 'Sold' }
+          { value: 'buy', display: 'Buy' },
+          { value: 'rent', display: 'Rent' },
+          { value: 'sold', display: 'Sold' }
         ]"
       />
     </div>
@@ -88,7 +87,7 @@ export default {
       this.$store.commit('updateSearch', { property, value })
     },
     async submit () {
-      await this.$store.dispatch('fetchListings', this.form)
+      await this.$store.dispatch('fetchResults')
     }
   }
 }

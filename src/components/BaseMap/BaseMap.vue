@@ -66,7 +66,6 @@ export default {
     },
     getSuburbs () {
       const suburbs = this.map.queryRenderedFeatures(undefined, { layers: ['place-label'] }).map(el => el.properties.SSC_NAME16)
-      console.log(suburbs)
     },
     watchParentResize () {
       this.resizeObserver = new ResizeObserver(([entry]) => this.map.resize())

@@ -6,9 +6,9 @@
         <BaseFormSearch/>
       </div>
       <div class="results" v-else>
-        <!-- BaseSearchInfo -->
-        <!-- BaseStatistics -->
-        <BaseListings :listings="listings"/>
+        <BaseSearchInfo/>
+        <BaseStatistics/>
+        <BaseListings/>
       </div>
     </div>
     <BaseMap/>
@@ -19,7 +19,9 @@
 import BaseNav from '@/components/BaseNav/BaseNav'
 import BaseMap from '@/components/BaseMap/BaseMap'
 import BaseFormSearch from '@/components/BaseFormSearch/BaseFormSearch'
+import BaseSearchInfo from '@/components/BaseSearchInfo/BaseSearchInfo'
 import BaseListings from '@/components/BaseListings/BaseListings'
+import BaseStatistics from '@/components/BaseStatistics/BaseStatistics'
 import { mapState } from 'vuex'
 export default {
   name: 'home',
@@ -27,11 +29,12 @@ export default {
     BaseNav,
     BaseMap,
     BaseFormSearch,
-    BaseListings
+    BaseSearchInfo,
+    BaseListings,
+    BaseStatistics
   },
   computed: mapState({
-    searchState: state => state.globalStore.searchState,
-    listings: state => state.listingsStore.listings
+    searchState: state => state.globalStore.searchState
   })
 }
 </script>
@@ -62,5 +65,11 @@ export default {
 .results {
   width: 100%;
   max-width: 590px;
+}
+.base-search-info {
+  margin-bottom: var(--spacing-0);
+}
+.base-statistics {
+  margin-bottom: var(--spacing-0);
 }
 </style>
