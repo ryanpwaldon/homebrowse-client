@@ -1,14 +1,16 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import globalStore from '@/store/modules/globalStore/globalStore'
-import listingsStore from '@/store/modules/listingsStore/listingsStore'
+import globalModule from '@/store/modules/globalModule/globalModule'
+import listingsModule from '@/store/modules/listingsModule/listingsModule'
+import mapModule from '@/store/modules/mapModule/mapModule'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   modules: {
-    globalStore,
-    listingsStore
+    globalModule,
+    listingsModule,
+    mapModule
   }
 })

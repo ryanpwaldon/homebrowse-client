@@ -19,9 +19,9 @@
 import { mapState } from 'vuex'
 export default {
   computed: mapState({
-    bedrooms: state => state.listingsStore.search.bedrooms,
-    bathrooms: state => state.listingsStore.search.bathrooms,
-    carspaces: state => state.listingsStore.search.carspaces
+    bedrooms: state => state.listingsModule.search.bedrooms,
+    bathrooms: state => state.listingsModule.search.bathrooms,
+    carspaces: state => state.listingsModule.search.carspaces
   })
 }
 </script>

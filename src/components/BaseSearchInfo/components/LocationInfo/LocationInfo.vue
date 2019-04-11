@@ -9,8 +9,8 @@
 import { mapState } from 'vuex'
 export default {
   computed: mapState({
-    suburb: state => state.listingsStore.search.location.suburb,
-    state: state => state.listingsStore.search.location.state
+    suburb: state => state.listingsModule.search.location.suburb,
+    state: state => state.listingsModule.search.location.state
   })
 }
 </script>

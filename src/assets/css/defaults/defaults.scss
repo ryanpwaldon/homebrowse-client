@@ -10,6 +10,8 @@ html {
   font-size: 15px;
   background: var(--color-background);
   color: var(--color-dark-gray);
+  min-width: 1028px;
+  min-height: 600px;
 }
 
 html, body, #app {

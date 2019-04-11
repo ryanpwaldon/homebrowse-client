@@ -20,7 +20,7 @@ export default {
     BaseListingCard
   },
   computed: mapState({
-    listings: state => state.listingsStore.listings
+    listings: state => state.listingsModule.listings
   })
 }
 </script>

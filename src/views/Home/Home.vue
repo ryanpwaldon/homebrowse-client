@@ -11,7 +11,9 @@
         <BaseListings/>
       </div>
     </div>
-    <BaseMap/>
+    <div class="map-container">
+      <BaseMap/>
+    </div>
   </div>
 </template>
 
@@ -34,7 +36,7 @@ export default {
     BaseStatistics
   },
   computed: mapState({
-    searchState: state => state.globalStore.searchState
+    searchState: state => state.globalModule.searchState
   })
 }
 </script>
@@ -71,5 +73,11 @@ export default {
 }
 .base-statistics {
   margin-bottom: var(--spacing-0);
+}
+.map-container {
+  padding: var(--spacing-2) var(--spacing-2) var(--spacing-2) 0;
+}
+.base-map {
+  border-radius: var(--border-radius-1);
 }
 </style>
