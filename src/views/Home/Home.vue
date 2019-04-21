@@ -1,39 +1,34 @@
 <template>
   <div class="home">
-    <div class="container">
+    <BaseSidebar/>
+    <div class="main">
       <BaseNav/>
-      <div class="search" v-if="searchState">
-        <BaseFormSearch/>
-      </div>
-      <div class="results" v-else>
-        <BaseSearchInfo/>
-        <BaseStatistics/>
-        <BaseListings/>
+      <div class="content">
+        <div class="listings-container">
+          <BaseListings/>
+        </div>
+        <BaseMap/>
       </div>
     </div>
-    <div class="map-container">
-      <BaseMap/>
-    </div>
+    <BaseSearch/>
   </div>
 </template>
 
 <script>
 import BaseNav from '@/components/BaseNav/BaseNav'
 import BaseMap from '@/components/BaseMap/BaseMap'
-import BaseFormSearch from '@/components/BaseFormSearch/BaseFormSearch'
-import BaseSearchInfo from '@/components/BaseSearchInfo/BaseSearchInfo'
 import BaseListings from '@/components/BaseListings/BaseListings'
-import BaseStatistics from '@/components/BaseStatistics/BaseStatistics'
+import BaseSidebar from '@/components/BaseSidebar/BaseSidebar'
+import BaseSearch from '@/components/BaseSearch/BaseSearch'
 import { mapState } from 'vuex'
 export default {
   name: 'home',
   components: {
     BaseNav,
     BaseMap,
-    BaseFormSearch,
-    BaseSearchInfo,
     BaseListings,
-    BaseStatistics
+    BaseSidebar,
+    BaseSearch
   },
   computed: mapState({
     searchState: state => state.globalModule.searchState
@@ -46,38 +41,24 @@ export default {
   width: 100%;
   height: 100%;
   display: flex;
-  & > * {
-    width: 50%;
-  }
 }
-.container {
+.main {
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  overflow: auto;
-  padding: 40px;
 }
-.search {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.content {
+  width: 100%;
   height: 100%;
-  width: 100%;
+  display: flex;
 }
-.results {
-  width: 100%;
-  max-width: 590px;
-}
-.base-search-info {
-  margin-bottom: var(--spacing-0);
-}
-.base-statistics {
-  margin-bottom: var(--spacing-0);
-}
-.map-container {
-  padding: var(--spacing-2) var(--spacing-2) var(--spacing-2) 0;
-}
+.listings-container,
 .base-map {
-  border-radius: var(--border-radius-1);
+  flex: 1;
+}
+.listings-container {
+  padding: var(--spacing-1);
+  overflow: auto;
 }
 </style>

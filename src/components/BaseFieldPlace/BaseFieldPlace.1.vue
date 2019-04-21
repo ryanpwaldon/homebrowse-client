@@ -4,7 +4,6 @@
       class="input-item"
       ref="input-item"
       :placeholder="placeholder"
-      @input="onInput"
       @keydown.enter="onEnter"
       type="text"
     >
@@ -27,41 +26,30 @@ export default {
       libraries: ['places'],
       key: process.env.VUE_APP_GOOGLE_MAPS_API_KEY
     })
-    this.autocomplete = new gm.places.AutocompleteService({
+    this.autocomplete = new gm.places.Autocomplete(this.$refs['input-item'], {
       types: ['(cities)'],
-      componentRestrictions: { country: 'aus' }
+      componentRestrictions: {
+        country: 'aus'
+      }
     })
     this.$refs['input-item'].focus()
-    // this.autocomplete.addListener('place_changed', this.onPlaceSelected)
+    this.autocomplete.addListener('place_changed', this.onPlaceSelected)
   },
   methods: {
-    onInput (e) {
-      console.log(e)
-      this.autocomplete.getPlacePredictions({
-        input: e.target.value,
-        types: ['(cities)'],
-        componentRestrictions: { country: 'aus' }
-      }, this.onPlacesRetrieved)
-    },
-    onPlacesRetrieved (predictions, status) {
-      if (status !== google.maps.places.PlacesServiceStatus.OK) return
-      console.log(predictions)
-      // predictions.forEach(prediction => {
-      //   console.log(prediction)
-      // })
-      // const placeComponents = this.autocomplete.getPlace().address_components
-      // if (!placeComponents) return
-      // const place = {
-      //   suburb: placeComponents.find(item => item.types[0] === 'locality').short_name,
-      //   state: placeComponents.find(item => item.types[0] === 'administrative_area_level_1').short_name,
-      //   postCode: placeComponents.find(item => item.types[0] === 'postal_code').short_name
-      // }
-      // this.$emit('placeChanged', place)
+    onPlaceSelected () {
+      const placeComponents = this.autocomplete.getPlace().address_components
+      if (!placeComponents) return
+      const place = {
+        suburb: placeComponents.find(item => item.types[0] === 'locality').short_name,
+        state: placeComponents.find(item => item.types[0] === 'administrative_area_level_1').short_name,
+        postCode: placeComponents.find(item => item.types[0] === 'postal_code').short_name
+      }
+      this.$emit('placeChanged', place)
     },
     onEnter (e) {
-      // if (document.querySelector('.pac-container').style.display !== 'none') {
-      //   e.preventDefault()
-      // }
+      if (document.querySelector('.pac-container').style.display !== 'none') {
+        e.preventDefault()
+      }
     }
   }
 }

@@ -1,13 +1,10 @@
 <template>
   <div class="base-listings">
-    <div class="title">Listings</div>
-    <div class="content">
-      <BaseListingCard
-        v-for="(listing, index) in listings"
-        :listing="listing"
-        :key="index"
-      />
-    </div>
+    <BaseListingCard
+      v-for="(listing, index) in listings"
+      :listing="listing"
+      :key="index"
+    />
   </div>
 </template>
 
@@ -26,13 +23,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.title {
-  font-weight: var(--font-weight-bold);
-  margin-bottom: var(--spacing-1);
-  text-align: center;
-  font-size: 14px;
-}
-.content {
+.base-listings {
   width: 100%;
   display: grid;
   grid-gap: var(--spacing-1);

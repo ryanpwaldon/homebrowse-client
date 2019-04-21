@@ -2,6 +2,7 @@
   <input
     class="base-button-submit"
     type="submit"
+    :value="text"
   >
 </template>
 
@@ -19,15 +20,12 @@ export default {
 <style lang="scss" scoped>
 .base-button-submit {
   color: var(--color-white);
-  font-weight: var(--font-weight-semibold);
-  background: var(--color-dark-gray);
-  border-radius: var(--border-radius-1);
-  box-shadow: var(--box-shadow-1);
-  padding: var(--spacing-2);
-  font-size: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  font-weight: var(--font-weight-regular);
+  background: var(--color-black);
+  border-radius: var(--border-radius-3);
+  padding: var(--spacing-3) var(--spacing-5);
+  font-size: 14px;
+  width: 100%;
   cursor: pointer;
 }
 </style>

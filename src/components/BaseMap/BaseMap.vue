@@ -8,11 +8,11 @@ import ResizeObserver from 'resize-observer-polyfill'
 import { mapState } from 'vuex'
 export default {
   mounted () {
-    this.initMap()
-    this.addParentResizeListener()
+    // this.initMap()
+    // this.addParentResizeListener()
   },
   beforeDestroy () {
-    this.removeParentResizeListener()
+    // this.removeParentResizeListener()
   },
   data () {
     return {
@@ -80,6 +80,7 @@ export default {
   width: 100%;
   height: 100%;
   box-shadow: var(--box-shadow-1);
+  background: var(--color-light-gray-2);
 }
 </style>
 

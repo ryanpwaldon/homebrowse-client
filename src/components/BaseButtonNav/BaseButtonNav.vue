@@ -1,16 +1,22 @@
 <template>
   <router-link
     class="base-button-nav"
-    :disabled="!link"
-    tag="button"
-    :to="link"
-  >
-    {{ text }}
+    :to="link">
+    <BaseButton
+      :text="text"
+      :selected="$route.path === link"
+      :icon="icon"
+      :icon-last="true"
+    />
   </router-link>
 </template>
 
 <script>
+import BaseButton from '@/components/BaseButton/BaseButton'
 export default {
+  components: {
+    BaseButton
+  },
   props: {
     text: {
       type: String,
@@ -18,16 +24,12 @@ export default {
     },
     link: {
       type: String,
-      default: null
+      required: true
+    },
+    icon: {
+      type: String,
+      required: false
     }
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.base-button-nav {
-  color: var(--color-medium-gray);
-  font-weight: var(--font-weight-regular);
-  cursor: pointer;
-}
-</style>
