@@ -5,14 +5,15 @@
     :css="false">
     <div
       class="base-search"
-      v-if="searchState"
+      v-show="searchState"
       @click="$store.commit('toggleSearchState')"
       @keyup.escape="$store.commit('toggleSearchState')"
       >
       <form class="form" ref="form" @submit.prevent="submit" @click.stop>
         <BaseFieldPlace
           placeholder="Search for a suburb"
-          @placeChanged="updateSearch({ property: 'search.location', value: $event })"
+          @place-selected="onPlaceSelected"
+          @place-detials-retrieved="onPlaceDetailsRetrieved"
         />
       </form>
     </div>
@@ -26,9 +27,6 @@ import anime from 'animejs'
 export default {
   components: {
     BaseFieldPlace
-  },
-  mounted () {
-
   },
   computed: mapState({
     searchState: state => state.globalModule.searchState,
@@ -62,8 +60,16 @@ export default {
     updateSearch ({ property, value }) {
       this.$store.commit('updateSearch', { property, value })
     },
-    async submit () {
-      await this.$store.dispatch('fetchResults')
+    onPlaceSelected () {
+      console.log('he')
+      this.$store.commit('updateIsLoading', true)
+      this.$store.commit('toggleSearchState')
+    },
+    onPlaceDetailsRetrieved (place) {
+      console.log('ho')
+      this.updateSearch({ property: 'search.location', value: place })
+      this.$store.dispatch('fetchResults')
+      this.$store.commit('updateIsLoading', false)
     }
   }
 }

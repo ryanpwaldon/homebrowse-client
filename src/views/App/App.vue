@@ -1,11 +1,11 @@
 <template>
-  <div class="home">
+  <div class="app">
     <BaseSidebar/>
     <div class="main">
       <BaseNav/>
       <div class="content">
-        <div class="listings-container">
-          <BaseListings/>
+        <div class="router-container">
+          <router-view/>
         </div>
         <BaseMap/>
       </div>
@@ -17,16 +17,14 @@
 <script>
 import BaseNav from '@/components/BaseNav/BaseNav'
 import BaseMap from '@/components/BaseMap/BaseMap'
-import BaseListings from '@/components/BaseListings/BaseListings'
 import BaseSidebar from '@/components/BaseSidebar/BaseSidebar'
 import BaseSearch from '@/components/BaseSearch/BaseSearch'
 import { mapState } from 'vuex'
 export default {
-  name: 'home',
+  name: 'app',
   components: {
     BaseNav,
     BaseMap,
-    BaseListings,
     BaseSidebar,
     BaseSearch
   },
@@ -37,7 +35,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.home {
+.app {
   width: 100%;
   height: 100%;
   display: flex;
@@ -53,11 +51,11 @@ export default {
   height: 100%;
   display: flex;
 }
-.listings-container,
+.router-container,
 .base-map {
   flex: 1;
 }
-.listings-container {
+.router-container {
   padding: var(--spacing-1);
   overflow: auto;
 }

@@ -1,20 +1,34 @@
 <template>
   <div class="base-field-place">
-    <input
-      class="input-item"
-      ref="input-item"
-      :placeholder="placeholder"
-      @input="onInput"
-      @keydown.enter="onEnter"
-      type="text"
-    >
-    <div class="results-container"/>
+    <div class="input-container">
+      <img class="icon" src="@/assets/img/search-tall.svg">
+      <input
+        class="input"
+        ref="input"
+        @input="onInput"
+        :placeholder="placeholder"
+        @keydown.enter="onEnter"
+        @keydown.down="updateFocusedIndex('+')"
+        @keydown.up="updateFocusedIndex('-')"
+        type="text"
+      >
+    </div>
+    <div class="suggestions-container">
+      <div
+        class="suggestion-item"
+        :class="{'focused': index === focusedIndex}"
+        v-for="(suggestion, index) in suggestions"
+        :key="index">
+        {{ suggestion.title }}
+      </div>
+    </div>
+    <div class="attribution" ref="attribution"/>
   </div>
 </template>
 
 <script>
-import loadGoogleMapsApi from 'load-google-maps-api'
-import { inspect } from 'util'
+import AutocompleteService from '@/services/autocompleteService/autocompleteService'
+import debounce from 'lodash/debounce'
 export default {
   props: {
     placeholder: {
@@ -22,46 +36,38 @@ export default {
       default: ''
     }
   },
-  async mounted () {
-    const gm = await loadGoogleMapsApi({
-      libraries: ['places'],
-      key: process.env.VUE_APP_GOOGLE_MAPS_API_KEY
-    })
-    this.autocomplete = new gm.places.AutocompleteService({
-      types: ['(cities)'],
-      componentRestrictions: { country: 'aus' }
-    })
-    this.$refs['input-item'].focus()
-    // this.autocomplete.addListener('place_changed', this.onPlaceSelected)
+  mounted () {
+    this.$refs['input'].focus()
+    this.autocompleteService = new AutocompleteService(this.$refs['attribution'])
+  },
+  data () {
+    return {
+      suggestions: [],
+      focusedIndex: 0
+    }
   },
   methods: {
-    onInput (e) {
-      console.log(e)
-      this.autocomplete.getPlacePredictions({
-        input: e.target.value,
-        types: ['(cities)'],
-        componentRestrictions: { country: 'aus' }
-      }, this.onPlacesRetrieved)
+    onInput: debounce(async function (e) {
+      this.suggestions = await this.autocompleteService.findAll(e.target.value)
+      this.focusedIndex = 0
+    }, 0),
+    async onEnter (e) {
+      e.preventDefault()
+      this.$emit('place-selected')
+      const place = await this.autocompleteService.findOne(this.suggestions[this.focusedIndex].id)
+      this.$emit('place-detials-retrieved', place)
     },
-    onPlacesRetrieved (predictions, status) {
-      if (status !== google.maps.places.PlacesServiceStatus.OK) return
-      console.log(predictions)
-      // predictions.forEach(prediction => {
-      //   console.log(prediction)
-      // })
-      // const placeComponents = this.autocomplete.getPlace().address_components
-      // if (!placeComponents) return
-      // const place = {
-      //   suburb: placeComponents.find(item => item.types[0] === 'locality').short_name,
-      //   state: placeComponents.find(item => item.types[0] === 'administrative_area_level_1').short_name,
-      //   postCode: placeComponents.find(item => item.types[0] === 'postal_code').short_name
-      // }
-      // this.$emit('placeChanged', place)
-    },
-    onEnter (e) {
-      // if (document.querySelector('.pac-container').style.display !== 'none') {
-      //   e.preventDefault()
-      // }
+    updateFocusedIndex (direction) {
+      if (direction === '+') {
+        this.focusedIndex !== this.suggestions.length - 1
+          ? this.focusedIndex++
+          : this.focusedIndex = 0
+      }
+      if (direction === '-') {
+        this.focusedIndex !== 0
+          ? this.focusedIndex--
+          : this.focusedIndex = this.suggestions.length - 1
+      }
     }
   }
 }
@@ -70,83 +76,41 @@ export default {
 <style lang="scss" scoped>
 .base-field-place {
   width: 540px;
-  height: 560px;
+  height: 400px;
   position: relative;
   display: flex;
   flex-direction: column;
+  border-radius: var(--border-radius-3);
+  overflow: hidden;
 }
-.input-item {
-  background: var(--color-white);
+.input-container {
   font-weight: var(--font-weight-regular);
-  border-top-left-radius: var(--border-radius-3);
-  border-top-right-radius: var(--border-radius-3);
-  background: var(--color-light-gray-2);
   padding: var(--spacing-2-5) var(--spacing-2);
+  background: var(--color-light-gray-2);
   line-height: normal;
   font-size: 18px;
   width: 100%;
-}
-.results-container {
-  height: 100%;
-  background: white;
-  border-bottom-left-radius: var(--border-radius-3);
-  border-bottom-right-radius: var(--border-radius-3);
-}
-</style>
-
-<style lang="scss">
-.pac-container {
-  font-family: var(--font-1);
-  box-shadow: none;
-  padding-top: var(--spacing-4);
-  border-radius: 0;
-  border: none;
-}
-.pac-item {
-  border-top: none;
-  line-height: inherit;
-  padding: var(--spacing-2-5) var(--spacing-2);
   display: flex;
   align-items: center;
-  margin: 0 -1px;
-  cursor: pointer;
 }
-.pac-item:first-of-type {
-  border-top-left-radius: 3px !important;
-  border-top-right-radius: 3px !important;
-  margin-top: -1px !important;
+.icon {
+  height: 1em;
+  margin-right: var(--spacing-3);
 }
-.pac-item:last-of-type {
-  border-bottom-left-radius: 3px !important;
-  border-bottom-right-radius: 3px !important;
-  margin-bottom: -1px !important;
+.input {
+  font-size: inherit;
+  width: 100%;
 }
-.pac-item:hover, .pac-item-selected {
-  background-color: var(--color-light-gray-1);
+.suggestions-container {
+  height: 100%;
+  background: white;
+  padding-top: var(--spacing-4);
 }
-.pac-item span {
-  font-size: 14px !important;
-  font-weight: 400 !important;
-}
-.pac-item:last-of-type {
-  border-bottom: none;
-}
-.pac-icon {
-  display: none;
-}
-.pac-logo.hdpi::after {
-  background-image: none;
-  height: 0px !important;
-  padding: 0px !important;
-}
-.pac-matched, .pac-item-query {
-  color: var(--color-black);
-  font-weight: 400 !important;
-  font-size: 14px !important;
-}
-.pac-item-query .pac-matched {
-  color: var(--color-black);
-  font-weight: 400 !important;
-  font-size: 14px !important;
+.suggestion-item {
+  font-weight: var(--font-weight-regular);
+  padding: var(--spacing-2-5) var(--spacing-2);
+  &.focused {
+    background: var(--color-hover);
+  }
 }
 </style>

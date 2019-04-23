@@ -16,7 +16,8 @@ export default {
       listingType: 'buy'
     },
     listings: [],
-    suburbStatistics: {}
+    suburbStatistics: {},
+    isLoading: false
   },
   mutations: {
     updateSearch (state, { property, value }) {
@@ -27,6 +28,9 @@ export default {
     },
     updateStatistics (state, value) {
       state.statistics = value
+    },
+    updateIsLoading (state, value) {
+      state.isLoading = value
     }
   },
   actions: {
@@ -36,7 +40,6 @@ export default {
         this.dispatch('fetchStatistics'),
         this.dispatch('fetchBoundingBox', state.search.location)
       ])
-      commit('updateSearchState', false)
     },
     async fetchListings ({ state, commit }) {
       const listings = await listingsService.findAll(state.search)

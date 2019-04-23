@@ -15,7 +15,7 @@
   font-size: 14px;
 }
 .logo {
-  height: 18px;
+  height: 1em;
   margin-right: var(--spacing-3);
 }
 </style>

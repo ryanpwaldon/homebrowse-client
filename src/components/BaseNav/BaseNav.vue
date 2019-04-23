@@ -3,7 +3,7 @@
     <div class="section left">
       <BaseButtonNav
         text="Properties"
-        link="/properties"
+        link="/app/properties"
       />
       <BaseButtonNav
         text="Statistics"

@@ -39,6 +39,7 @@ export default {
   font-size: 14px;
   font-weight: var(--font-weight-medium);
   display: flex;
+  transition: color 120ms ease-in-out 0s;
 }
 .base-button.icon-last {
   flex-direction: row-reverse;
@@ -52,14 +53,14 @@ export default {
   width: calc(100% + 14px);
   height: calc(100% + 10px);
   border-radius: var(--border-radius-3);
-  transition: opacity 120ms ease-in 0s;
+  transition: opacity 120ms ease-in-out 0s;
+  background: var(--color-light-gray-3);
   opacity: 0;
   z-index: -1;
   content: '';
   cursor: pointer;
 }
 .base-button:hover::before {
-  background: var(--color-light-gray-3);
   opacity: 0.6;
 }
 .base-button.selected {
