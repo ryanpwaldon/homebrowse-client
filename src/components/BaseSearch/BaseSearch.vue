@@ -5,15 +5,13 @@
     :css="false">
     <div
       class="base-search"
-      v-show="searchState"
-      @click="$store.commit('toggleSearchState')"
-      @keyup.escape="$store.commit('toggleSearchState')"
-      >
+      v-if="searchState"
+      @click="$store.commit('globalModule/toggleSearchState')"
+      @keyup.escape="$store.commit('globalModule/toggleSearchState')">
       <form class="form" ref="form" @submit.prevent="submit" @click.stop>
-        <BaseFieldPlace
+        <BaseFieldSuburb
           placeholder="Search for a suburb"
-          @place-selected="onPlaceSelected"
-          @place-detials-retrieved="onPlaceDetailsRetrieved"
+          @suburb-selected="onSuburbSelected"
         />
       </form>
     </div>
@@ -21,16 +19,16 @@
 </template>
 
 <script>
-import BaseFieldPlace from '@/components/BaseFieldPlace/BaseFieldPlace'
+import BaseFieldSuburb from '@/components/BaseFieldSuburb/BaseFieldSuburb'
 import { mapState } from 'vuex'
 import anime from 'animejs'
 export default {
   components: {
-    BaseFieldPlace
+    BaseFieldSuburb
   },
   computed: mapState({
     searchState: state => state.globalModule.searchState,
-    search: state => state.listingsModule.search
+    search: state => state.filterModule.search
   }),
   methods: {
     animateEnter (el, done) {
@@ -57,19 +55,10 @@ export default {
         duration: 200
       })
     },
-    updateSearch ({ property, value }) {
-      this.$store.commit('updateSearch', { property, value })
-    },
-    onPlaceSelected () {
-      console.log('he')
-      this.$store.commit('updateIsLoading', true)
-      this.$store.commit('toggleSearchState')
-    },
-    onPlaceDetailsRetrieved (place) {
-      console.log('ho')
-      this.updateSearch({ property: 'search.location', value: place })
-      this.$store.dispatch('fetchResults')
-      this.$store.commit('updateIsLoading', false)
+    async onSuburbSelected (suburb) {
+      this.$store.commit('globalModule/toggleSearchState')
+      this.$store.commit('suburbModule/updateIsLoading', true)
+      this.$store.dispatch('suburbModule/addSuburb', await suburb)
     }
   }
 }
@@ -82,9 +71,9 @@ export default {
   height: 100%;
   top: 0;
   left: 0;
-  background: var(--overlay-medium);
   display: flex;
   align-items: center;
   justify-content: center;
+  background: var(--overlay-medium);
 }
 </style>

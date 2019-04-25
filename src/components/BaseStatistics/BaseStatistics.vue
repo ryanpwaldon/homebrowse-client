@@ -26,7 +26,7 @@ export default {
     StatisticCard
   },
   computed: mapState({
-    statistics: state => state.listingsModule.statistics
+    statistics: state => state.filterModule.statistics
   })
 }
 </script>

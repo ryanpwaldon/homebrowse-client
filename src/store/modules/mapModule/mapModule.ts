@@ -1,6 +1,7 @@
 import mapService from '@/services/mapService/mapService'
 
 export default {
+  namespaced: true,
   state: {
     boundingBox: [
       { lng: 113.16000067720864, lat: -10.5955313927184 },

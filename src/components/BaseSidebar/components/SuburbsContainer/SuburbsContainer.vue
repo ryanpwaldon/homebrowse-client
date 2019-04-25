@@ -1,30 +1,28 @@
 <template>
   <div class="suburbs-container">
     <SidebarTitle text="Suburbs"/>
-    <BaseFieldSelectTabs
-      orientation="vertical"
-      :options="[
-        { value: 'Mossman', display: 'Mossman' },
-        { value: 'Glebe', display: 'Glebe' },
-        { value: 'Haymarket', display: 'Haymarket' },
-        { value: 'Milsons Point', display: 'Milsons Point' },
-        { value: 'Waverley', display: 'Waverley' },
-        { value: 'Zetland', display: 'Zetland' },
-        { value: 'Kensington', display: 'Kensington' },
-      ]"
-      selected="Glebe"
+    <SidebarButton
+      v-for="(suburb, index) in suburbs" :key="index"
+      :selected="index === selectedSuburbIndex"
+      :text="suburb.name"
+      @click.native="$store.commit('filterModule/updateSelectedSuburbIndex', index)"
     />
   </div>
 </template>
 
 <script>
 import SidebarTitle from '@/components/BaseSidebar/components/SidebarTitle/SidebarTitle'
-import BaseFieldSelectTabs from '@/components/BaseFieldSelectTabs/BaseFieldSelectTabs'
+import SidebarButton from '@/components/BaseSidebar/components/SidebarButton/SidebarButton'
+import { mapState } from 'vuex'
 export default {
   components: {
     SidebarTitle,
-    BaseFieldSelectTabs
-  }
+    SidebarButton
+  },
+  computed: mapState({
+    suburbs: state => state.suburbModule.suburbs,
+    selectedSuburbIndex: state => state.filterModule.selectedSuburbIndex
+  })
 }
 </script>
 

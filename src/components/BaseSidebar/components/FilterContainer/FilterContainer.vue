@@ -1,35 +1,40 @@
 <template>
   <div class="suburbs-container">
     <SidebarTitle text="Filter"/>
-    <BaseFieldSelectTabs
-      orientation="horizontal"
+    <SidebarFieldSelect
+      label="Listing type"
+      selected="buy"
       :options="[
         { value: 'buy', display: 'Buy' },
         { value: 'rent', display: 'Rent' },
         { value: 'sold', display: 'Sold' }
       ]"
-      selected="buy"
     />
-    <BaseFieldSelectTabs
-      orientation="horizontal"
+    <SidebarFieldSelect
+      label="Property type"
+      selected="all"
       :options="[
         { value: 'all', display: 'All' },
         { value: 'house', display: 'House' },
         { value: 'unit', display: 'Unit' },
         { value: 'land', display: 'Land' }
       ]"
-      selected="all"
     />
   </div>
 </template>
 
 <script>
 import SidebarTitle from '@/components/BaseSidebar/components/SidebarTitle/SidebarTitle'
-import BaseFieldSelectTabs from '@/components/BaseFieldSelectTabs/BaseFieldSelectTabs'
+import SidebarFieldSelect from '@/components/BaseSidebar/components/SidebarFieldSelect/SidebarFieldSelect'
 export default {
   components: {
     SidebarTitle,
-    BaseFieldSelectTabs
+    SidebarFieldSelect
+  },
+  methods: {
+    updateFilter ({ property, value }) {
+      this.$store.commit('updateFilter', { property, value })
+    }
   }
 }
 </script>

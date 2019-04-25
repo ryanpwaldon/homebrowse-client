@@ -50,7 +50,6 @@ export default {
 }
 .sidebar-button.selected .text {
   color: var(--color-black);
-  font-weight: var(--font-weight-semibold);
   border-bottom: solid 1px var(--color-black);
 }
 </style>

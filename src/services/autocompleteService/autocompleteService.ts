@@ -48,12 +48,12 @@ export default class AutocompleteService {
     return new Promise((resolve, reject) => {
       this.placesService.getDetails({ placeId: id }, (place, status) => {
         if (status !== this.maps.places.PlacesServiceStatus.OK) return
-        const placeDetails = {
-          suburb: place.address_components.find(item => item.types[0] === 'locality').short_name,
+        const suburb = {
+          name: place.address_components.find(item => item.types[0] === 'locality').short_name,
           state: place.address_components.find(item => item.types[0] === 'administrative_area_level_1').short_name,
           postCode: place.address_components.find(item => item.types[0] === 'postal_code').short_name
         }
-        return resolve(placeDetails)
+        return resolve(suburb)
       })
     })
   }

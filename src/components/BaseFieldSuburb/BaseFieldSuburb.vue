@@ -1,5 +1,5 @@
 <template>
-  <div class="base-field-place">
+  <div class="base-field-suburb">
     <div class="input-container">
       <img class="icon" src="@/assets/img/search-tall.svg">
       <input
@@ -51,11 +51,9 @@ export default {
       this.suggestions = await this.autocompleteService.findAll(e.target.value)
       this.focusedIndex = 0
     }, 0),
-    async onEnter (e) {
+    onEnter (e) {
       e.preventDefault()
-      this.$emit('place-selected')
-      const place = await this.autocompleteService.findOne(this.suggestions[this.focusedIndex].id)
-      this.$emit('place-detials-retrieved', place)
+      this.$emit('suburb-selected', this.autocompleteService.findOne(this.suggestions[this.focusedIndex].id))
     },
     updateFocusedIndex (direction) {
       if (direction === '+') {
@@ -74,7 +72,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.base-field-place {
+.base-field-suburb {
   width: 540px;
   height: 400px;
   position: relative;

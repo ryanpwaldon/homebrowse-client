@@ -3,7 +3,7 @@
     class="search-button"
     text="Search"
     :icon="require('@/assets/img/search.svg')"
-    @click.native="$store.commit('toggleSearchState')"
+    @click.native="$store.commit('globalModule/toggleSearchState')"
   />
 </template>
 

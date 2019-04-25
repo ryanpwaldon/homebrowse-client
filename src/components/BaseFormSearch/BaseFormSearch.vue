@@ -80,7 +80,7 @@ export default {
     BaseButtonSubmit
   },
   computed: mapState({
-    search: state => state.listingsModule.search
+    search: state => state.filterModule.search
   }),
   methods: {
     updateSearch ({ property, value }) {
