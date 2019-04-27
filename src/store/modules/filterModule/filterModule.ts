@@ -34,8 +34,14 @@ export default {
     updateFilter (state, { property, value }) {
       vueSetDeep(state, property, value)
     },
-    updateSelectedSuburbIndex (state, index) {
+    setSelectedSuburbIndex (state, index) {
       state.selectedSuburbIndex = index
+    }
+  },
+  actions: {
+    updateSelectedSuburbIndex ({ dispatch, commit }, index) {
+      dispatch('suburbModule/ensureSuburbFilterUpToDate', null, { root: true })
+      commit('setSelectedSuburbIndex', index)
     }
   }
 }

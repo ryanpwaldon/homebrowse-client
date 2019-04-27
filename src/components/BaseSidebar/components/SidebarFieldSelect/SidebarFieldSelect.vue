@@ -37,13 +37,12 @@ export default {
 <style lang="scss" scoped>
 .sidebar-field-select {
   width: 100%;
-  font-size: 14px;
   transition: background 120ms ease-in 0s;
   padding: var(--spacing-4) var(--spacing-2);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  cursor: pointer;
+  position: relative;
 }
 .sidebar-field-select:hover {
   background: var(--color-hover);
@@ -52,12 +51,20 @@ export default {
   color: var(--color-gray);
   margin-right: var(--spacing-3-5);
   font-weight: var(--font-weight-medium);
+  font-size: 14px;
 }
 .select {
   font-size: 14px;
   color: var(--color-black);
   font-weight: var(--font-weight-medium);
   text-decoration: underline;
+  padding: 0 var(--spacing-2);
   text-align-last: right;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  line-height: 1.6em;
+  cursor: pointer;
 }
 </style>

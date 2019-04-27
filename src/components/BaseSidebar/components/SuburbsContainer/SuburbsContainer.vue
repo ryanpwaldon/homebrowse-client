@@ -5,7 +5,7 @@
       v-for="(suburb, index) in suburbs" :key="index"
       :selected="index === selectedSuburbIndex"
       :text="suburb.name"
-      @click.native="$store.commit('filterModule/updateSelectedSuburbIndex', index)"
+      @click.native="$store.dispatch('filterModule/updateSelectedSuburbIndex', index)"
     />
   </div>
 </template>
