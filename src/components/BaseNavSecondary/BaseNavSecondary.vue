@@ -23,7 +23,7 @@ export default {
   position: relative;
   padding: var(--spacing-2) 0;
   justify-content: space-between;
-  width: calc(100% - 2 * var(--spacing-2));
+  width: calc(100% - 2 * var(--spacing-1));
   border-bottom: solid 1px var(--color-light-gray-2);
 }
 </style>

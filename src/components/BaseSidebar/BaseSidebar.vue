@@ -22,7 +22,7 @@ export default {
 <style lang="scss" scoped>
 .base-sidebar {
   height: 100%;
-  width: 220px;
+  width: 210px;
   flex-shrink: 0;
   padding: var(--spacing-2-5) var(--spacing-3);
   background: var(--color-light-gray-2);
