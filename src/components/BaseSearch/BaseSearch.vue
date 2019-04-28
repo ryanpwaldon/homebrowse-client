@@ -57,8 +57,8 @@ export default {
     },
     async onSuburbSelected (suburb) {
       this.$store.commit('globalModule/toggleSearchState')
-      this.$store.commit('suburbModule/updateIsLoading', true)
-      this.$store.dispatch('suburbModule/addSuburb', await suburb)
+      this.$store.commit('suburbsModule/updateIsLoading', true)
+      this.$store.dispatch('suburbsModule/addSuburb', await suburb)
     }
   }
 }

@@ -13,6 +13,7 @@
   --color-light-gray-2: #F2F2F2;
   --color-light-gray-3: #E2E2E2;
   --color-light-gray-4: #CCCCCC;
+  --color-light-gray-5: #e6e6e6;
   --color-light-medium-gray: #E8E8E8;
   --color-medium-gray: #a5a5a5;
   --color-background: var(--color-white);
@@ -31,12 +32,9 @@
 
   // box-shadow
   --box-shadow-1: 0 1px 2px 0 rgba(0,0,0,.1);
-  --box-shadow-2: 0 7px 14px 0 rgba(60,66,87, 0.1),
-                  0 3px 6px 0 rgba(0, 0, 0, .07);
+  --box-shadow-2: 0 7px 14px 0 rgba(60,66,87, 0.1), 0 3px 6px 0 rgba(0, 0, 0, .07);
   --box-shadow-3: 0 0 25px rgba(0,0,0,.11);
-  --box-shadow-4: rgba(15, 15, 15, 0.05) 0px 0px 0px 1px,
-                  rgba(15, 15, 15, 0.1) 0px 3px 6px,
-                  rgba(15, 15, 15, 0.2) 0px 9px 24px;
+  --box-shadow-4: rgba(15, 15, 15, 0.05) 0px 0px 0px 1px, rgba(15, 15, 15, 0.1) 0px 3px 6px, rgba(15, 15, 15, 0.2) 0px 9px 24px;
 
   // border-radius
   --border-radius-1: 5px;
@@ -51,5 +49,9 @@
 
   // overlay
   --overlay-medium: rgba(15, 15, 15, 0.6);
+
+  // button stretch hover underlay
+  --button-hover-padding-vertical: 5px;
+  --button-hover-padding-horizontal: 10px;
 
 }

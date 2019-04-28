@@ -1,7 +1,7 @@
 <template>
   <div class="suburbs-container">
     <SidebarTitle text="Filter"/>
-    <SidebarFieldSelect
+    <BaseFieldSelectStretch
       label="Listing type"
       @select="updateFilter({ property: 'listingType', value: $event })"
       :selected="listingType"
@@ -11,7 +11,7 @@
         { value: 'sold', display: 'Sold' }
       ]"
     />
-    <SidebarFieldSelect
+    <BaseFieldSelectStretch
       label="Bedrooms"
       @select="updateFilter({ property: 'bedrooms', value: $event })"
       :selected="bedrooms"
@@ -24,7 +24,7 @@
         { value: '5+', display: '5+' }
       ]"
     />
-    <SidebarFieldSelect
+    <BaseFieldSelectStretch
       label="Bathrooms"
       @select="updateFilter({ property: 'bathrooms', value: $event })"
       :selected="bathrooms"
@@ -38,7 +38,7 @@
         { value: '5+', display: '5+' }
       ]"
     />
-    <SidebarFieldSelect
+    <BaseFieldSelectStretch
       label="Car spaces"
       @select="updateFilter({ property: 'carspaces', value: $event })"
       :selected="carspaces"
@@ -57,12 +57,12 @@
 
 <script>
 import SidebarTitle from '@/components/BaseSidebar/components/SidebarTitle/SidebarTitle'
-import SidebarFieldSelect from '@/components/BaseSidebar/components/SidebarFieldSelect/SidebarFieldSelect'
+import BaseFieldSelectStretch from '@/components/BaseFieldSelectStretch/BaseFieldSelectStretch'
 import { mapState } from 'vuex'
 export default {
   components: {
     SidebarTitle,
-    SidebarFieldSelect
+    BaseFieldSelectStretch
   },
   computed: mapState('filterModule', [
     'listingType',

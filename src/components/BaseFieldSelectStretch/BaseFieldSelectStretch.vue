@@ -1,5 +1,5 @@
 <template>
-  <div class="sidebar-field-select">
+  <div class="base-field-select-stretch">
     <div class="label">{{ label }}</div>
     <select
       class="select"
@@ -35,36 +35,32 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.sidebar-field-select {
+.base-field-select-stretch {
   width: 100%;
-  transition: background 120ms ease-in 0s;
-  padding: var(--spacing-4) var(--spacing-2);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   position: relative;
-}
-.sidebar-field-select:hover {
-  background: var(--color-hover);
+  * {
+    font-weight: var(--font-weight-medium);
+    font-size: 14px;
+  }
 }
 .label {
   color: var(--color-gray);
-  margin-right: var(--spacing-3-5);
-  font-weight: var(--font-weight-medium);
-  font-size: 14px;
 }
 .select {
-  font-size: 14px;
-  color: var(--color-black);
-  font-weight: var(--font-weight-medium);
-  text-decoration: underline;
-  padding: 0 var(--spacing-2);
-  text-align-last: right;
   position: absolute;
-  width: 100%;
-  height: 100%;
-  left: 0;
+  top: calc(-1 * var(--button-hover-padding-vertical));
+  left: calc(-1 * var(--button-hover-padding-horizontal));
+  width: calc(100% + var(--button-hover-padding-horizontal) * 2);
+  height: calc(100% + var(--button-hover-padding-vertical) * 2);
+  padding-right: var(--button-hover-padding-horizontal);
+  transition: background-color 120ms ease-in-out 0s;
+  background: var(--color-transparent);
+  border-radius: var(--border-radius-3);
+  text-align-last: right;
   line-height: 1.6em;
-  cursor: pointer;
+  content: '';
+}
+.select:hover {
+  background: var(--color-light-gray-5);
 }
 </style>

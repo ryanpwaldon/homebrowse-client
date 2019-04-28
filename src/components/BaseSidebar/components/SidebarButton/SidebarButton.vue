@@ -40,6 +40,7 @@ export default {
 .icon {
   height: 1em;
   margin-right: var(--spacing-3-5);
+  border-bottom: solid 1px var(--color-transparent);
 }
 .sidebar-button:hover {
   background: var(--color-hover);

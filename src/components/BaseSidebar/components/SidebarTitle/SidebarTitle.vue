@@ -17,11 +17,9 @@ export default {
 
 <style lang="scss" scoped>
 .sidebar-title {
-  font-size: 12px;
+  font-size: 14px;
   color: var(--color-gray);
-  font-weight: var(--font-weight-semibold);
-  text-transform: uppercase;
-  padding: var(--spacing-3-5) var(--spacing-2);
-  margin-bottom: var(--spacing-3-5);
+  font-weight: var(--font-weight-medium);
+  margin-bottom: var(--spacing-2);
 }
 </style>

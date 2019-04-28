@@ -1,17 +1,20 @@
 <template>
-  <router-link to="/" class="base-logo">
-    <img src="@/assets/img/logo.svg">
-  </router-link>
+  <div class="base-logo">
+    <img class="logo" src="@/assets/img/logo-letter.svg">
+    <div class="text">Homebrowse</div>
+  </div>
 </template>
 
-<script>
-export default {
-}
-</script>
-
 <style lang="scss" scoped>
-img {
-  height: 33px;
-  pointer-events: none;
+.base-logo {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  font-weight: var(--font-weight-medium);
+  font-size: 14px;
+}
+.logo {
+  height: 1em;
+  margin-right: var(--spacing-3);
 }
 </style>

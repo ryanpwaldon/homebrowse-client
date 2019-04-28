@@ -1,11 +1,12 @@
 <template>
   <div class="app">
-    <BaseSidebar/>
+    <BaseNavPrimary/>
     <div class="main">
-      <BaseNav/>
+      <BaseSidebar/>
       <div class="content">
         <div class="router-container">
-          <router-view/>
+          <BaseNavSecondary/>
+          <router-view class="router-view"/>
         </div>
         <BaseMap/>
       </div>
@@ -15,7 +16,8 @@
 </template>
 
 <script>
-import BaseNav from '@/components/BaseNav/BaseNav'
+import BaseNavPrimary from '@/components/BaseNavPrimary/BaseNavPrimary'
+import BaseNavSecondary from '@/components/BaseNavSecondary/BaseNavSecondary'
 import BaseMap from '@/components/BaseMap/BaseMap'
 import BaseSidebar from '@/components/BaseSidebar/BaseSidebar'
 import BaseSearch from '@/components/BaseSearch/BaseSearch'
@@ -23,10 +25,11 @@ import { mapState } from 'vuex'
 export default {
   name: 'app',
   components: {
-    BaseNav,
+    BaseNavPrimary,
     BaseMap,
     BaseSidebar,
-    BaseSearch
+    BaseSearch,
+    BaseNavSecondary
   },
   computed: mapState({
     searchState: state => state.globalModule.searchState
@@ -39,24 +42,30 @@ export default {
   width: 100%;
   height: 100%;
   display: flex;
+  flex-direction: column;
 }
 .main {
   width: 100%;
   height: 100%;
   display: flex;
-  flex-direction: column;
 }
 .content {
   width: 100%;
   height: 100%;
   display: flex;
 }
+.router-container {
+  display: flex;
+  flex-direction: column;
+}
 .router-container,
 .base-map {
   flex: 1;
 }
 .router-container {
-  padding: var(--spacing-1);
   overflow: auto;
+}
+.router-view {
+  padding: var(--spacing-1);
 }
 </style>

@@ -1,41 +1,30 @@
 <template>
-  <div class="base-nav" ref="base-nav">
+  <div class="base-nav-primary">
     <div class="section left">
-      <BaseButtonNav
-        text="Properties"
-        link="/app/properties"
-      />
-      <BaseButtonNav
-        text="Statistics"
-        link="/statistics"
-      />
-      <BaseButtonNav
-        text="Lifestyle"
-        link="/lifestyle"
-      />
+      <BaseLogo/>
     </div>
     <div class="section right">
       <BaseButtonNav
-        text="Premium"
-        link="/premium"
-        :icon="require('@/assets/img/lock.svg')"
-        :icon-last="true"
+        text="Login"
+        link="/login"
       />
     </div>
   </div>
 </template>
 
 <script>
+import BaseLogo from '@/components/BaseLogo/BaseLogo'
 import BaseButtonNav from '@/components/BaseButtonNav/BaseButtonNav'
 export default {
   components: {
+    BaseLogo,
     BaseButtonNav
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.base-nav {
+.base-nav-primary {
   width: 100%;
   display: flex;
   position: relative;

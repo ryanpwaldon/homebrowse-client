@@ -1,18 +1,22 @@
 <template>
-  <SidebarButton
+  <BaseButtonStretch
     class="search-button"
-    text="Search"
-    :icon="require('@/assets/img/search.svg')"
+    text="Add a suburb"
     @click.native="$store.commit('globalModule/toggleSearchState')"
   />
 </template>
 
 <script>
-import SidebarButton from '../SidebarButton/SidebarButton'
-import { mapState } from 'vuex'
+import BaseButtonStretch from '@/components/BaseButtonStretch/BaseButtonStretch'
 export default {
   components: {
-    SidebarButton
+    BaseButtonStretch
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.base-button-stretch {
+  color: #4B96E9;
+}
+</style>

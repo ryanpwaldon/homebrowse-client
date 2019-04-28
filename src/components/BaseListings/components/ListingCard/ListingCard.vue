@@ -1,5 +1,5 @@
 <template>
-  <div class="base-listing-card">
+  <div class="listing-card">
     <div
       class="image"
       :style="{'background-image': `url(${listing.image})`}"
@@ -27,7 +27,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.base-listing-card {
+.listing-card {
   background: var(--color-white);
   box-shadow: var(--box-shadow-1);
   border-radius: var(--border-radius-1);

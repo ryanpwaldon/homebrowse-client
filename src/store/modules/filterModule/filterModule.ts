@@ -12,7 +12,7 @@ export default {
   },
   getters: {
     suburb (state, _, rootState) {
-      const suburb = rootState.suburbModule.suburbs[state.selectedSuburbIndex]
+      const suburb = rootState.suburbsModule.suburbs[state.selectedSuburbIndex]
       if (!suburb) return null
       return {
         name: suburb.name,
@@ -40,7 +40,7 @@ export default {
   },
   actions: {
     updateSelectedSuburbIndex ({ dispatch, commit }, index) {
-      dispatch('suburbModule/ensureSuburbFilterUpToDate', null, { root: true })
+      dispatch('suburbsModule/ensureSuburbFilterUpToDate', null, { root: true })
       commit('setSelectedSuburbIndex', index)
     }
   }
