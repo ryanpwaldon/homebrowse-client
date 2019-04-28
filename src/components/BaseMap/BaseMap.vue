@@ -86,8 +86,10 @@ export default {
       })
     },
     updateBoundingBox (boundingBox) {
-      const filter = [ 'all', ['==', 'STE_NAME16', this.suburb.state], ['==', 'SSC_NAME16', this.suburb.name] ]
-      this.map.setFilter('australian-suburbs-line', filter)
+      const filter = operator => [ 'all', [operator, 'STE_NAME16', this.suburb.state], [operator, 'SSC_NAME16', this.suburb.name] ]
+      this.map.setFilter('place-label-focus', filter('=='))
+      this.map.setFilter('suburb-fill-focus', filter('=='))
+      this.map.setFilter('suburb-outline-focus', filter('=='))
       this.map.fitBounds(boundingBox, { padding: 100 })
     }
   }

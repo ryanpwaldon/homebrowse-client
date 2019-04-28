@@ -70,7 +70,6 @@ export default {
     },
     async updateSuburbListings ({ state, commit }, indexToUpdate) {
       commit('setIsLoading', true)
-      console.log('fetching new data')
       const listings = await listingsService.findAll(state.suburbs[indexToUpdate].filter)
       commit('setSuburbListings', { indexToUpdate, listings })
       commit('setIsLoading', false)
