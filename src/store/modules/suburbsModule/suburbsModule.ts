@@ -2,6 +2,7 @@ import Vue from 'vue'
 import listingsService from '@/services/listingsService/listingsService'
 import mapService from '@/services/mapService/mapService'
 import merge from 'lodash/merge'
+import isEqual from 'lodash/isEqual'
 
 export default {
   namespaced: true,
@@ -53,9 +54,12 @@ export default {
       })
       commit('setSelectedSuburbIndex', index)
     },
-    updateSuburbFilter ({ commit, dispatch }, { indexToUpdate, filter }) {
-      commit('setSuburbFilter', { indexToUpdate, filter })
-      dispatch('updateSuburbListings', indexToUpdate)
+    updateSuburbFilter ({ state, commit, dispatch }, { indexToUpdate, filter }) {
+      const filterNeedsUpdating = !isEqual(state.suburbs[indexToUpdate].filter, { ...filter, suburb: state.suburbs[indexToUpdate].filter.suburb })
+      if (filterNeedsUpdating) {
+        commit('setSuburbFilter', { indexToUpdate, filter })
+        dispatch('updateSuburbListings', indexToUpdate)
+      }
     },
     async updateSuburbBoundingBox ({ state, commit }, index) {
       const boundingBox = await mapService.findBoundingBox(state.suburbs[index].filter.suburb)
