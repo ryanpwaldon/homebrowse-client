@@ -9,15 +9,14 @@ export default {
     ]
   },
   mutations: {
-    updateBoundingBox (state, value) {
-      state.boundingBox = value
+    setBoundingBox (state, boundingBox) {
+      state.boundingBox = boundingBox
     }
   },
   actions: {
-    async fetchBoundingBox ({ commit }, location) {
+    async updateBoundingBox ({ commit }, location) {
       const boundingBox = await mapService.findBoundingBox(location)
-      commit('updateBoundingBox', boundingBox)
-      Promise.resolve()
+      commit('setBoundingBox', boundingBox)
     }
   }
 }

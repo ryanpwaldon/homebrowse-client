@@ -5,26 +5,26 @@
 <script>
 import mapboxgl from 'mapbox-gl'
 import ResizeObserver from 'resize-observer-polyfill'
-import { mapState } from 'vuex'
+import { mapGetters } from 'vuex'
 export default {
   mounted () {
-    // this.initMap()
-    // this.addParentResizeListener()
+    this.initMap()
+    this.addParentResizeListener()
   },
   beforeDestroy () {
-    // this.removeParentResizeListener()
+    this.removeParentResizeListener()
   },
   data () {
     return {
       hoveredItem: null
     }
   },
-  computed: mapState({
-    boundingBox: state => state.mapModule.boundingBox
+  computed: mapGetters({
+    boundingBox: 'suburbsModule/boundingBox'
   }),
   watch: {
     boundingBox (boundingBox) {
-      this.updateBoundingBox(boundingBox)
+      if (boundingBox) this.updateBoundingBox(boundingBox)
     }
   },
   methods: {
@@ -66,7 +66,7 @@ export default {
         this.hoveredItem = null
       })
     },
-    async updateBoundingBox (boundingBox) {
+    updateBoundingBox (boundingBox) {
       // const filter = [ 'all', ['==', 'STE_NAME16', this.location.state], ['==', 'SSC_NAME16', this.location.suburb] ]
       // this.map.setFilter('australian-suburbs-fill', filter)
       this.map.fitBounds(boundingBox, { padding: 100 })
