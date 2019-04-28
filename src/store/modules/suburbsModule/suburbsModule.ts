@@ -37,6 +37,9 @@ export default {
     },
     boundingBox (state) {
       return state.suburbs[state.selectedSuburbIndex] && state.suburbs[state.selectedSuburbIndex].boundingBox
+    },
+    suburb (state) {
+      return state.suburbs[state.selectedSuburbIndex] && state.suburbs[state.selectedSuburbIndex].filter.suburb
     }
   },
   actions: {

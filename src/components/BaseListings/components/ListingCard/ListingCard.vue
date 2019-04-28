@@ -31,7 +31,6 @@ export default {
   background: var(--color-white);
   box-shadow: var(--box-shadow-3);
   border-radius: var(--border-radius-1);
-  border: solid 1px var(--color-light-gray-5);
   width: 100%;
   overflow: hidden;
   cursor: pointer;
@@ -42,6 +41,7 @@ export default {
   height: 0;
   background-size: cover;
   background-position: center center;
+  background-repeat: no-repeat;
   filter: saturate(0.75);
 }
 .content {

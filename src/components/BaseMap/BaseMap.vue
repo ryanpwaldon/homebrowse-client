@@ -16,12 +16,31 @@ export default {
   },
   data () {
     return {
-      hoveredItem: null
+      hoveredItem: null,
+      stateMap: {
+        NSW: 'New South Wales',
+        QLD: 'Queensland',
+        Vic: 'Victoria',
+        Tas: 'Tasmania',
+        NT: 'Northern Territory',
+        SA: 'South Australia',
+        WA: 'Western Australia',
+        ACT: 'Australian Capital Territory'
+      }
     }
   },
-  computed: mapGetters({
-    boundingBox: 'suburbsModule/boundingBox'
-  }),
+  computed: {
+    ...mapGetters({
+      boundingBox: 'suburbsModule/boundingBox',
+      suburbUnformatted: 'suburbsModule/suburb'
+    }),
+    suburb () {
+      return {
+        name: this.suburbUnformatted.name,
+        state: this.stateMap[this.suburbUnformatted.state]
+      }
+    }
+  },
   watch: {
     boundingBox (boundingBox) {
       if (boundingBox) this.updateBoundingBox(boundingBox)
@@ -32,7 +51,7 @@ export default {
       mapboxgl.accessToken = process.env.VUE_APP_MAPBOX_ACCESS_TOKEN
       this.map = new mapboxgl.Map({
         container: this.$refs['base-map'],
-        style: 'mapbox://styles/ryanpwaldon/cjt9k8ni20c0u1frl3y0u95fm',
+        style: 'mapbox://styles/ryanpwaldon/cjt9k8ni20c0u1frl3y0u95fm?fresh=true',
         bounds: [ new mapboxgl.LngLat(113.16000067720864, -10.5955313927184), new mapboxgl.LngLat(153.57087049622987, -43.57483696227055) ],
         fitBoundsOptions: { padding: 100 }
       })
@@ -67,8 +86,8 @@ export default {
       })
     },
     updateBoundingBox (boundingBox) {
-      // const filter = [ 'all', ['==', 'STE_NAME16', this.location.state], ['==', 'SSC_NAME16', this.location.suburb] ]
-      // this.map.setFilter('australian-suburbs-fill', filter)
+      const filter = [ 'all', ['==', 'STE_NAME16', this.suburb.state], ['==', 'SSC_NAME16', this.suburb.name] ]
+      this.map.setFilter('australian-suburbs-line', filter)
       this.map.fitBounds(boundingBox, { padding: 100 })
     }
   }
