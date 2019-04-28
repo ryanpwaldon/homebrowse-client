@@ -30,36 +30,24 @@ export default {
 <style lang="scss" scoped>
 .base-button-stretch {
   position: relative;
-  display: inline-block;
   color: var(--color-gray);
   font-weight: var(--font-weight-medium);
-  transition: color 120ms ease-in-out 0s;
+  transition: color 120ms ease-in-out 0s, background-color 120ms ease-in-out 0s;
+  padding: var(--button-hover-padding-vertical) var(--button-hover-padding-horizontal);
+  background: var(--color-transparent);
+  border-radius: var(--border-radius-3);
   font-size: 14px;
   display: flex;
-  z-index: 0;
   cursor: pointer;
-}
-.icon {
-  height: 1em;
-  margin-right: var(--spacing-3-5);
 }
 .base-button-stretch.selected {
   color: var(--color-black);
 }
-.base-button-stretch::before {
-  position: absolute;
-  top: calc(-1 * var(--button-hover-padding-vertical));
-  left: calc(-1 * var(--button-hover-padding-horizontal));
-  width: calc(100% + var(--button-hover-padding-horizontal) * 2);
-  height: calc(100% + var(--button-hover-padding-vertical) * 2);
-  transition: opacity 120ms ease-in-out 0s;
-  border-radius: var(--border-radius-3);
+.base-button-stretch:hover {
   background: var(--color-light-gray-5);
-  content: '';
-  opacity: 0;
-  z-index: -1;
 }
-.base-button-stretch:hover::before {
-  opacity: 1;
+.icon {
+  height: 1em;
+  margin-right: var(--spacing-3-5);
 }
 </style>

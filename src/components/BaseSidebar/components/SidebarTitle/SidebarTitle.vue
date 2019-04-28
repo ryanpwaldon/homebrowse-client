@@ -20,6 +20,7 @@ export default {
   font-size: 14px;
   color: var(--color-gray);
   font-weight: var(--font-weight-medium);
-  margin-bottom: var(--spacing-2);
+  padding: var(--button-hover-padding-vertical) var(--button-hover-padding-horizontal);
+  margin-bottom: var(--spacing-3);
 }
 </style>

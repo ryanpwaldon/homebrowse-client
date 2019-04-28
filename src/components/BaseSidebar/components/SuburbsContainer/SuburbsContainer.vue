@@ -7,7 +7,7 @@
         v-for="(suburb, index) in suburbs" :key="index"
         :selected="index === selectedSuburbIndex"
         :text="suburb.name"
-        @click.native="$store.dispatch('filterModule/updateSelectedSuburbIndex', index)"
+        @click.native="$store.dispatch('suburbsModule/updateSelectedSuburbIndex', index)"
       />
     </template>
     <SidebarSearchButton/>
@@ -26,8 +26,8 @@ export default {
     SidebarSearchButton
   },
   computed: mapState({
-    suburbs: state => state.suburbsModule.suburbs,
-    selectedSuburbIndex: state => state.filterModule.selectedSuburbIndex
+    suburbs: state => state.suburbsModule.suburbs.map(suburb => suburb.filter.suburb),
+    selectedSuburbIndex: state => state.suburbsModule.selectedSuburbIndex
   })
 }
 </script>
@@ -35,8 +35,5 @@ export default {
 <style lang="scss" scoped>
 .suburbs-container {
   width: 100%;
-}
-.suburb-item {
-  margin-bottom: var(--spacing-3);
 }
 </style>

@@ -4,6 +4,6 @@
 
 <style lang="scss" scoped>
 .sidebar-spacer {
-  height: var(--spacing-2);
+  height: var(--spacing-3);
 }
 </style>

@@ -1,10 +1,11 @@
 <template>
   <div class="base-field-select-stretch">
-    <div class="label">{{ label }}</div>
     <select
       class="select"
       :value="selected"
-      @input="$emit('select', $event.target.value)">
+      @input="$emit('select', $event.target.value)"
+      :style="{opacity: selected === '' ? 0 : 1}"
+      >
       <option
         v-for="(option, index) in options"
         :value="option.value"
@@ -12,6 +13,10 @@
         {{ option.display }}
       </option>
     </select>
+    <div class="label">
+      <div class="text">{{ label }}</div>
+      <img class="icon" src="@/assets/img/expand.svg" v-if="selected === ''">
+    </div>
   </div>
 </template>
 
@@ -45,22 +50,29 @@ export default {
 }
 .label {
   color: var(--color-gray);
+  padding: var(--button-hover-padding-vertical) var(--button-hover-padding-horizontal);
+  transition: background-color 120ms ease-in-out 0s;
+  border-radius: var(--border-radius-3);
+  background: var(--color-transparent);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.icon {
+  height: 0.9em;
 }
 .select {
   position: absolute;
-  top: calc(-1 * var(--button-hover-padding-vertical));
-  left: calc(-1 * var(--button-hover-padding-horizontal));
-  width: calc(100% + var(--button-hover-padding-horizontal) * 2);
-  height: calc(100% + var(--button-hover-padding-vertical) * 2);
-  padding-right: var(--button-hover-padding-horizontal);
-  transition: background-color 120ms ease-in-out 0s;
-  background: var(--color-transparent);
-  border-radius: var(--border-radius-3);
-  text-align-last: right;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   line-height: 1.6em;
-  content: '';
+  text-align-last: right;
+  padding: 0 var(--button-hover-padding-horizontal);
+  cursor: pointer;
 }
-.select:hover {
+.select:hover ~ .label {
   background: var(--color-light-gray-5);
 }
 </style>

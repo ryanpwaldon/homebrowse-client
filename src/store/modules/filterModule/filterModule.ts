@@ -4,44 +4,23 @@ import mergeSelect from '@/utils/mergeSelect'
 export default {
   namespaced: true,
   state: {
-    selectedSuburbIndex: 0,
     bedrooms: '',
     bathrooms: '',
     carspaces: '',
     listingType: 'buy'
   },
-  getters: {
-    suburb (state, _, rootState) {
-      const suburb = rootState.suburbsModule.suburbs[state.selectedSuburbIndex]
-      if (!suburb) return null
-      return {
-        name: suburb.name,
-        state: suburb.state,
-        postCode: suburb.postCode
-      }
-    },
-    listingsFilter (state, getters) {
-      return {
-        suburb: getters.suburb,
-        bedrooms: state.bedrooms,
-        bathrooms: state.bathrooms,
-        carspaces: state.carspaces,
-        listingType: state.listingType
-      }
-    }
-  },
   mutations: {
-    updateFilter (state, { property, value }) {
+    setFilter (state, { property, value }) {
       vueSetDeep(state, property, value)
-    },
-    setSelectedSuburbIndex (state, index) {
-      state.selectedSuburbIndex = index
     }
   },
   actions: {
-    updateSelectedSuburbIndex ({ dispatch, commit }, index) {
-      dispatch('suburbsModule/ensureSuburbFilterUpToDate', null, { root: true })
-      commit('setSelectedSuburbIndex', index)
+    updateFilter ({ state, commit, dispatch, rootState }, payload) {
+      commit('setFilter', payload)
+      dispatch('suburbsModule/updateSuburbFilter', {
+        indexToUpdate: rootState.suburbsModule.selectedSuburbIndex,
+        filter: state
+      }, { root: true })
     }
   }
 }

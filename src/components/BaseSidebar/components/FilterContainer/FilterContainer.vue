@@ -16,7 +16,7 @@
       @select="updateFilter({ property: 'bedrooms', value: $event })"
       :selected="bedrooms"
       :options="[
-        { value: '', display: 'Any' },
+        { value: '', display: 'All' },
         { value: '1', display: '1' },
         { value: '2', display: '2' },
         { value: '3', display: '3' },
@@ -29,7 +29,7 @@
       @select="updateFilter({ property: 'bathrooms', value: $event })"
       :selected="bathrooms"
       :options="[
-        { value: '', display: 'Any' },
+        { value: '', display: 'All' },
         { value: '0', display: '0' },
         { value: '1', display: '1' },
         { value: '2', display: '2' },
@@ -43,7 +43,7 @@
       @select="updateFilter({ property: 'carspaces', value: $event })"
       :selected="carspaces"
       :options="[
-        { value: '', display: 'Any' },
+        { value: '', display: 'All' },
         { value: '0', display: '0' },
         { value: '1', display: '1' },
         { value: '2', display: '2' },
@@ -72,7 +72,7 @@ export default {
   ]),
   methods: {
     updateFilter ({ property, value }) {
-      this.$store.commit('filterModule/updateFilter', { property, value })
+      this.$store.dispatch('filterModule/updateFilter', { property, value })
     }
   }
 }

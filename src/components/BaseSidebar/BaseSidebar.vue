@@ -1,7 +1,7 @@
 <template>
   <div class="base-sidebar">
     <SuburbsContainer/>
-    <SidebarSpacer/>
+    <SidebarDivider/>
     <FilterContainer/>
   </div>
 </template>
@@ -9,12 +9,12 @@
 <script>
 import SuburbsContainer from './components/SuburbsContainer/SuburbsContainer'
 import FilterContainer from './components/FilterContainer/FilterContainer'
-import SidebarSpacer from './components/SidebarSpacer/SidebarSpacer'
+import SidebarDivider from './components/SidebarDivider/SidebarDivider'
 export default {
   components: {
     SuburbsContainer,
     FilterContainer,
-    SidebarSpacer
+    SidebarDivider
   }
 }
 </script>
@@ -24,7 +24,7 @@ export default {
   height: 100%;
   width: 220px;
   flex-shrink: 0;
-  padding: var(--spacing-2);
+  padding: var(--spacing-2-5) var(--spacing-3);
   background: var(--color-light-gray-2);
 }
 </style>

@@ -1,66 +1,60 @@
 import Vue from 'vue'
 import listingsService from '@/services/listingsService/listingsService'
-import isEqual from 'lodash/isEqual'
+import merge from 'lodash/merge'
 
 export default {
   namespaced: true,
   state: {
     suburbs: [],
+    selectedSuburbIndex: 0,
     isLoading: false
   },
   mutations: {
-    updateSuburbs (state, suburb) {
-      state.suburbs.unshift(suburb)
+    setSuburb (state, { insertionIndex, suburb }) {
+      state.suburbs.splice(insertionIndex, 0, suburb)
     },
-    updateListings (state, { selectedSuburbIndex, listings }) {
-      Vue.set(state.suburbs[selectedSuburbIndex], 'listings', listings)
+    setSelectedSuburbIndex (state, index) {
+      state.selectedSuburbIndex = index
     },
-    updateIsLoading (state, isLoading) {
+    setSuburbFilter (state, { indexToUpdate, filter }) {
+      merge(state.suburbs[indexToUpdate].filter, filter)
+    },
+    setListings (state, { indexToUpdate, listings }) {
+      Vue.set(state.suburbs[indexToUpdate], 'listings', listings)
+    },
+    setIsLoading (state, isLoading) {
       state.isLoading = isLoading
-    },
-    updateSuburbFilter (state, { selectedSuburbIndex, filter }) {
-      state.suburbs[selectedSuburbIndex].filter = filter
     }
   },
   getters: {
-    listings (state, _, rootState) {
-      return state.suburbs[rootState.filterModule.selectedSuburbIndex]
-        ? state.suburbs[rootState.filterModule.selectedSuburbIndex].listings
-        : []
+    listings (state) {
+      return state.suburbs[state.selectedSuburbIndex] && state.suburbs[state.selectedSuburbIndex].listings
     }
   },
   actions: {
-    addSuburb ({ commit, dispatch, rootState }, suburb) {
-      commit('updateSuburbs', suburb)
-      commit('filterModule/setSelectedSuburbIndex', 0, { root: true })
-      commit('updateSuburbFilter', {
-        filter: (({ selectedSuburbIndex, ...filterModule }) => filterModule)(rootState.filterModule),
-        selectedSuburbIndex: rootState.filterModule.selectedSuburbIndex
-      })
-      dispatch('fetchListings')
+    addSuburb ({ rootState, commit, dispatch }, suburbDetails) {
+      const suburb = { filter: { suburb: { ...suburbDetails } } }
+      const insertionIndex = 0
+      commit('setSuburb', { insertionIndex, suburb })
+      commit('setSelectedSuburbIndex', insertionIndex)
+      dispatch('updateSuburbFilter', { indexToUpdate: insertionIndex, filter: rootState.filterModule })
     },
-    ensureSuburbFilterUpToDate ({ commit, dispatch, state, rootState }) {
-      const suburbFilterUpToDate = isEqual( // globalFilter vs selectedSuburbFilter
-        (({ selectedSuburbIndex, ...filterModule }) => filterModule)(rootState.filterModule),
-        state.suburbs[rootState.filterModule.selectedSuburbIndex].filter
-      )
-      if (!suburbFilterUpToDate) {
-        dispatch('fetchListings')
-        commit('updateSuburbFilter', {
-          filter: (({ selectedSuburbIndex, ...filterModule }) => filterModule)(rootState.filterModule),
-          selectedSuburbIndex: rootState.filterModule.selectedSuburbIndex
-        })
-      }
-    },
-    async fetchListings ({ commit, rootGetters, rootState }) {
-      console.log('fetched')
-      commit('updateIsLoading', true)
-      const listings = await listingsService.findAll(rootGetters['filterModule/listingsFilter'])
-      commit('updateListings', {
-        selectedSuburbIndex: rootState.filterModule.selectedSuburbIndex,
-        listings
+    updateSelectedSuburbIndex ({ commit, dispatch, rootState }, index) {
+      dispatch('updateSuburbFilter', {
+        indexToUpdate: index,
+        filter: rootState.filterModule
       })
-      commit('updateIsLoading', false)
+      commit('setSelectedSuburbIndex', index)
+    },
+    updateSuburbFilter ({ commit, dispatch }, { indexToUpdate, filter }) {
+      commit('setSuburbFilter', { indexToUpdate, filter })
+      dispatch('updateListings', indexToUpdate)
+    },
+    async updateListings ({ state, commit }, indexToUpdate) {
+      commit('setIsLoading', true)
+      const listings = await listingsService.findAll(state.suburbs[indexToUpdate].filter)
+      commit('setListings', { indexToUpdate, listings })
+      commit('setIsLoading', false)
     }
   }
 }

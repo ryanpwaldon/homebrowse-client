@@ -51,7 +51,7 @@
   --overlay-medium: rgba(15, 15, 15, 0.6);
 
   // button stretch hover underlay
-  --button-hover-padding-vertical: 5px;
-  --button-hover-padding-horizontal: 10px;
+  --button-hover-padding-vertical: var(--spacing-4);
+  --button-hover-padding-horizontal: var(--spacing-3);
 
 }
