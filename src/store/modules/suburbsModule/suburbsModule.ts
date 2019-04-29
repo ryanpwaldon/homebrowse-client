@@ -10,8 +10,7 @@ export default {
   state: {
     suburbs: [],
     selectedSuburbIndex: 0,
-    isLoading: false,
-    isLoadingStatistics: false
+    isLoading: false
   },
   mutations: {
     setSuburb (state, { insertionIndex, suburb }) {
@@ -23,14 +22,14 @@ export default {
     setSuburbFilter (state, { indexToUpdate, filter }) {
       merge(state.suburbs[indexToUpdate].filter, filter)
     },
-    setSuburbBoundingBox (state, { indexToUpdate, boundingBox }) {
-      Vue.set(state.suburbs[indexToUpdate], 'boundingBox', boundingBox)
-    },
     setSuburbListings (state, { indexToUpdate, listings }) {
       Vue.set(state.suburbs[indexToUpdate], 'listings', listings)
     },
     setSuburbStatistics (state, { indexToUpdate, statistics }) {
       Vue.set(state.suburbs[indexToUpdate], 'statistics', statistics)
+    },
+    setSuburbBoundingBox (state, { indexToUpdate, boundingBox }) {
+      Vue.set(state.suburbs[indexToUpdate], 'boundingBox', boundingBox)
     },
     setIsLoading (state, isLoading) {
       state.isLoading = isLoading
@@ -44,12 +43,12 @@ export default {
       return state.suburbs[state.selectedSuburbIndex] && state.suburbs[state.selectedSuburbIndex].boundingBox
     },
     suburb (state) {
-      return state.suburbs[state.selectedSuburbIndex] && state.suburbs[state.selectedSuburbIndex].filter.suburb
+      return state.suburbs[state.selectedSuburbIndex] && state.suburbs[state.selectedSuburbIndex].details
     }
   },
   actions: {
     addSuburb ({ commit, dispatch }, suburbDetails) {
-      const suburb = { filter: { suburb: { ...suburbDetails } } }
+      const suburb = { details: suburbDetails, filter: {} }
       const insertionIndex = 0
       commit('setSuburb', { insertionIndex, suburb })
       dispatch('updateSelectedSuburbIndex', insertionIndex)
@@ -63,14 +62,14 @@ export default {
       commit('setSelectedSuburbIndex', index)
     },
     updateSuburbFilter ({ state, commit, dispatch }, { indexToUpdate, filter }) {
-      const filterNeedsUpdating = !isEqual(state.suburbs[indexToUpdate].filter, { ...filter, suburb: state.suburbs[indexToUpdate].filter.suburb })
+      const filterNeedsUpdating = !isEqual(state.suburbs[indexToUpdate].filter, filter)
       if (filterNeedsUpdating) {
         commit('setSuburbFilter', { indexToUpdate, filter })
         dispatch('updateSuburbData', indexToUpdate)
       }
     },
     async updateSuburbBoundingBox ({ state, commit }, index) {
-      const boundingBox = await mapService.findBoundingBox(state.suburbs[index].filter.suburb)
+      const boundingBox = await mapService.findBoundingBox(state.suburbs[index].details)
       commit('setSuburbBoundingBox', { indexToUpdate: index, boundingBox })
     },
     async updateSuburbData ({ commit, dispatch }, indexToUpdate) {
@@ -80,11 +79,11 @@ export default {
       commit('setIsLoading', false)
     },
     async updateSuburbListings ({ state, commit }, indexToUpdate) {
-      const listings = await listingsService.findAll(state.suburbs[indexToUpdate].filter)
+      const listings = await listingsService.findAll({ suburb: state.suburbs[indexToUpdate].details, ...state.suburbs[indexToUpdate].filter.listings })
       commit('setSuburbListings', { indexToUpdate, listings })
     },
     async updateSuburbStatistics ({ state, commit }, indexToUpdate) {
-      const statistics = await statisticsService.findStatistics(state.suburbs[indexToUpdate].filter)
+      const statistics = await statisticsService.findStatistics({ suburb: state.suburbs[indexToUpdate].details, ...state.suburbs[indexToUpdate].filter.statistics })
       commit('setSuburbStatistics', { indexToUpdate, statistics })
     }
   }

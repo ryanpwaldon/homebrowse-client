@@ -26,7 +26,7 @@ export default {
     SidebarSearchButton
   },
   computed: mapState({
-    suburbs: state => state.suburbsModule.suburbs.map(suburb => suburb.filter.suburb),
+    suburbs: state => state.suburbsModule.suburbs.map(suburb => suburb.details),
     selectedSuburbIndex: state => state.suburbsModule.selectedSuburbIndex
   })
 }

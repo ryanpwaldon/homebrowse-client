@@ -1,13 +1,17 @@
 import vueSetDeep from '@/utils/vueSetDeep'
-import mergeSelect from '@/utils/mergeSelect'
 
 export default {
   namespaced: true,
   state: {
-    bedrooms: '',
-    bathrooms: '',
-    carspaces: '',
-    listingType: 'buy'
+    listings: {
+      bedrooms: '',
+      bathrooms: '',
+      carspaces: '',
+      listingType: 'buy'
+    },
+    statistics: {
+      propertyCategory: 'house'
+    }
   },
   mutations: {
     setFilter (state, { property, value }) {
