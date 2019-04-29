@@ -30,35 +30,21 @@ export default {
 <style lang="scss" scoped>
 .base-button {
   position: relative;
-  display: inline-block;
   color: var(--color-gray);
-  font-weight: var(--font-weight-regular);
-  transition: color 120ms ease-in-out 0s;
+  font-weight: var(--font-weight-medium);
+  transition: color 120ms ease-in-out 0s, background-color 120ms ease-in-out 0s;
+  padding: var(--button-hover-padding-vertical) var(--button-hover-padding-horizontal);
+  background: var(--color-transparent);
+  border-radius: var(--border-radius-3);
   font-size: 14px;
   display: flex;
-  cursor: pointer;
-}
-.base-button::before {
-  box-sizing: content-box;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: calc(100% + 14px);
-  height: calc(100% + 10px);
-  border-radius: var(--border-radius-3);
-  transition: opacity 120ms ease-in-out 0s;
-  background: var(--color-light-gray-3);
-  opacity: 0;
-  z-index: -1;
-  content: '';
   cursor: pointer;
 }
 .base-button.selected {
   color: var(--color-black);
 }
-.base-button:hover::before {
-  opacity: 0.6;
+.base-button:hover {
+  background: var(--color-light-gray-5);
 }
 .icon {
   height: 1em;

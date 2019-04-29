@@ -90,7 +90,7 @@ export default {
       this.map.setFilter('place-label-focus', filter('=='))
       this.map.setFilter('suburb-fill-focus', filter('=='))
       this.map.setFilter('suburb-outline-focus', filter('=='))
-      this.map.fitBounds(boundingBox, { padding: 100 })
+      this.map.fitBounds(boundingBox, { padding: 100, maxZoom: 13, duration: 2000 })
     }
   }
 }

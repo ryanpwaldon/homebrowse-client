@@ -39,7 +39,7 @@
       ]"
     />
     <BaseFieldSelectStretch
-      label="Car spaces"
+      label="Carspaces"
       @select="updateFilter({ property: 'carspaces', value: $event })"
       :selected="carspaces"
       :options="[
