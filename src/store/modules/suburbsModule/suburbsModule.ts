@@ -44,11 +44,22 @@ export default {
     },
     suburb (state) {
       return state.suburbs[state.selectedSuburbIndex] && state.suburbs[state.selectedSuburbIndex].details
+    },
+    medianPriceData (state) {
+      return state.suburbs[state.selectedSuburbIndex] && {
+        labels: state.suburbs[state.selectedSuburbIndex].statistics.series.map(series => series.date),
+        data: state.suburbs[state.selectedSuburbIndex].statistics.series.map(series => series.medianSoldPrice)
+      }
     }
   },
   actions: {
     addSuburb ({ commit, dispatch }, suburbDetails) {
-      const suburb = { details: suburbDetails, filter: {} }
+      const suburb = {
+        details: suburbDetails,
+        filter: {},
+        listings: {},
+        statistics: {}
+      }
       const insertionIndex = 0
       commit('setSuburb', { insertionIndex, suburb })
       dispatch('updateSelectedSuburbIndex', insertionIndex)
@@ -62,6 +73,7 @@ export default {
       commit('setSelectedSuburbIndex', index)
     },
     updateSuburbFilter ({ state, commit, dispatch }, { indexToUpdate, filter }) {
+      if (!state.suburbs[indexToUpdate]) return
       const filterNeedsUpdating = !isEqual(state.suburbs[indexToUpdate].filter, filter)
       if (filterNeedsUpdating) {
         commit('setSuburbFilter', { indexToUpdate, filter })
