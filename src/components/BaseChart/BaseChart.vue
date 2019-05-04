@@ -1,30 +1,74 @@
 <template>
-  <canvas class="base-chart"/>
+  <div class="base-chart">
+    <div class="title">{{ title }}</div>
+    <canvas class="chart" ref="chart"/>
+  </div>
 </template>
 
 <script>
 import Chart from 'chart.js'
 export default {
   props: {
+    title: {
+      type: String,
+      required: true
+    },
     data: {
       type: Object,
       required: true
     }
   },
   mounted () {
-    this.chart = new Chart(this.$el, {
-      type: 'line',
+    Chart.defaults.LineWithLine = Chart.defaults.line
+    Chart.controllers.LineWithLine = Chart.controllers.line.extend({
+      draw: function (ease) {
+        Chart.controllers.line.prototype.draw.call(this, ease)
+        if (this.chart.tooltip._active && this.chart.tooltip._active.length) {
+          let activePoint = this.chart.tooltip._active[0]
+          let ctx = this.chart.ctx
+          let x = activePoint.tooltipPosition().x
+          let topY = this.chart.scales['y-axis-0'].top
+          let bottomY = this.chart.scales['y-axis-0'].bottom
+          ctx.save()
+          ctx.beginPath()
+          ctx.moveTo(x, topY)
+          ctx.lineTo(x, bottomY)
+          ctx.lineWidth = 2
+          ctx.strokeStyle = '#4B96E8'
+          ctx.stroke()
+          ctx.restore()
+        }
+      }
+    })
+    const ctx = this.$refs['chart'].getContext('2d')
+    const gradient = ctx.createLinearGradient(0, 500, 0, 100)
+    gradient.addColorStop(0, 'rgba(75, 151, 232, 0)')
+    gradient.addColorStop(0.2, 'rgba(75, 151, 232, 0)')
+    gradient.addColorStop(1, 'rgba(75, 151, 232, 0.2)')
+    this.chart = new Chart(this.$refs['chart'], {
+      type: 'LineWithLine',
       data: {
         labels: this.data.labels,
-        datasets: [ { data: this.data.data, lineTension: 0.2, fill: false } ]
+        datasets: [ {
+          data: this.data.data,
+          lineTension: 0.2,
+          fill: true,
+          backgroundColor: gradient,
+          borderColor: '#4B96E8',
+          pointRadius: 0
+        } ]
       },
       options: {
         scales: {
           yAxes: [{ ticks: { display: false }, gridLines: { drawTicks: false, display: false, drawBorder: false } }],
           xAxes: [{ ticks: { display: false }, gridLines: { drawTicks: false, display: false, drawBorder: false } }]
         },
-        layout: { padding: 20 },
-        legend: { display: false }
+        layout: { padding: { top: 0, right: 0, bottom: 0, left: 0 } },
+        legend: { display: false },
+        tooltips: { intersect: false, axis: 'x' },
+        hover: {
+          animationDuration: 2
+        }
       }
     })
   },
@@ -39,10 +83,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.base-chart {
+.title {
+  color: var(--color-gray);
+  font-weight: var(--font-weight-medium);
+  margin-bottom: var(--spacing-2);
+  font-size: 14px;
+}
+.chart {
   width: 100%;
-  height: 500px;
-  background: var(--color-light-gray-2);
   border-radius: var(--border-radius-1);
+  background: rgba(174, 214, 244, 0.22);
 }
 </style>

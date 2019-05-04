@@ -5,7 +5,10 @@
       <BaseSidebar/>
       <div class="content">
         <div class="router-container">
-          <BaseNavSecondary/>
+          <template v-if="suburb">
+            <div class="title">{{ suburb.name }}</div>
+            <div class="subtitle">{{ suburb.state }} {{ suburb.postCode }}</div>
+          </template>
           <router-view class="router-view"/>
         </div>
         <BaseMap/>
@@ -17,23 +20,26 @@
 
 <script>
 import BaseNavPrimary from '@/components/BaseNavPrimary/BaseNavPrimary'
-import BaseNavSecondary from '@/components/BaseNavSecondary/BaseNavSecondary'
 import BaseMap from '@/components/BaseMap/BaseMap'
 import BaseSidebar from '@/components/BaseSidebar/BaseSidebar'
 import BaseSearch from '@/components/BaseSearch/BaseSearch'
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 export default {
   name: 'app',
   components: {
     BaseNavPrimary,
     BaseMap,
     BaseSidebar,
-    BaseSearch,
-    BaseNavSecondary
+    BaseSearch
   },
-  computed: mapState({
-    searchState: state => state.globalModule.searchState
-  })
+  computed: {
+    ...mapState({
+      searchState: state => state.globalModule.searchState
+    }),
+    ...mapGetters('suburbsModule', [
+      'suburb'
+    ])
+  }
 }
 </script>
 
@@ -64,8 +70,17 @@ export default {
 }
 .router-container {
   overflow: auto;
-}
-.router-view {
   padding: var(--spacing-1);
+}
+.title {
+  font-size: 34px;
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--spacing-3);
+}
+.subtitle {
+  font-size: 18px;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-gray);
+  margin-bottom: var(--spacing-1);
 }
 </style>

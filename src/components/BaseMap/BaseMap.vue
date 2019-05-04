@@ -20,8 +20,8 @@ export default {
       stateMap: {
         NSW: 'New South Wales',
         QLD: 'Queensland',
-        Vic: 'Victoria',
-        Tas: 'Tasmania',
+        VIC: 'Victoria',
+        TAS: 'Tasmania',
         NT: 'Northern Territory',
         SA: 'South Australia',
         WA: 'Western Australia',

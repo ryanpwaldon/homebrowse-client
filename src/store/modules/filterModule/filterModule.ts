@@ -10,7 +10,8 @@ export default {
       listingType: 'buy'
     },
     statistics: {
-      propertyCategory: 'house'
+      propertyCategory: 'house',
+      bedrooms: ''
     }
   },
   mutations: {

@@ -46,7 +46,7 @@ export default {
       return state.suburbs[state.selectedSuburbIndex] && state.suburbs[state.selectedSuburbIndex].details
     },
     medianPriceData (state) {
-      return state.suburbs[state.selectedSuburbIndex] && {
+      return state.suburbs[state.selectedSuburbIndex] && state.suburbs[state.selectedSuburbIndex].statistics.series && {
         labels: state.suburbs[state.selectedSuburbIndex].statistics.series.map(series => series.date),
         data: state.suburbs[state.selectedSuburbIndex].statistics.series.map(series => series.medianSoldPrice)
       }

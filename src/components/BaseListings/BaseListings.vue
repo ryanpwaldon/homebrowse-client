@@ -1,8 +1,6 @@
 <template>
   <div class="base-listings">
-    <BaseLoader v-if="isLoading"/>
     <ListingCard
-      v-else
       v-for="(listing, index) in listings"
       :listing="listing"
       :key="index"
@@ -12,18 +10,13 @@
 
 <script>
 import ListingCard from './components/ListingCard/ListingCard'
-import BaseLoader from '@/components/BaseLoader/BaseLoader'
-import { mapState, mapGetters } from 'vuex'
+import { mapGetters } from 'vuex'
 export default {
   name: 'base-listings',
   components: {
-    ListingCard,
-    BaseLoader
+    ListingCard
   },
   computed: {
-    ...mapState({
-      isLoading: state => state.suburbsModule.isLoading
-    }),
     ...mapGetters({
       listings: 'suburbsModule/listings'
     })
@@ -39,10 +32,5 @@ export default {
   grid-template-columns: repeat(3, 1fr);
   align-items: flex-start;
   position: relative;
-}
-.base-loader {
-  position: absolute;
-  top: 0;
-  left: 0;
 }
 </style>
