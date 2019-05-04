@@ -25,7 +25,7 @@ export default {
     ...mapState('globalModule', [
       'searchState'
     ]),
-    ...mapGetters('suburbsModule', [
+    ...mapGetters('dashboardModule', [
       'suburb'
     ])
   }

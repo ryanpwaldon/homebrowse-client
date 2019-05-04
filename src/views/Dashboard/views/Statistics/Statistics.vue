@@ -27,9 +27,9 @@ export default {
   },
   computed: {
     ...mapState({
-      isLoading: state => state.suburbsModule.isLoading
+      isLoading: state => state.dashboardModule.isLoading
     }),
-    ...mapGetters('suburbsModule', [
+    ...mapGetters('dashboardModule', [
       'medianPriceData',
       'suburb'
     ])

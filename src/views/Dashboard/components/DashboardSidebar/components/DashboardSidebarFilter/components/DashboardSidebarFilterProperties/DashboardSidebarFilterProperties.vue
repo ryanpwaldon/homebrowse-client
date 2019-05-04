@@ -1,18 +1,18 @@
 <template>
   <div class="dashboard-sidebar-filter-properties">
     <BaseFieldSelectStretch
-      label="Listing type"
-      @select="updateFilter({ property: 'listings.listingType', value: $event })"
-      :selected="listingType"
+      label="Status"
+      @select="updateFilter({ property: 'properties.propertyType', value: $event })"
+      :selected="propertyType"
       :options="[
-        { value: 'buy', display: 'Buy' },
-        { value: 'rent', display: 'Rent' },
+        { value: 'buy', display: 'For sale' },
+        { value: 'rent', display: 'For rent' },
         { value: 'sold', display: 'Sold' }
       ]"
     />
     <BaseFieldSelectStretch
       label="Bedrooms"
-      @select="updateFilter({ property: 'listings.bedrooms', value: $event })"
+      @select="updateFilter({ property: 'properties.bedrooms', value: $event })"
       :selected="bedrooms"
       :options="[
         { value: '', display: 'All' },
@@ -25,7 +25,7 @@
     />
     <BaseFieldSelectStretch
       label="Bathrooms"
-      @select="updateFilter({ property: 'listings.bathrooms', value: $event })"
+      @select="updateFilter({ property: 'properties.bathrooms', value: $event })"
       :selected="bathrooms"
       :options="[
         { value: '', display: 'All' },
@@ -39,7 +39,7 @@
     />
     <BaseFieldSelectStretch
       label="Carspaces"
-      @select="updateFilter({ property: 'listings.carspaces', value: $event })"
+      @select="updateFilter({ property: 'properties.carspaces', value: $event })"
       :selected="carspaces"
       :options="[
         { value: '', display: 'All' },
@@ -62,10 +62,10 @@ export default {
     BaseFieldSelectStretch
   },
   computed: mapState('filterModule', {
-    listingType: state => state.listings.listingType,
-    bedrooms: state => state.listings.bedrooms,
-    bathrooms: state => state.listings.bathrooms,
-    carspaces: state => state.listings.carspaces
+    propertyType: state => state.properties.propertyType,
+    bedrooms: state => state.properties.bedrooms,
+    bathrooms: state => state.properties.bathrooms,
+    carspaces: state => state.properties.carspaces
   }),
   methods: {
     updateFilter ({ property, value }) {

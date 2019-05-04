@@ -21,7 +21,7 @@ export default {
   components: {
     BaseNavSecondary
   },
-  computed: mapGetters('suburbsModule', [
+  computed: mapGetters('dashboardModule', [
     'suburb'
   ])
 }

@@ -7,7 +7,7 @@
         v-for="(suburb, index) in suburbs" :key="index"
         :selected="index === selectedSuburbIndex"
         :text="suburb.name"
-        @click.native="$store.dispatch('suburbsModule/updateSelectedSuburbIndex', index)"
+        @click.native="$store.dispatch('dashboardModule/updateSelectedSuburbIndex', index)"
       />
     </template>
     <BaseButton
@@ -28,8 +28,8 @@ export default {
     BaseButton
   },
   computed: mapState({
-    suburbs: state => state.suburbsModule.suburbs.map(suburb => suburb.details),
-    selectedSuburbIndex: state => state.suburbsModule.selectedSuburbIndex
+    suburbs: state => state.dashboardModule.suburbs.map(suburb => suburb.details),
+    selectedSuburbIndex: state => state.dashboardModule.selectedSuburbIndex
   })
 }
 </script>

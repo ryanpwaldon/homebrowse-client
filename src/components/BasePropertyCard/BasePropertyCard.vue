@@ -1,16 +1,16 @@
 <template>
-  <div class="listing-card">
+  <div class="base-property-card">
     <div
       class="image"
-      :style="{'background-image': `url(${listing.image})`}"
+      :style="{'background-image': `url(${property.image})`}"
     />
     <div class="content">
       <div class="features">
-        {{ listing.bedrooms }}
-        {{ listing.bathrooms }}
-        {{ listing.carspaces }}
+        {{ property.bedrooms }}
+        {{ property.bathrooms }}
+        {{ property.carspaces }}
       </div>
-      <div class="price">{{listing.price}}</div>
+      <div class="price">{{property.price}}</div>
     </div>
   </div>
 </template>
@@ -18,7 +18,7 @@
 <script>
 export default {
   props: {
-    listing: {
+    property: {
       type: Object,
       required: true
     }
@@ -27,7 +27,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.listing-card {
+.base-property-card {
   background: var(--color-white);
   box-shadow: var(--box-shadow-3);
   border-radius: var(--border-radius-1);

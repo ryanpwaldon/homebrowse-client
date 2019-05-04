@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import listingsService from '@/services/listingsService/listingsService'
+import propertiesService from '@/services/propertiesService/propertiesService'
 import statisticsService from '@/services/statisticsService/statisticsService'
 import mapService from '@/services/mapService/mapService'
 import isEqual from 'lodash/isEqual'
@@ -22,8 +22,8 @@ export default {
     setSuburbFilter (state, { indexToUpdate, filter }) {
       merge(state.suburbs[indexToUpdate].filter, filter)
     },
-    setSuburbListings (state, { indexToUpdate, listings }) {
-      Vue.set(state.suburbs[indexToUpdate], 'listings', listings)
+    setSuburbProperties (state, { indexToUpdate, properties }) {
+      Vue.set(state.suburbs[indexToUpdate], 'properties', properties)
     },
     setSuburbStatistics (state, { indexToUpdate, statistics }) {
       Vue.set(state.suburbs[indexToUpdate], 'statistics', statistics)
@@ -36,8 +36,8 @@ export default {
     }
   },
   getters: {
-    listings (state) {
-      return state.suburbs[state.selectedSuburbIndex] && state.suburbs[state.selectedSuburbIndex].listings
+    properties (state) {
+      return state.suburbs[state.selectedSuburbIndex] && state.suburbs[state.selectedSuburbIndex].properties
     },
     boundingBox (state) {
       return state.suburbs[state.selectedSuburbIndex] && state.suburbs[state.selectedSuburbIndex].boundingBox
@@ -57,7 +57,7 @@ export default {
       const suburb = {
         details: suburbDetails,
         filter: {},
-        listings: {},
+        properties: {},
         statistics: {}
       }
       const insertionIndex = 0
@@ -86,13 +86,13 @@ export default {
     },
     async updateSuburbData ({ commit, dispatch }, indexToUpdate) {
       commit('setIsLoading', true)
-      await dispatch('updateSuburbListings', indexToUpdate)
+      await dispatch('updateSuburbProperties', indexToUpdate)
       await dispatch('updateSuburbStatistics', indexToUpdate)
       commit('setIsLoading', false)
     },
-    async updateSuburbListings ({ state, commit }, indexToUpdate) {
-      const listings = await listingsService.findAll({ suburb: state.suburbs[indexToUpdate].details, ...state.suburbs[indexToUpdate].filter.listings })
-      commit('setSuburbListings', { indexToUpdate, listings })
+    async updateSuburbProperties ({ state, commit }, indexToUpdate) {
+      const properties = await propertiesService.findAll({ suburb: state.suburbs[indexToUpdate].details, ...state.suburbs[indexToUpdate].filter.properties })
+      commit('setSuburbProperties', { indexToUpdate, properties })
     },
     async updateSuburbStatistics ({ state, commit }, indexToUpdate) {
       const statistics = await statisticsService.findStatistics({ suburb: state.suburbs[indexToUpdate].details, ...state.suburbs[indexToUpdate].filter.statistics })

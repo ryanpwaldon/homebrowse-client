@@ -27,8 +27,7 @@ export default {
     BaseFieldSuburb
   },
   computed: mapState({
-    searchState: state => state.globalModule.searchState,
-    search: state => state.filterModule.search
+    searchState: state => state.globalModule.searchState
   }),
   methods: {
     animateEnter (el, done) {
@@ -57,8 +56,8 @@ export default {
     },
     async onSuburbSelected (suburb) {
       this.$store.commit('globalModule/toggleSearchState')
-      this.$store.commit('suburbsModule/setIsLoading', true)
-      this.$store.dispatch('suburbsModule/addSuburb', await suburb)
+      this.$store.commit('dashboardModule/setIsLoading', true)
+      this.$store.dispatch('dashboardModule/addSuburb', await suburb)
     }
   }
 }

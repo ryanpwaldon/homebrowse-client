@@ -41,9 +41,10 @@ export default {
 .router-link-active::v-deep::after {
   content: '';
   width: 100%;
-  height: 1px;
+  height: 2px;
   position: absolute;
   bottom: calc(-1 * var(--spacing-2));
   background: var(--color-black-1);
+  border-radius: var(--border-radius-2);
 }
 </style>
