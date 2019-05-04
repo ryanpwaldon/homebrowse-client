@@ -1,5 +1,9 @@
 <template>
   <div class="base-field-select-stretch">
+    <div class="label">
+      <div class="text">{{ label }}</div>
+      <img class="expand-icon" src="@/assets/img/expand.svg" v-if="selected === ''">
+    </div>
     <select
       class="select"
       :value="selected"
@@ -13,10 +17,6 @@
         {{ option.display }}
       </option>
     </select>
-    <div class="label">
-      <div class="text">{{ label }}</div>
-      <img class="icon" src="@/assets/img/expand.svg" v-if="selected === ''">
-    </div>
   </div>
 </template>
 
@@ -40,25 +40,22 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+* {
+  font-weight: var(--font-weight-medium);
+  font-size: 14px;
+}
 .base-field-select-stretch {
   width: 100%;
   position: relative;
-  * {
-    font-weight: var(--font-weight-medium);
-    font-size: 14px;
-  }
+  margin-bottom: var(--spacing-4);
 }
 .label {
-  color: var(--color-gray);
-  padding: var(--button-hover-padding-vertical) var(--button-hover-padding-horizontal);
-  transition: background-color 120ms ease-in-out 0s;
-  border-radius: var(--border-radius-3);
-  background: var(--color-transparent);
   display: flex;
   align-items: center;
   justify-content: space-between;
+  color: var(--color-gray-1);
 }
-.icon {
+.expand-icon {
   height: 0.9em;
 }
 .select {
@@ -67,12 +64,7 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  line-height: 1.6em;
   text-align-last: right;
-  padding: 0 var(--button-hover-padding-horizontal);
   cursor: pointer;
-}
-.select:hover ~ .label {
-  background: var(--color-light-gray-5);
 }
 </style>

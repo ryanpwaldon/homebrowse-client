@@ -8,19 +8,19 @@ export default new Router({
   base: process.env.BASE_URL,
   routes: [
     {
-      path: '/app',
-      name: 'app',
-      component: () => import('@/views/App/App.vue'),
+      path: '/dashboard',
+      name: 'dashboard',
+      component: () => import('@/views/Dashboard/Dashboard.vue'),
       children: [
         {
           path: 'properties',
           name: 'properties',
-          component: () => import('@/views/App/views/Properties/Properties.vue')
+          component: () => import('@/views/Dashboard/views/Properties/Properties.vue')
         },
         {
           path: 'statistics',
           name: 'statistics',
-          component: () => import('@/views/App/views/Statistics/Statistics.vue')
+          component: () => import('@/views/Dashboard/views/Statistics/Statistics.vue')
         }
       ]
     },
@@ -31,7 +31,7 @@ export default new Router({
     },
     {
       path: '*',
-      redirect: '/app'
+      redirect: '/dashboard'
     }
   ]
 })

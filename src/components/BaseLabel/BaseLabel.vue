@@ -1,5 +1,5 @@
 <template>
-  <div class="sidebar-title">
+  <div class="base-label">
     {{ text }}
   </div>
 </template>
@@ -16,11 +16,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.sidebar-title {
-  font-size: 14px;
-  color: var(--color-gray);
+.base-label {
+  font-size: 12px;
+  color: var(--color-gray-1);
   font-weight: var(--font-weight-medium);
-  padding: var(--button-hover-padding-vertical) var(--button-hover-padding-horizontal);
-  margin-bottom: var(--spacing-3);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 </style>

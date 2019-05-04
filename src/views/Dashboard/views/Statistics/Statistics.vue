@@ -41,7 +41,7 @@ export default {
 .title {
   font-size: 34px;
   font-weight: var(--font-weight-bold);
-  margin-bottom: var(--spacing-3);
+  margin-bottom: var(--spacing-4);
 }
 .subtitle {
   font-size: 18px;

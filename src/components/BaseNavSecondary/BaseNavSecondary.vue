@@ -1,12 +1,10 @@
 <template>
   <div class="base-nav-secondary">
     <BaseButtonNav
-      text="Properties"
-      link="/app/properties"
-    />
-    <BaseButtonNav
-      text="Statistics"
-      link="/app/statistics"
+      v-for="(item, index) in items"
+      :key="index"
+      :text="item.text"
+      :link="item.link"
     />
   </div>
 </template>
@@ -14,6 +12,12 @@
 <script>
 import BaseButtonNav from '@/components/BaseButtonNav/BaseButtonNav'
 export default {
+  props: {
+    items: {
+      type: Array,
+      required: true
+    }
+  },
   components: {
     BaseButtonNav
   }
@@ -23,11 +27,12 @@ export default {
 <style lang="scss" scoped>
 .base-nav-secondary {
   display: flex;
-  margin: 0 auto;
-  position: relative;
-  padding: var(--spacing-2-5) 0;
   justify-content: flex-start;
-  width: calc(100% - 2 * var(--spacing-1));
-  border-bottom: solid 1px var(--color-light-gray-2);
+  border-bottom: var(--border-1);
+  padding-bottom: var(--spacing-2);
+  margin-bottom: var(--spacing-1);
+}
+.base-button-nav {
+  margin-right: var(--spacing-2);
 }
 </style>

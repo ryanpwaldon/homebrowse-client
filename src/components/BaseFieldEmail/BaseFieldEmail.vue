@@ -36,7 +36,7 @@ export default {
 <style lang="scss" scoped>
 label {
   font-size: 14px;
-  margin-bottom: var(--spacing-4);
+  margin-bottom: var(--spacing-5);
   color: var(--color-black);
   display: block;
 }
@@ -46,7 +46,7 @@ input {
   border-radius: var(--border-radius-3);
   font-weight: var(--font-weight-regular);
   border: solid 1px var(--color-light-gray-4);
-  padding: var(--spacing-3) var(--spacing-5);
+  padding: var(--spacing-4) var(--spacing-5);
   transition: border-color 120ms ease-in 0s;
   line-height: normal;
   font-size: 14px;

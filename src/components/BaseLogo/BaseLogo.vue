@@ -1,6 +1,6 @@
 <template>
   <div class="base-logo">
-    <img class="logo" src="@/assets/img/logo-letter.svg">
+    <img class="logo" src="@/assets/img/logo-circle.svg">
     <div class="text">Homebrowse</div>
   </div>
 </template>
@@ -12,9 +12,11 @@
   align-items: center;
   font-weight: var(--font-weight-medium);
   font-size: 14px;
+  color: var(--color-gray-1);
+  height: 1em;
 }
 .logo {
-  height: 1em;
-  margin-right: var(--spacing-3);
+  height: 1.5em;
+  margin-right: var(--spacing-4);
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="filter-listings">
+  <div class="dashboard-sidebar-filter-properties">
     <BaseFieldSelectStretch
       label="Listing type"
       @select="updateFilter({ property: 'listings.listingType', value: $event })"

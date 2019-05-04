@@ -74,6 +74,6 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--overlay-medium);
+  background: var(--color-overlay);
 }
 </style>

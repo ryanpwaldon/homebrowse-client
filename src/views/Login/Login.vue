@@ -48,7 +48,7 @@ form {
   margin-bottom: var(--spacing-2);
 }
 .base-field-password {
-  margin-bottom: var(--spacing-4);
+  margin-bottom: var(--spacing-5);
 }
 .forgot-password {
   font-size: 12px;

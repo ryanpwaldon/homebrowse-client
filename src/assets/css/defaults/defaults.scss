@@ -2,7 +2,7 @@
   box-sizing: border-box;
   -webkit-overflow-scrolling: touch;
   -webkit-tap-highlight-color: rgba(0,0,0,0);
-  line-height: 1em;
+  // line-height: 1em;
   user-select: none;
 }
 
@@ -33,12 +33,7 @@ select:focus {
 }
 
 input::placeholder {
-  color: var(--color-gray);
-}
-
-input, label, select, button, textarea {
-  line-height: normal;
-  border-radius: 0;
+  color: var(--color-gray-1);
 }
 
 // mobile input fix

@@ -1,8 +1,8 @@
 <template>
-  <div class="suburbs-container">
+  <div class="dashboard-sidebar-suburbs">
     <template v-if="suburbs.length">
-      <SidebarTitle text="Suburbs"/>
-      <BaseButtonStretch
+      <BaseLabel text="Suburbs"/>
+      <BaseButton
         class="suburb-item"
         v-for="(suburb, index) in suburbs" :key="index"
         :selected="index === selectedSuburbIndex"
@@ -10,20 +10,22 @@
         @click.native="$store.dispatch('suburbsModule/updateSelectedSuburbIndex', index)"
       />
     </template>
-    <SidebarSearchButton/>
+    <BaseButton
+      text="Add a suburb"
+      @click.native="$store.commit('globalModule/toggleSearchState')"
+      style="color: var(--color-blue-1)"
+    />
   </div>
 </template>
 
 <script>
-import SidebarTitle from '@/components/BaseSidebar/components/SidebarTitle/SidebarTitle'
-import BaseButtonStretch from '@/components/BaseButtonStretch/BaseButtonStretch'
-import SidebarSearchButton from '@/components/BaseSidebar/components/SidebarSearchButton/SidebarSearchButton'
+import BaseLabel from '@/components/BaseLabel/BaseLabel'
+import BaseButton from '@/components/BaseButton/BaseButton'
 import { mapState } from 'vuex'
 export default {
   components: {
-    SidebarTitle,
-    BaseButtonStretch,
-    SidebarSearchButton
+    BaseLabel,
+    BaseButton
   },
   computed: mapState({
     suburbs: state => state.suburbsModule.suburbs.map(suburb => suburb.details),
@@ -33,7 +35,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.suburbs-container {
-  width: 100%;
+.base-label {
+  margin-bottom: var(--spacing-2);
+}
+.base-button:not(:last-child) {
+  margin-bottom: var(--spacing-4);
 }
 </style>

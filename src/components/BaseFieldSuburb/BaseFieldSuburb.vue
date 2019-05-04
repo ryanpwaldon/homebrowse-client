@@ -78,14 +78,13 @@ export default {
   position: relative;
   display: flex;
   flex-direction: column;
-  border-radius: var(--border-radius-3);
+  border-radius: var(--border-radius-2);
   overflow: hidden;
 }
 .input-container {
   font-weight: var(--font-weight-regular);
-  padding: var(--spacing-2-5) var(--spacing-2);
-  background: var(--color-light-gray-2);
-  line-height: normal;
+  background: var(--color-gray-5);
+  padding: var(--spacing-2);
   font-size: 18px;
   width: 100%;
   display: flex;
@@ -93,7 +92,7 @@ export default {
 }
 .icon {
   height: 1em;
-  margin-right: var(--spacing-3);
+  margin-right: var(--spacing-4);
 }
 .input {
   font-size: inherit;
@@ -102,11 +101,11 @@ export default {
 .suggestions-container {
   height: 100%;
   background: white;
-  padding-top: var(--spacing-4);
+  padding-top: var(--spacing-5);
 }
 .suggestion-item {
   font-weight: var(--font-weight-regular);
-  padding: var(--spacing-2-5) var(--spacing-2);
+  padding: var(--spacing-3) var(--spacing-2);
   &.focused {
     background: var(--color-hover);
   }

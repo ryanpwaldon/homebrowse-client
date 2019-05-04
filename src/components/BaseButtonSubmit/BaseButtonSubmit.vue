@@ -23,7 +23,7 @@ export default {
   font-weight: var(--font-weight-regular);
   background: var(--color-black);
   border-radius: var(--border-radius-3);
-  padding: var(--spacing-3) var(--spacing-5);
+  padding: var(--spacing-4) var(--spacing-5);
   font-size: 14px;
   width: 100%;
   cursor: pointer;

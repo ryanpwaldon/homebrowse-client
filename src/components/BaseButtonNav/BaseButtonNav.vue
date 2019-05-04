@@ -4,7 +4,7 @@
     :to="link">
     <BaseButton
       :text="text"
-      :selected="$route.path === link"
+      :selected="$route.path.includes(link)"
       :icon="icon"
       :icon-last="true"
     />
@@ -33,3 +33,17 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.router-link-active::v-deep {
+  position: relative;
+}
+.router-link-active::v-deep::after {
+  content: '';
+  width: 100%;
+  height: 1px;
+  position: absolute;
+  bottom: calc(-1 * var(--spacing-2));
+  background: var(--color-black-1);
+}
+</style>
