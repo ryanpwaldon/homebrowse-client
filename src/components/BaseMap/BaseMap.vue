@@ -31,8 +31,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-      boundingBox: 'dashboardModule/boundingBox',
-      suburbUnformatted: 'dashboardModule/suburb'
+      boundingBox: 'dashboard/boundingBox',
+      suburbUnformatted: 'dashboard/suburb'
     }),
     suburb () {
       return {

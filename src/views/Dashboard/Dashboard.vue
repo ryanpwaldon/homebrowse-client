@@ -22,11 +22,11 @@ export default {
     BaseSearch
   },
   computed: {
-    ...mapState('globalModule', [
+    ...mapState('global', [
       'searchState'
     ]),
-    ...mapGetters('dashboardModule', [
-      'suburb'
+    ...mapGetters('dashboard', [
+      'selectedSuburb'
     ])
   }
 }

@@ -2,7 +2,7 @@
   <div class="dashboard-sidebar-filter-properties">
     <BaseFieldSelectStretch
       label="Status"
-      @select="updateFilter({ property: 'properties.propertyType', value: $event })"
+      @select="updateFilter({ key: 'propertyType', value: $event })"
       :selected="propertyType"
       :options="[
         { value: 'buy', display: 'For sale' },
@@ -12,7 +12,7 @@
     />
     <BaseFieldSelectStretch
       label="Bedrooms"
-      @select="updateFilter({ property: 'properties.bedrooms', value: $event })"
+      @select="updateFilter({ key: 'bedrooms', value: $event })"
       :selected="bedrooms"
       :options="[
         { value: '', display: 'All' },
@@ -25,7 +25,7 @@
     />
     <BaseFieldSelectStretch
       label="Bathrooms"
-      @select="updateFilter({ property: 'properties.bathrooms', value: $event })"
+      @select="updateFilter({ key: 'bathrooms', value: $event })"
       :selected="bathrooms"
       :options="[
         { value: '', display: 'All' },
@@ -39,7 +39,7 @@
     />
     <BaseFieldSelectStretch
       label="Carspaces"
-      @select="updateFilter({ property: 'properties.carspaces', value: $event })"
+      @select="updateFilter({ key: 'carspaces', value: $event })"
       :selected="carspaces"
       :options="[
         { value: '', display: 'All' },
@@ -56,21 +56,19 @@
 
 <script>
 import BaseFieldSelectStretch from '@/components/BaseFieldSelectStretch/BaseFieldSelectStretch'
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 export default {
   components: {
     BaseFieldSelectStretch
   },
-  computed: mapState('filterModule', {
-    propertyType: state => state.properties.propertyType,
-    bedrooms: state => state.properties.bedrooms,
-    bathrooms: state => state.properties.bathrooms,
-    carspaces: state => state.properties.carspaces
+  computed: mapState('dashboard/properties', {
+    propertyType: state => state.filter.propertyType,
+    bedrooms: state => state.filter.bedrooms,
+    bathrooms: state => state.filter.bathrooms,
+    carspaces: state => state.filter.carspaces
   }),
-  methods: {
-    updateFilter ({ property, value }) {
-      this.$store.dispatch('filterModule/updateFilterProperties', { property, value })
-    }
-  }
+  methods: mapActions('dashboard/properties', [
+    'updateFilter'
+  ])
 }
 </script>

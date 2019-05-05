@@ -34,13 +34,13 @@ export default {
   components: {
     BaseFieldSelectStretch
   },
-  computed: mapState('filterModule', {
+  computed: mapState('filter', {
     propertyCategory: state => state.statistics.propertyCategory,
     bedrooms: state => state.statistics.bedrooms
   }),
   methods: {
     updateFilter ({ property, value }) {
-      this.$store.dispatch('filterModule/updateFilterStatistics', { property, value })
+      this.$store.dispatch('filter/updateFilterStatistics', { property, value })
     }
   }
 }

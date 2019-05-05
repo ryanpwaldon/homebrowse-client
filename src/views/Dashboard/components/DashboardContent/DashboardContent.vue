@@ -1,28 +1,38 @@
 <template>
   <div class="dashboard-content">
-    <div class="title-container">
-      <div class="title">{{ suburb.name }}</div>
-      <div class="subtitle">{{ suburb.state }} {{ suburb.postCode }}</div>
-    </div>
-    <BaseNavSecondary
-      :items="[
-        { text: 'Properties', link: '/dashboard/properties' },
-        { text: 'Statistics', link: '/dashboard/statistics' }
-      ]"
-    />
-    <router-view/>
+    <template v-if="selectedSuburb">
+      <div class="title-container">
+        <div class="title">{{ selectedSuburb.details.name }}</div>
+        <div class="subtitle">{{ selectedSuburb.details.state }} {{ selectedSuburb.details.postCode }}</div>
+      </div>
+      <BaseNavSecondary
+        :items="[
+          { text: 'Properties', link: '/dashboard/properties' },
+          { text: 'Statistics', link: '/dashboard/statistics' }
+        ]"
+      />
+      <router-view/>
+    </template>
+    <template v-else>
+      <BaseLabel text="Search for a suburb"/>
+    </template>
   </div>
 </template>
 
 <script>
 import BaseNavSecondary from '@/components/BaseNavSecondary/BaseNavSecondary'
+import BaseLabel from '@/components/BaseLabel/BaseLabel'
 import { mapGetters } from 'vuex'
 export default {
   components: {
-    BaseNavSecondary
+    BaseNavSecondary,
+    BaseLabel
   },
-  computed: mapGetters('dashboardModule', [
-    'suburb'
+  created () {
+    if (!this.selectedSuburb) this.$router.push('/dashboard')
+  },
+  computed: mapGetters('dashboard', [
+    'selectedSuburb'
   ])
 }
 </script>

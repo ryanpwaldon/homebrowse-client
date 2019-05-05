@@ -6,8 +6,8 @@
     <div
       class="base-search"
       v-if="searchState"
-      @click="$store.commit('globalModule/toggleSearchState')"
-      @keyup.escape="$store.commit('globalModule/toggleSearchState')">
+      @click="$store.commit('global/toggleSearchState')"
+      @keyup.escape="$store.commit('global/toggleSearchState')">
       <form class="form" ref="form" @submit.prevent="submit" @click.stop>
         <BaseFieldSuburb
           placeholder="Search for a suburb"
@@ -27,7 +27,7 @@ export default {
     BaseFieldSuburb
   },
   computed: mapState({
-    searchState: state => state.globalModule.searchState
+    searchState: state => state.global.searchState
   }),
   methods: {
     animateEnter (el, done) {
@@ -55,9 +55,8 @@ export default {
       })
     },
     async onSuburbSelected (suburb) {
-      this.$store.commit('globalModule/toggleSearchState')
-      this.$store.commit('dashboardModule/setIsLoading', true)
-      this.$store.dispatch('dashboardModule/addSuburb', await suburb)
+      this.$store.commit('global/toggleSearchState')
+      this.$store.dispatch('dashboard/addSuburb', await suburb)
     }
   }
 }

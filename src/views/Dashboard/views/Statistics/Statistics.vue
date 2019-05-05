@@ -1,6 +1,6 @@
 <template>
   <div class="statistics">
-    <BaseLoader v-if="isLoading"/>
+    <BaseLoader v-if="loading"/>
     <div class="content" v-else>
       <BaseChart
         v-if="medianPriceData"
@@ -20,20 +20,12 @@ export default {
     BaseLoader,
     BaseChart
   },
-  created () {
-    this.$store.commit('globalModule/setFilterState', 'statistics')
-    this.$store.dispatch('dashboardModule/updateSuburbFilterStatistics', {
-      indexToUpdate: this.$store.state.dashboardModule.selectedSuburbIndex,
-      filterStatistics: this.$store.state.filterModule.statistics
-    })
-  },
   computed: {
-    ...mapState({
-      isLoading: state => state.dashboardModule.isLoading
+    ...mapState('dashboard/statistics', {
+      loading: state => state.loading
     }),
-    ...mapGetters('dashboardModule', [
-      'medianPriceData',
-      'suburb'
+    ...mapGetters('dashboard/statistics', [
+      'medianPriceData'
     ])
   }
 }

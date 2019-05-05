@@ -1,6 +1,6 @@
 <template>
   <div class="properties">
-    <BaseLoader v-if="isLoading"/>
+    <BaseLoader v-if="loading"/>
     <div class="properties-container" v-else>
       <BasePropertyCard
         v-for="(property, index) in properties"
@@ -21,18 +21,14 @@ export default {
     BasePropertyCard
   },
   created () {
-    this.$store.commit('globalModule/setFilterState', 'properties')
-    this.$store.dispatch('dashboardModule/updateSuburbFilterProperties', {
-      indexToUpdate: this.$store.state.dashboardModule.selectedSuburbIndex,
-      filterProperties: this.$store.state.filterModule.properties
-    })
+    this.$store.dispatch('dashboard/properties/updateData')
   },
   computed: {
-    ...mapState({
-      isLoading: state => state.dashboardModule.isLoading
+    ...mapState('dashboard/properties', {
+      loading: state => state.loading
     }),
-    ...mapGetters({
-      properties: 'dashboardModule/properties'
+    ...mapGetters('dashboard/properties', {
+      properties: 'selected'
     })
   }
 }

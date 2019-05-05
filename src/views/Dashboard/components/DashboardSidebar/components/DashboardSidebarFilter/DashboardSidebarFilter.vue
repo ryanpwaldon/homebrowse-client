@@ -17,7 +17,7 @@ export default {
   },
   computed: {
     filter () {
-      switch (this.$store.state.globalModule.filterState) {
+      switch (this.$store.state.global.filterState) {
         case 'properties': return DashboardSidebarFilterProperties
         case 'statistics': return DashboardSidebarFilterStatistics
         default: return DashboardSidebarFilterProperties
