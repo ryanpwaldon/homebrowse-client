@@ -2,7 +2,7 @@ export default {
   namespaced: true,
   state: {
     searchState: false,
-    filterState: null
+    filterState: 'properties'
   },
   mutations: {
     toggleSearchState (state) {

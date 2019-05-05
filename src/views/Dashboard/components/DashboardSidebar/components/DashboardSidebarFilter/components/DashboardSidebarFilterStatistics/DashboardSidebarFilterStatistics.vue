@@ -40,7 +40,7 @@ export default {
   }),
   methods: {
     updateFilter ({ property, value }) {
-      this.$store.dispatch('filterModule/updateFilter', { property, value })
+      this.$store.dispatch('filterModule/updateFilterStatistics', { property, value })
     }
   }
 }

@@ -20,11 +20,18 @@ export default {
     }
   },
   actions: {
-    updateFilter ({ state, commit, dispatch, rootState }, payload) {
+    updateFilterProperties ({ state, commit, dispatch, rootState }, payload) {
       commit('setFilter', payload)
-      dispatch('dashboardModule/updateSuburbFilter', {
+      dispatch('dashboardModule/updateSuburbFilterProperties', {
         indexToUpdate: rootState.dashboardModule.selectedSuburbIndex,
-        filter: state
+        filterProperties: state.properties
+      }, { root: true })
+    },
+    updateFilterStatistics ({ state, commit, dispatch, rootState }, payload) {
+      commit('setFilter', payload)
+      dispatch('dashboardModule/updateSuburbFilterStatistics', {
+        indexToUpdate: rootState.dashboardModule.selectedSuburbIndex,
+        filterStatistics: state.statistics
       }, { root: true })
     }
   }

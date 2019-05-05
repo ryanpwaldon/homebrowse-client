@@ -22,6 +22,10 @@ export default {
   },
   created () {
     this.$store.commit('globalModule/setFilterState', 'properties')
+    this.$store.dispatch('dashboardModule/updateSuburbFilterProperties', {
+      indexToUpdate: this.$store.state.dashboardModule.selectedSuburbIndex,
+      filterProperties: this.$store.state.filterModule.properties
+    })
   },
   computed: {
     ...mapState({

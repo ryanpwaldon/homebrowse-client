@@ -2,8 +2,6 @@
   <div class="statistics">
     <BaseLoader v-if="isLoading"/>
     <div class="content" v-else>
-      <!-- <div class="title">{{ suburb.name }}</div>
-      <div class="subtitle">{{ suburb.state }} {{ suburb.postCode }}</div> -->
       <BaseChart
         v-if="medianPriceData"
         title="Median price"
@@ -24,6 +22,10 @@ export default {
   },
   created () {
     this.$store.commit('globalModule/setFilterState', 'statistics')
+    this.$store.dispatch('dashboardModule/updateSuburbFilterStatistics', {
+      indexToUpdate: this.$store.state.dashboardModule.selectedSuburbIndex,
+      filterStatistics: this.$store.state.filterModule.statistics
+    })
   },
   computed: {
     ...mapState({

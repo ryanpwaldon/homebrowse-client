@@ -19,8 +19,11 @@ export default {
     setSelectedSuburbIndex (state, index) {
       state.selectedSuburbIndex = index
     },
-    setSuburbFilter (state, { indexToUpdate, filter }) {
-      merge(state.suburbs[indexToUpdate].filter, filter)
+    setSuburbFilterProperties (state, { indexToUpdate, filterProperties }) {
+      merge(state.suburbs[indexToUpdate].filter.properties, filterProperties)
+    },
+    setSuburbFilterStatistics (state, { indexToUpdate, filterStatistics }) {
+      merge(state.suburbs[indexToUpdate].filter.statistics, filterStatistics)
     },
     setSuburbProperties (state, { indexToUpdate, properties }) {
       Vue.set(state.suburbs[indexToUpdate], 'properties', properties)
@@ -56,7 +59,10 @@ export default {
     addSuburb ({ commit, dispatch }, suburbDetails) {
       const suburb = {
         details: suburbDetails,
-        filter: {},
+        filter: {
+          properties: {},
+          statistics: {}
+        },
         properties: {},
         statistics: {}
       }
@@ -66,37 +72,60 @@ export default {
       dispatch('updateSuburbBoundingBox', insertionIndex)
     },
     updateSelectedSuburbIndex ({ commit, dispatch, rootState }, index) {
-      dispatch('updateSuburbFilter', {
-        indexToUpdate: index,
-        filter: rootState.filterModule
-      })
-      commit('setSelectedSuburbIndex', index)
-    },
-    updateSuburbFilter ({ state, commit, dispatch }, { indexToUpdate, filter }) {
-      if (!state.suburbs[indexToUpdate]) return
-      const filterNeedsUpdating = !isEqual(state.suburbs[indexToUpdate].filter, filter)
-      if (filterNeedsUpdating) {
-        commit('setSuburbFilter', { indexToUpdate, filter })
-        dispatch('updateSuburbData', indexToUpdate)
+      switch (rootState.globalModule.filterState) {
+        case 'properties':
+          dispatch('updateSuburbFilterProperties', {
+            indexToUpdate: index,
+            filterProperties: rootState.filterModule.properties
+          })
+          break
+        case 'statistics':
+          dispatch('updateSuburbFilterStatistics', {
+            indexToUpdate: index,
+            filterStatistics: rootState.filterModule.statistics
+          })
+          break
       }
+      commit('setSelectedSuburbIndex', index)
     },
     async updateSuburbBoundingBox ({ state, commit }, index) {
       const boundingBox = await mapService.findBoundingBox(state.suburbs[index].details)
       commit('setSuburbBoundingBox', { indexToUpdate: index, boundingBox })
     },
-    async updateSuburbData ({ commit, dispatch }, indexToUpdate) {
-      commit('setIsLoading', true)
-      await dispatch('updateSuburbProperties', indexToUpdate)
-      await dispatch('updateSuburbStatistics', indexToUpdate)
-      commit('setIsLoading', false)
+
+    updateSuburbFilterProperties ({ state, commit, dispatch }, { indexToUpdate, filterProperties }) {
+      if (!state.suburbs[indexToUpdate]) return
+      const filterNeedsUpdating = !isEqual(state.suburbs[indexToUpdate].filter.properties, filterProperties)
+      if (filterNeedsUpdating) {
+        commit('setSuburbFilterProperties', { indexToUpdate, filterProperties })
+        dispatch('updateSuburbProperties', indexToUpdate)
+      }
     },
+
+    updateSuburbFilterStatistics ({ state, commit, dispatch }, { indexToUpdate, filterStatistics }) {
+      if (!state.suburbs[indexToUpdate]) return
+      const filterNeedsUpdating = !isEqual(state.suburbs[indexToUpdate].filter.statistics, filterStatistics)
+      if (filterNeedsUpdating) {
+        commit('setSuburbFilterStatistics', { indexToUpdate, filterStatistics })
+        dispatch('updateSuburbStatistics', indexToUpdate)
+      }
+    },
+
     async updateSuburbProperties ({ state, commit }, indexToUpdate) {
+      commit('setIsLoading', true)
+      console.log('fetched properties')
       const properties = await propertiesService.findAll({ suburb: state.suburbs[indexToUpdate].details, ...state.suburbs[indexToUpdate].filter.properties })
       commit('setSuburbProperties', { indexToUpdate, properties })
+      commit('setIsLoading', false)
     },
+
     async updateSuburbStatistics ({ state, commit }, indexToUpdate) {
+      commit('setIsLoading', true)
+      console.log('fetched statistics')
       const statistics = await statisticsService.findStatistics({ suburb: state.suburbs[indexToUpdate].details, ...state.suburbs[indexToUpdate].filter.statistics })
       commit('setSuburbStatistics', { indexToUpdate, statistics })
+      commit('setIsLoading', false)
     }
+
   }
 }
