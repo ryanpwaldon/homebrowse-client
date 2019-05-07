@@ -10,19 +10,7 @@ export default new Router({
     {
       path: '/dashboard',
       name: 'dashboard',
-      component: () => import('@/views/Dashboard/Dashboard.vue'),
-      children: [
-        {
-          path: 'properties',
-          name: 'properties',
-          component: () => import('@/views/Dashboard/views/Properties/Properties.vue')
-        },
-        {
-          path: 'statistics',
-          name: 'statistics',
-          component: () => import('@/views/Dashboard/views/Statistics/Statistics.vue')
-        }
-      ]
+      component: () => import('@/views/Dashboard/Dashboard.vue')
     },
     {
       path: '/login',

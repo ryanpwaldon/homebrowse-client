@@ -31,8 +31,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-      boundingBox: 'dashboard/boundingBox',
-      suburbUnformatted: 'dashboard/suburb'
+      // boundingBox: 'suburbs/boundingBox',
+      suburbUnformatted: 'suburbs/suburb'
     }),
     suburb () {
       return {
@@ -52,8 +52,13 @@ export default {
       this.map = new mapboxgl.Map({
         container: this.$refs['base-map'],
         style: 'mapbox://styles/ryanpwaldon/cjt9k8ni20c0u1frl3y0u95fm?fresh=true',
-        bounds: [ new mapboxgl.LngLat(113.16000067720864, -10.5955313927184), new mapboxgl.LngLat(153.57087049622987, -43.57483696227055) ],
-        fitBoundsOptions: { padding: 100 }
+        center: new mapboxgl.LngLat(151.209900, -33.865143),
+        zoom: 13
+      })
+      this.map.on('style.load', () => {
+        this.map.setLayoutProperty('place-label-focus', 'visibility', 'none')
+        this.map.setLayoutProperty('suburb-fill-focus', 'visibility', 'none')
+        this.map.setLayoutProperty('suburb-outline-focus', 'visibility', 'none')
       })
       this.map.on('load', () => {
         this.addSuburbHoverListeners()

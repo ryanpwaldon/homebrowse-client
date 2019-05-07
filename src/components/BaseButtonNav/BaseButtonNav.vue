@@ -1,14 +1,14 @@
 <template>
-  <router-link
+  <component
     class="base-button-nav"
-    :to="link">
+    :class="{ selected: selected || $route.path.includes(link) }"
+    :is="link ? 'router-link' : 'div'"
+    :to="link || ''">
     <BaseButton
       :text="text"
-      :selected="$route.path.includes(link)"
-      :icon="icon"
-      :icon-last="true"
+      :selected="selected || $route.path.includes(link)"
     />
-  </router-link>
+  </component>
 </template>
 
 <script>
@@ -24,10 +24,10 @@ export default {
     },
     link: {
       type: String,
-      required: true
+      required: false
     },
-    icon: {
-      type: String,
+    selected: {
+      type: Boolean,
       required: false
     }
   }
@@ -35,16 +35,20 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.router-link-active::v-deep {
+.base-button-nav {
   position: relative;
 }
-.router-link-active::v-deep::after {
+.base-button-nav::after {
   content: '';
   width: 100%;
   height: 2px;
   position: absolute;
   bottom: calc(-1 * var(--spacing-2));
-  background: var(--color-black-1);
+  background: var(--color-transparent);
   border-radius: var(--border-radius-2);
+  transition: background-color 120ms ease-in-out;
+}
+.selected::after {
+  background: var(--color-black-1);
 }
 </style>

@@ -1,13 +1,14 @@
 <template>
   <div class="dashboard-map">
+    <BaseMap/>
   </div>
 </template>
 
 <script>
-// import BaseMap from '@/components/BaseMap/BaseMap'
+import BaseMap from '@/components/BaseMap/BaseMap'
 export default {
   components: {
-    // BaseMap
+    BaseMap
   }
 }
 </script>

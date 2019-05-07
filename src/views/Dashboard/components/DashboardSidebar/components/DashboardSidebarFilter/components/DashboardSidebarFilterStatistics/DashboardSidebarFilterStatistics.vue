@@ -2,7 +2,7 @@
   <div class="dashboard-sidebar-filter-statistics">
     <BaseFieldSelectStretch
       label="Property type"
-      @select="updateFilter({ property: 'statistics.propertyCategory', value: $event })"
+      @select="updateFilter({ key: 'propertyCategory', value: $event })"
       :selected="propertyCategory"
       :options="[
         { value: 'house', display: 'House' },
@@ -12,11 +12,10 @@
     />
     <BaseFieldSelectStretch
       label="Bedrooms"
-      @select="updateFilter({ property: 'statistics.bedrooms', value: $event })"
+      @select="updateFilter({ key: 'bedrooms', value: $event })"
       :selected="bedrooms"
       :options="[
         { value: '', display: 'All' },
-        { value: '0', display: '0' },
         { value: '1', display: '1' },
         { value: '2', display: '2' },
         { value: '3', display: '3' },
@@ -29,19 +28,17 @@
 
 <script>
 import BaseFieldSelectStretch from '@/components/BaseFieldSelectStretch/BaseFieldSelectStretch'
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 export default {
   components: {
     BaseFieldSelectStretch
   },
-  computed: mapState('filter', {
-    propertyCategory: state => state.statistics.propertyCategory,
-    bedrooms: state => state.statistics.bedrooms
+  computed: mapState('suburbs/statistics', {
+    propertyCategory: state => state.filter.propertyCategory,
+    bedrooms: state => state.filter.bedrooms
   }),
-  methods: {
-    updateFilter ({ property, value }) {
-      this.$store.dispatch('filter/updateFilterStatistics', { property, value })
-    }
-  }
+  methods: mapActions('suburbs/statistics', [
+    'updateFilter'
+  ])
 }
 </script>

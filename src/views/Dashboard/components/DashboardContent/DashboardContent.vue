@@ -1,39 +1,38 @@
 <template>
   <div class="dashboard-content">
-    <template v-if="selectedSuburb">
-      <div class="title-container">
-        <div class="title">{{ selectedSuburb.details.name }}</div>
-        <div class="subtitle">{{ selectedSuburb.details.state }} {{ selectedSuburb.details.postCode }}</div>
-      </div>
-      <BaseNavSecondary
-        :items="[
-          { text: 'Properties', link: '/dashboard/properties' },
-          { text: 'Statistics', link: '/dashboard/statistics' }
-        ]"
-      />
-      <router-view/>
-    </template>
-    <template v-else>
-      <BaseLabel text="Search for a suburb"/>
-    </template>
+    <div class="title-container">
+      <div class="title">{{ selectedSuburb.details.name }}</div>
+      <div class="subtitle">{{ selectedSuburb.details.state }} {{ selectedSuburb.details.postCode }}</div>
+    </div>
+    <DashboardContentNav/>
+    <component :is="selectedDashboardSubviewComponent"/>
   </div>
 </template>
 
 <script>
-import BaseNavSecondary from '@/components/BaseNavSecondary/BaseNavSecondary'
-import BaseLabel from '@/components/BaseLabel/BaseLabel'
-import { mapGetters } from 'vuex'
+import DashboardContentNav from './components/DashboardContentNav/DashboardContentNav'
+import DashboardContentProperties from './components/DashboardContentProperties/DashboardContentProperties'
+import DashboardContentStatistics from './components/DashboardContentStatistics/DashboardContentStatistics'
+import { mapGetters, mapState } from 'vuex'
 export default {
   components: {
-    BaseNavSecondary,
-    BaseLabel
+    DashboardContentNav
   },
-  created () {
-    if (!this.selectedSuburb) this.$router.push('/dashboard')
-  },
-  computed: mapGetters('dashboard', [
-    'selectedSuburb'
-  ])
+  computed: {
+    ...mapGetters('suburbs', [
+      'selectedSuburb'
+    ]),
+    ...mapState('ui', [
+      'selectedDashboardSubview'
+    ]),
+    selectedDashboardSubviewComponent () {
+      switch (this.selectedDashboardSubview) {
+        case 'statistics': return DashboardContentStatistics
+        case 'properties': return DashboardContentProperties
+        default: return DashboardContentProperties
+      }
+    }
+  }
 }
 </script>
 
@@ -41,8 +40,8 @@ export default {
 .dashboard-content {
   display: flex;
   flex-direction: column;
-  overflow: auto;
   padding: var(--spacing-1);
+  overflow: auto;
 }
 .title-container {
   margin-bottom: var(--spacing-1);

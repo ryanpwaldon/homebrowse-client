@@ -61,13 +61,13 @@ export default {
   components: {
     BaseFieldSelectStretch
   },
-  computed: mapState('dashboard/properties', {
+  computed: mapState('suburbs/properties', {
     propertyType: state => state.filter.propertyType,
     bedrooms: state => state.filter.bedrooms,
     bathrooms: state => state.filter.bathrooms,
     carspaces: state => state.filter.carspaces
   }),
-  methods: mapActions('dashboard/properties', [
+  methods: mapActions('suburbs/properties', [
     'updateFilter'
   ])
 }

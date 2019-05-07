@@ -1,7 +1,6 @@
 <template>
   <div class="dashboard-sidebar">
     <DashboardSidebarSuburbs/>
-    <BaseDivider/>
     <DashboardSidebarFilter/>
   </div>
 </template>
@@ -9,12 +8,10 @@
 <script>
 import DashboardSidebarSuburbs from './components/DashboardSidebarSuburbs/DashboardSidebarSuburbs'
 import DashboardSidebarFilter from './components/DashboardSidebarFilter/DashboardSidebarFilter'
-import BaseDivider from '@/components/BaseDivider/BaseDivider'
 export default {
   components: {
     DashboardSidebarSuburbs,
-    DashboardSidebarFilter,
-    BaseDivider
+    DashboardSidebarFilter
   }
 }
 </script>

@@ -1,5 +1,6 @@
 <template>
-  <div class="dashboard-sidebar-filter">
+  <div class="dashboard-sidebar-filter" v-if="selectedSuburb">
+    <BaseDivider/>
     <BaseLabel text="Filter"/>
     <component :is="filter"></component>
   </div>
@@ -9,15 +10,24 @@
 import BaseLabel from '@/components/BaseLabel/BaseLabel'
 import DashboardSidebarFilterProperties from './components/DashboardSidebarFilterProperties/DashboardSidebarFilterProperties'
 import DashboardSidebarFilterStatistics from './components/DashboardSidebarFilterStatistics/DashboardSidebarFilterStatistics'
+import BaseDivider from '@/components/BaseDivider/BaseDivider'
+import { mapGetters, mapState } from 'vuex'
 export default {
   components: {
     BaseLabel,
     DashboardSidebarFilterProperties,
-    DashboardSidebarFilterStatistics
+    DashboardSidebarFilterStatistics,
+    BaseDivider
   },
   computed: {
+    ...mapState('ui', [
+      'selectedDashboardSubview'
+    ]),
+    ...mapGetters('suburbs', [
+      'selectedSuburb'
+    ]),
     filter () {
-      switch (this.$store.state.global.filterState) {
+      switch (this.selectedDashboardSubview) {
         case 'properties': return DashboardSidebarFilterProperties
         case 'statistics': return DashboardSidebarFilterStatistics
         default: return DashboardSidebarFilterProperties

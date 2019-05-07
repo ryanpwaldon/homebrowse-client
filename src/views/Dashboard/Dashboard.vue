@@ -1,32 +1,37 @@
 <template>
   <div class="dashboard">
-    <DashboardSidebar/>
-    <DashboardContent/>
+    <template v-if="suburbs.length">
+      <DashboardSidebar/>
+      <DashboardContent/>
+    </template>
+    <DashboardSearch v-else/>
     <DashboardMap/>
-    <BaseSearch/>
+    <BaseSearchModal/>
   </div>
 </template>
 
 <script>
+import DashboardSearch from './components/DashboardSearch/DashboardSearch'
 import DashboardSidebar from './components/DashboardSidebar/DashboardSidebar'
 import DashboardContent from './components/DashboardContent/DashboardContent'
 import DashboardMap from './components/DashboardMap/DashboardMap'
-import BaseSearch from '@/components/BaseSearch/BaseSearch'
-import { mapState, mapGetters } from 'vuex'
+import BaseSearchModal from '@/components/BaseSearchModal/BaseSearchModal'
+import { mapState } from 'vuex'
 export default {
   name: 'dashboard',
   components: {
+    DashboardSearch,
     DashboardSidebar,
     DashboardContent,
     DashboardMap,
-    BaseSearch
+    BaseSearchModal
+  },
+  created () {
+    if (!this.suburbs.length) this.$router.push('/dashboard')
   },
   computed: {
-    ...mapState('global', [
-      'searchState'
-    ]),
-    ...mapGetters('dashboard', [
-      'selectedSuburb'
+    ...mapState('suburbs', [
+      'suburbs'
     ])
   }
 }
@@ -42,6 +47,7 @@ export default {
   width: 210px;
   flex-shrink: 0;
 }
+.dashboard-search,
 .dashboard-content,
 .dashboard-map {
   flex: 1;
