@@ -29,7 +29,7 @@ export default {
   position: relative;
   font-size: 14px;
   cursor: pointer;
-  z-index: 1;
+  z-index: 0;
 }
 .base-button.selected {
   color: var(--color-black);

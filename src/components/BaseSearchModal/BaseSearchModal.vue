@@ -73,5 +73,6 @@ export default {
   align-items: center;
   justify-content: center;
   background: var(--color-overlay);
+  z-index: 2;
 }
 </style>
