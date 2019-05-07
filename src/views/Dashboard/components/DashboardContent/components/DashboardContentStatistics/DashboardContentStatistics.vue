@@ -1,11 +1,30 @@
 <template>
-  <div class="statistics">
+  <div class="dashboard-content-statistics">
     <BaseLoader v-if="loading"/>
     <div class="content" v-else>
+      <div class="statistics-container">
+        <BaseStatistic
+          title="Sale price"
+          subtitle="1Y Median"
+          :value="statisticSoldMedianPrice"
+          format="price"
+        />
+        <BaseStatistic
+          title="Rental price"
+          subtitle="1Y Median"
+          :value="statisticRentMedianPrice"
+          format="price"
+        />
+        <BaseStatistic
+          title="Rental Yield"
+          subtitle="1Y Median"
+          :value="statisticRentalYield"
+          format="percentage"
+        />
+      </div>
       <BaseChart
-        v-if="medianPriceData"
         title="Median price"
-        :data="medianPriceData"
+        :data="chartDataSoldMedianPrice"
       />
     </div>
   </div>
@@ -13,11 +32,13 @@
 
 <script>
 import BaseLoader from '@/components/BaseLoader/BaseLoader'
+import BaseStatistic from '@/components/BaseStatistic/BaseStatistic'
 import BaseChart from '@/components/BaseChart/BaseChart'
 import { mapGetters, mapState } from 'vuex'
 export default {
   components: {
     BaseLoader,
+    BaseStatistic,
     BaseChart
   },
   created () {
@@ -28,22 +49,24 @@ export default {
       loading: state => state.loading
     }),
     ...mapGetters('suburbs/statistics', [
-      'medianPriceData'
-    ])
+      'statisticSoldMedianPrice',
+      'statisticRentMedianPrice',
+      'chartDataSoldMedianPrice'
+    ]),
+    statisticRentalYield () {
+      return (this.statisticRentMedianPrice * 52) / this.statisticSoldMedianPrice
+    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.title {
-  font-size: 34px;
-  font-weight: var(--font-weight-bold);
-  margin-bottom: var(--spacing-4);
-}
-.subtitle {
-  font-size: 18px;
-  font-weight: var(--font-weight-bold);
-  color: var(--color-gray);
-  margin-bottom: var(--spacing-1);
+.statistics-container {
+  width: 100%;
+  display: grid;
+  grid-gap: var(--spacing-1);
+  grid-template-columns: repeat(3, 1fr);
+  align-items: flex-start;
+  position: relative;
 }
 </style>

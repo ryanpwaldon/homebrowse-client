@@ -1,12 +1,13 @@
 <template>
   <div class="base-chart">
-    <div class="title">{{ title }}</div>
+    <BaseLabel :text="title"/>
     <canvas class="chart" ref="chart"/>
   </div>
 </template>
 
 <script>
 import Chart from 'chart.js'
+import BaseLabel from '@/components/BaseLabel/BaseLabel'
 export default {
   props: {
     title: {
@@ -17,6 +18,9 @@ export default {
       type: Object,
       required: true
     }
+  },
+  components: {
+    BaseLabel
   },
   mounted () {
     Chart.defaults.LineWithLine = Chart.defaults.line
@@ -83,15 +87,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.title {
-  color: var(--color-gray);
-  font-weight: var(--font-weight-medium);
-  margin-bottom: var(--spacing-2);
-  font-size: 14px;
+.base-label {
+  margin-bottom: var(--spacing-4);
 }
 .chart {
   width: 100%;
   border-radius: var(--border-radius-1);
-  background: rgba(174, 214, 244, 0.22);
+  background: var(--color-gray-5);
 }
 </style>

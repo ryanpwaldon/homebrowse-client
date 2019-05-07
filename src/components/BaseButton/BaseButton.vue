@@ -26,10 +26,28 @@ export default {
   color: var(--color-gray-1);
   font-weight: var(--font-weight-medium);
   transition: color 120ms ease-in-out;
+  position: relative;
   font-size: 14px;
   cursor: pointer;
+  z-index: 1;
 }
 .base-button.selected {
   color: var(--color-black);
+}
+.base-button::before {
+  content: '';
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: calc(-1 * var(--spacing-5));
+  left: calc(-1 * var(--spacing-4));
+  padding: var(--spacing-5) var(--spacing-4);
+  border-radius: var(--border-radius-2);
+  background: var(--color-transparent);
+  transition: background-color 120ms ease-in-out;
+  z-index: -1;
+}
+.base-button:hover::before {
+  background: var(--color-gray-4);
 }
 </style>

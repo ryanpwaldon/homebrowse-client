@@ -1,5 +1,5 @@
 <template>
-  <div class="properties">
+  <div class="dashboard-content-properties">
     <BaseLoader v-if="loading"/>
     <div class="properties-container" v-else-if="properties.length">
       <BasePropertyCard

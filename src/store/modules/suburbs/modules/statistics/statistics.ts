@@ -33,12 +33,20 @@ export default {
         state.filter
       )
     },
-    medianPriceData (state, _, __, rootGetters) {
+    chartDataSoldMedianPrice (_, __, ___, rootGetters) {
       const series = get(rootGetters, 'suburbs/selectedSuburb.statistics.items.series', [])
       return {
         labels: series.map(series => series.date),
         data: series.map(series => series.medianSoldPrice)
       }
+    },
+    statisticSoldMedianPrice (_, __, ___, rootGetters) {
+      const series = get(rootGetters, 'suburbs/selectedSuburb.statistics.items.series', null)
+      return get(series, `${get(series, 'length', null) - 1}.medianSoldPrice`, null)
+    },
+    statisticRentMedianPrice (_, __, ___, rootGetters) {
+      const series = get(rootGetters, 'suburbs/selectedSuburb.statistics.items.series', null)
+      return get(series, `${get(series, 'length', null) - 1}.medianRentListingPrice`, null)
     }
   },
   actions: {
