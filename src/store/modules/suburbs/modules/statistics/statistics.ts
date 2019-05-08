@@ -40,6 +40,19 @@ export default {
         data: series.map(series => series.medianSoldPrice)
       }
     },
+    chartDataSoldMedianPriceGlobalMinMax (_, __, rootState) {
+      const global = get(rootState.suburbs, 'suburbs', []).reduce((acc, suburb) => {
+        const local = get(suburb, 'statistics.items.series', []).reduce((acc, series) => {
+          acc.min = !acc.min ? series.medianSoldPrice : series.medianSoldPrice < acc.min ? series.medianSoldPrice : acc.min
+          acc.max = !acc.max ? series.medianSoldPrice : series.medianSoldPrice > acc.max ? series.medianSoldPrice : acc.max
+          return acc
+        }, { min: null, max: null })
+        acc.min = !acc.min ? local.min : local.min < acc.min ? local.min : acc.min
+        acc.max = !acc.max ? local.max : local.max > acc.max ? local.max : acc.max
+        return acc
+      }, { min: null, max: null })
+      return global
+    },
     statisticSoldMedianPrice (_, __, ___, rootGetters) {
       const series = get(rootGetters, 'suburbs/selectedSuburb.statistics.items.series', null)
       return get(series, `${get(series, 'length', null) - 1}.medianSoldPrice`, null)
