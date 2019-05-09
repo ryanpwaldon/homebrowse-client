@@ -8,7 +8,7 @@
       class="select"
       :value="selected"
       @input="$emit('select', $event.target.value)"
-      :style="{opacity: selected === '' ? 0 : 1}"
+      :class="{ 'hidden-text': selected === '' }"
       >
       <option
         v-for="(option, index) in options"
@@ -48,23 +48,37 @@ export default {
   width: 100%;
   position: relative;
   margin-bottom: var(--spacing-4);
+  z-index: 1;
 }
 .label {
   display: flex;
   align-items: center;
   justify-content: space-between;
   color: var(--color-gray-1);
-}
-.expand-icon {
-  height: 0.9em;
+  pointer-events: none;
+  z-index: 0;
+  .expand-icon {
+    height: 0.9em;
+  }
 }
 .select {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  width: calc(100% + var(--spacing-4) * 2);
+  height: calc(100% + var(--spacing-5) * 2);
+  top: calc(-1 * var(--spacing-5));
+  left: calc(-1 * var(--spacing-4));
+  background: var(--color-transparent);
+  transition: background-color 120ms ease-in-out;
+  border-radius: var(--border-radius-2);
+  padding: 0 var(--spacing-4);
   text-align-last: right;
+  z-index: -1;
   cursor: pointer;
+  &.hidden-text {
+    color: var(--color-transparent);
+  }
+  &:hover {
+    background: var(--color-hover);
+  }
 }
 </style>

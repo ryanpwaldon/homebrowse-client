@@ -2,8 +2,7 @@
   <div class="dashboard-sidebar-suburbs">
     <template v-if="suburbs.length">
       <BaseLabel text="Suburbs"/>
-      <BaseButton
-        class="suburb-item"
+      <DashboardSidebarSuburbsButton
         v-for="(suburb, index) in suburbs" :key="index"
         :selected="index === selectedSuburbIndex"
         :text="suburb.name"
@@ -21,11 +20,13 @@
 <script>
 import BaseLabel from '@/components/BaseLabel/BaseLabel'
 import BaseButton from '@/components/BaseButton/BaseButton'
+import DashboardSidebarSuburbsButton from './components/DashboardSidebarSuburbsButton/DashboardSidebarSuburbsButton'
 import { mapState } from 'vuex'
 export default {
   components: {
     BaseLabel,
-    BaseButton
+    BaseButton,
+    DashboardSidebarSuburbsButton
   },
   computed: mapState({
     suburbs: state => state.suburbs.suburbs.map(suburb => suburb.details),
@@ -38,7 +39,7 @@ export default {
 .base-label {
   margin-bottom: var(--spacing-2);
 }
-.base-button:not(:last-child) {
+.dashboard-sidebar-suburbs-button:not(:last-child) {
   margin-bottom: var(--spacing-4);
 }
 </style>

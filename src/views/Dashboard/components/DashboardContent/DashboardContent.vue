@@ -42,6 +42,7 @@ export default {
   flex-direction: column;
   padding: var(--spacing-1);
   overflow: auto;
+  min-width: 560px;
 }
 .title-container {
   margin-bottom: var(--spacing-1);

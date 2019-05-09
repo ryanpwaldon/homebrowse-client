@@ -51,14 +51,15 @@ export default {
       type: 'line',
       data: {
         labels: this.data.labels,
-        datasets: [ {
+        datasets: [{
+          spanGaps: true,
           data: this.data.data,
           lineTension: 0.2,
           fill: true,
           backgroundColor: gradient,
           borderColor: '#4B96E8',
           pointRadius: 0
-        } ]
+        }]
       },
       options: {
         scales: {
