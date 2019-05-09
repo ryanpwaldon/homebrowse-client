@@ -2,12 +2,13 @@
   <div class="dashboard-sidebar-suburbs">
     <template v-if="suburbs.length">
       <BaseLabel text="Suburbs"/>
-      <DashboardSidebarSuburbsButton
+      <BaseButton
         v-for="(suburb, index) in suburbs" :key="index"
         :selected="index === selectedSuburbIndex"
         :text="suburb.name"
-        @click.native="$store.dispatch('suburbs/updateSelectedSuburbIndex', index)"
-      />
+        @click.native="$store.dispatch('suburbs/updateSelectedSuburbIndex', index)">
+        <BaseButtonOption :icon="require('@/assets/img/close.svg')"/>
+      </BaseButton>
     </template>
     <BaseButton
       text="Add a suburb"
@@ -20,13 +21,13 @@
 <script>
 import BaseLabel from '@/components/BaseLabel/BaseLabel'
 import BaseButton from '@/components/BaseButton/BaseButton'
-import DashboardSidebarSuburbsButton from './components/DashboardSidebarSuburbsButton/DashboardSidebarSuburbsButton'
+import BaseButtonOption from '@/components/BaseButton/components/BaseButtonOption/BaseButtonOption'
 import { mapState } from 'vuex'
 export default {
   components: {
     BaseLabel,
     BaseButton,
-    DashboardSidebarSuburbsButton
+    BaseButtonOption
   },
   computed: mapState({
     suburbs: state => state.suburbs.suburbs.map(suburb => suburb.details),
@@ -39,7 +40,7 @@ export default {
 .base-label {
   margin-bottom: var(--spacing-2);
 }
-.dashboard-sidebar-suburbs-button:not(:last-child) {
+.base-button:not(:last-child) {
   margin-bottom: var(--spacing-4);
 }
 </style>

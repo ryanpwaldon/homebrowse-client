@@ -46,8 +46,13 @@ export default {
       const insertionIndex = 0
       const suburb = { details: suburbDetails }
       commit('setSuburb', { insertionIndex, suburb })
-      commit('setSelectedSuburbIndex', insertionIndex)
-      dispatch('updateSelectedDashboardSubviewData')
+      dispatch('updateSelectedSuburbIndex', insertionIndex)
     }
+    // removeSuburb ({ commit, dispatch }, index) {
+    //   // commit('setSuburb', { insertionIndex, suburb })
+    //   dispatch('updateSelectedDashboardSubviewData')
+    // }
   }
 }
+
+// Add remove suburb action + mutation

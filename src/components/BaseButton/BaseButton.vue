@@ -3,6 +3,9 @@
     class="base-button"
     :class="{ selected }">
     <div class="text">{{ text }}</div>
+    <div class="options">
+      <slot/>
+    </div>
   </div>
 </template>
 
@@ -30,6 +33,9 @@ export default {
   font-size: 14px;
   cursor: pointer;
   z-index: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 .base-button.selected {
   color: var(--color-black);
@@ -43,11 +49,16 @@ export default {
   left: calc(-1 * var(--spacing-4));
   padding: var(--spacing-5) var(--spacing-4);
   border-radius: var(--border-radius-2);
-  background: var(--color-transparent);
   transition: background-color 120ms ease-in-out;
   z-index: -1;
 }
-.base-button:hover::before {
-  background: var(--color-gray-4);
+.base-button:hover {
+  &::before { background: var(--color-hover) }
+  .options { opacity: 1 }
+}
+
+.options {
+  transition: opacity 120ms ease-in-out;
+  opacity: 0;
 }
 </style>
