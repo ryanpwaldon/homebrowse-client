@@ -6,8 +6,8 @@
         v-for="(suburb, index) in suburbs" :key="index"
         :selected="index === selectedSuburbIndex"
         :text="suburb.name"
-        @click.native="$store.dispatch('suburbs/updateSelectedSuburbIndex', index)">
-        <BaseButtonOption :icon="require('@/assets/img/close.svg')"/>
+        @click.native="updateSelectedSuburbIndex(index)">
+        <BaseButtonOption :icon="require('@/assets/img/close.svg')" @click.native="removeSuburb(index)"/>
       </BaseButton>
     </template>
     <BaseButton
@@ -22,7 +22,7 @@
 import BaseLabel from '@/components/BaseLabel/BaseLabel'
 import BaseButton from '@/components/BaseButton/BaseButton'
 import BaseButtonOption from '@/components/BaseButton/components/BaseButtonOption/BaseButtonOption'
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 export default {
   components: {
     BaseLabel,
@@ -32,7 +32,11 @@ export default {
   computed: mapState({
     suburbs: state => state.suburbs.suburbs.map(suburb => suburb.details),
     selectedSuburbIndex: state => state.suburbs.selectedSuburbIndex
-  })
+  }),
+  methods: mapActions('suburbs', [
+    'updateSelectedSuburbIndex',
+    'removeSuburb'
+  ])
 }
 </script>
 

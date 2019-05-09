@@ -25,6 +25,9 @@ export default {
     editSuburb (state, { index, key, value }) {
       vueSetDeep(state.suburbs[index], key, value)
     },
+    deleteSuburb (state, index) {
+      state.suburbs.splice(index, 1)
+    },
     setSelectedSuburbIndex (state, index) {
       state.selectedSuburbIndex = index
     }
@@ -47,12 +50,15 @@ export default {
       const suburb = { details: suburbDetails }
       commit('setSuburb', { insertionIndex, suburb })
       dispatch('updateSelectedSuburbIndex', insertionIndex)
+    },
+    removeSuburb ({ state, commit, dispatch }, indexToRemove) {
+      let updatedIndex
+      if (indexToRemove === state.selectedSuburbIndex && indexToRemove === state.suburbs.length - 1) updatedIndex = state.selectedSuburbIndex - 1
+      if (indexToRemove === state.selectedSuburbIndex && indexToRemove < state.suburbs.length - 1) updatedIndex = state.selectedSuburbIndex
+      if (indexToRemove > state.selectedSuburbIndex) updatedIndex = state.selectedSuburbIndex
+      if (indexToRemove < state.selectedSuburbIndex) updatedIndex = state.selectedSuburbIndex - 1
+      dispatch('updateSelectedSuburbIndex', updatedIndex)
+      commit('deleteSuburb', indexToRemove)
     }
-    // removeSuburb ({ commit, dispatch }, index) {
-    //   // commit('setSuburb', { insertionIndex, suburb })
-    //   dispatch('updateSelectedDashboardSubviewData')
-    // }
   }
 }
-
-// Add remove suburb action + mutation
