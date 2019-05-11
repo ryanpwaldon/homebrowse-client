@@ -29,6 +29,7 @@ export default {
       state.suburbs.splice(index, 1)
     },
     setSelectedSuburbIndex (state, index) {
+      // console.log(index)
       state.selectedSuburbIndex = index
     }
   },
@@ -51,14 +52,15 @@ export default {
       commit('setSuburb', { insertionIndex, suburb })
       dispatch('updateSelectedSuburbIndex', insertionIndex)
     },
-    removeSuburb ({ state, commit, dispatch }, indexToRemove) {
-      let updatedIndex
-      if (indexToRemove === state.selectedSuburbIndex && indexToRemove === state.suburbs.length - 1) updatedIndex = state.selectedSuburbIndex - 1
-      if (indexToRemove === state.selectedSuburbIndex && indexToRemove < state.suburbs.length - 1) updatedIndex = state.selectedSuburbIndex
-      if (indexToRemove > state.selectedSuburbIndex) updatedIndex = state.selectedSuburbIndex
-      if (indexToRemove < state.selectedSuburbIndex) updatedIndex = state.selectedSuburbIndex - 1
-      dispatch('updateSelectedSuburbIndex', updatedIndex)
-      commit('deleteSuburb', indexToRemove)
+    removeSuburb ({ state, commit, dispatch }, index) {
+      if (state.suburbs.length !== 1) {
+        if (index < state.selectedSuburbIndex || (index === state.selectedSuburbIndex && index === state.suburbs.length - 1)) {
+          dispatch('updateSelectedSuburbIndex', state.selectedSuburbIndex - 1)
+        } else {
+          dispatch('updateSelectedSuburbIndex', state.selectedSuburbIndex)
+        }
+      }
+      commit('deleteSuburb', index)
     }
   }
 }
