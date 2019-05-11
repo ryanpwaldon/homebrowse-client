@@ -41,9 +41,6 @@ export default {
     BaseStatistic,
     BaseChart
   },
-  created () {
-    this.$store.dispatch('suburbs/statistics/updateData')
-  },
   computed: {
     ...mapState('suburbs/statistics', {
       loading: state => state.loading

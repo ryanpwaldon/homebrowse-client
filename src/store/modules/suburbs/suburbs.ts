@@ -1,24 +1,20 @@
-import Vue from 'vue'
-import mapService from '@/services/mapService/mapService'
 import properties from './modules/properties/properties'
 import statistics from './modules/statistics/statistics'
+import map from './modules/map/map'
 import vueSetDeep from '@/utils/vueSetDeep'
 
 export default {
   namespaced: true,
   modules: {
     properties,
-    statistics
+    statistics,
+    map
   },
   state: {
     suburbs: [],
-    selectedSuburbIndex: 0,
-    view: 'properties'
+    selectedSuburbIndex: 0
   },
   mutations: {
-    setView (state, view) {
-      state.view = view
-    },
     setSuburb (state, { insertionIndex, suburb }) {
       state.suburbs.splice(insertionIndex, 0, suburb)
     },
@@ -50,6 +46,7 @@ export default {
       const suburb = { details: suburbDetails }
       commit('setSuburb', { insertionIndex, suburb })
       dispatch('updateSelectedSuburbIndex', insertionIndex)
+      dispatch('map/updateSelectedSuburbBoundingBox')
     },
     removeSuburb ({ state, commit, dispatch }, index) {
       if (state.suburbs.length !== 1) {

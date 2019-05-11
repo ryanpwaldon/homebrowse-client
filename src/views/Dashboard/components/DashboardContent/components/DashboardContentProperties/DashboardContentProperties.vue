@@ -23,9 +23,6 @@ export default {
     BasePropertyCard,
     BaseLabel
   },
-  created () {
-    this.$store.dispatch('suburbs/properties/updateData')
-  },
   computed: {
     ...mapState('suburbs/properties', {
       loading: state => state.loading

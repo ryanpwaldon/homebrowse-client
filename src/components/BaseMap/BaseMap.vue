@@ -30,14 +30,16 @@ export default {
     }
   },
   computed: {
-    ...mapGetters({
-      // boundingBox: 'suburbs/boundingBox',
-      suburbUnformatted: 'suburbs/suburb'
-    }),
-    suburb () {
+    ...mapGetters('suburbs', [
+      'selectedSuburb'
+    ]),
+    ...mapGetters('suburbs/map', [
+      'boundingBox'
+    ]),
+    suburbDetailsMapboxFormat () {
       return {
-        name: this.suburbUnformatted.name,
-        state: this.stateMap[this.suburbUnformatted.state]
+        name: this.selectedSuburb.details.name,
+        state: this.stateMap[this.selectedSuburb.details.state]
       }
     }
   },
@@ -91,7 +93,7 @@ export default {
       })
     },
     updateBoundingBox (boundingBox) {
-      const filter = operator => [ 'all', [operator, 'STE_NAME16', this.suburb.state], [operator, 'SSC_NAME16', this.suburb.name] ]
+      const filter = operator => [ 'all', [operator, 'STE_NAME16', this.suburbDetailsMapboxFormat.state], [operator, 'SSC_NAME16', this.suburbDetailsMapboxFormat.name] ]
       this.map.setFilter('place-label-focus', filter('=='))
       this.map.setFilter('suburb-fill-focus', filter('=='))
       this.map.setFilter('suburb-outline-focus', filter('=='))
