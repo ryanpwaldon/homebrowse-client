@@ -3,25 +3,28 @@
     <BaseButtonNav
       text="Properties"
       :selected="selectedDashboardSubview === 'properties'"
-      @click.native="$store.commit('ui/setSelectedDashboardSubview', 'properties')"
+      @click.native="updateSelectedDashboardSubview('properties')"
     />
     <BaseButtonNav
       text="Statistics"
       :selected="selectedDashboardSubview === 'statistics'"
-      @click.native="$store.commit('ui/setSelectedDashboardSubview', 'statistics')"
+      @click.native="updateSelectedDashboardSubview('statistics')"
     />
   </div>
 </template>
 
 <script>
 import BaseButtonNav from '@/components/BaseButtonNav/BaseButtonNav'
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 export default {
   components: {
     BaseButtonNav
   },
   computed: mapState('ui', [
     'selectedDashboardSubview'
+  ]),
+  methods: mapActions('ui', [
+    'updateSelectedDashboardSubview'
   ])
 }
 </script>

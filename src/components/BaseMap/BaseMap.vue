@@ -93,6 +93,9 @@ export default {
       })
     },
     updateBoundingBox (boundingBox) {
+      // this.map.setLayoutProperty('suburb-fill-focus', 'visibility', 'visible')
+      this.map.setLayoutProperty('place-label-focus', 'visibility', 'visible')
+      this.map.setLayoutProperty('suburb-outline-focus', 'visibility', 'visible')
       const filter = operator => [ 'all', [operator, 'STE_NAME16', this.suburbDetailsMapboxFormat.state], [operator, 'SSC_NAME16', this.suburbDetailsMapboxFormat.name] ]
       this.map.setFilter('place-label-focus', filter('=='))
       this.map.setFilter('suburb-fill-focus', filter('=='))

@@ -11,5 +11,11 @@ export default {
     setSearchModalStatus (state, status) {
       state.searchModalStatus = status
     }
+  },
+  actions: {
+    updateSelectedDashboardSubview ({ commit, dispatch }, dashboardSubview) {
+      commit('setSelectedDashboardSubview', dashboardSubview)
+      dispatch('suburbs/updateSelectedDashboardSubviewData', null, { root: true })
+    }
   }
 }
