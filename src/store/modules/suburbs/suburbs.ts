@@ -29,7 +29,6 @@ export default {
       state.suburbs.splice(index, 1)
     },
     setSelectedSuburbIndex (state, index) {
-      // console.log(index)
       state.selectedSuburbIndex = index
     }
   },
@@ -56,11 +55,14 @@ export default {
       if (state.suburbs.length !== 1) {
         if (index < state.selectedSuburbIndex || (index === state.selectedSuburbIndex && index === state.suburbs.length - 1)) {
           dispatch('updateSelectedSuburbIndex', state.selectedSuburbIndex - 1)
+          commit('deleteSuburb', index)
         } else {
+          commit('deleteSuburb', index)
           dispatch('updateSelectedSuburbIndex', state.selectedSuburbIndex)
         }
+      } else {
+        commit('deleteSuburb', index)
       }
-      commit('deleteSuburb', index)
     }
   }
 }
