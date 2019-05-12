@@ -50,8 +50,8 @@ export default {
       const index = rootState.suburbs.selectedSuburbIndex
       const filter = { ...state.filter } // does not include suburb details unlike getters.dao // spread operator to clone instead of reference
       let page = get(rootGetters, 'suburbs/selectedSuburb.properties.page', 1)
-      if (isNextPageRequest) page++
-      const itemsPrev = get(rootGetters, 'suburbs/selectedSuburb.properties.items', [])
+      page = isNextPageRequest ? page + 1 : 1
+      const itemsPrev = isNextPageRequest ? get(rootGetters, 'suburbs/selectedSuburb.properties.items', []) : []
       const { listings: itemsNext, count } = await propertiesService.findAll({ ...getters.dao, page })
       const items = [...itemsPrev, ...itemsNext]
       const hasReachedLastPage = !itemsNext.length
