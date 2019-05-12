@@ -10,7 +10,9 @@ export default {
       bedrooms: '',
       bathrooms: '',
       carspaces: '',
-      propertyType: 'buy'
+      propertyType: 'buy',
+      sortKey: 'updated',
+      sortDirection: 'descending'
     },
     loading: false
   },
@@ -44,6 +46,7 @@ export default {
       commit('setFilter', { key, value })
       if (rootGetters['suburbs/selectedSuburb']) dispatch('updateData')
     },
+    // requires refactor
     async updateData ({ state, commit, getters, rootState, rootGetters }, isNextPageRequest) {
       if (getters.filterUpToDate && !isNextPageRequest) return
       if (!isNextPageRequest) commit('setLoading', true)
