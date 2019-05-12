@@ -44,15 +44,19 @@ export default {
       commit('setFilter', { key, value })
       if (rootGetters['suburbs/selectedSuburb']) dispatch('updateData')
     },
-    async updateData ({ state, commit, getters, rootState }) {
-      if (getters.filterUpToDate) return
-      commit('setLoading', true)
+    async updateData ({ state, commit, getters, rootState, rootGetters }, isNextPageRequest) {
+      if (getters.filterUpToDate && !isNextPageRequest) return
+      if (!isNextPageRequest) commit('setLoading', true)
       const index = rootState.suburbs.selectedSuburbIndex
       const filter = { ...state.filter } // does not include suburb details unlike getters.dao // spread operator to clone instead of reference
-      const items = await propertiesService.findAll(getters.dao)
-      const value = { items, filter }
+      let page = get(rootGetters, 'suburbs/selectedSuburb.properties.page', 1)
+      if (isNextPageRequest) page++
+      const itemsPrev = get(rootGetters, 'suburbs/selectedSuburb.properties.items', [])
+      const itemsNext = await propertiesService.findAll({ ...getters.dao, page })
+      const items = [...itemsPrev, ...itemsNext]
+      const value = { filter, page, items }
       commit('suburbs/editSuburb', { index, key: 'properties', value }, { root: true })
-      commit('setLoading', false)
+      if (!isNextPageRequest) commit('setLoading', false)
     }
   }
 }
