@@ -61,6 +61,7 @@ export default {
         this.map.setLayoutProperty('place-label-focus', 'visibility', 'none')
         this.map.setLayoutProperty('suburb-fill-focus', 'visibility', 'none')
         this.map.setLayoutProperty('suburb-outline-focus', 'visibility', 'none')
+        this.map.setPaintProperty('suburb-fill-focus', 'fill-color', 'rgba(0, 0, 0, 0.05)')
       })
       this.map.on('load', () => {
         this.addSuburbHoverListeners()
@@ -93,13 +94,13 @@ export default {
       })
     },
     updateBoundingBox (boundingBox) {
-      // this.map.setLayoutProperty('suburb-fill-focus', 'visibility', 'visible')
+      this.map.setLayoutProperty('suburb-fill-focus', 'visibility', 'visible')
       this.map.setLayoutProperty('place-label-focus', 'visibility', 'visible')
       this.map.setLayoutProperty('suburb-outline-focus', 'visibility', 'visible')
-      const filter = operator => [ 'all', [operator, 'STE_NAME16', this.suburbDetailsMapboxFormat.state], [operator, 'SSC_NAME16', this.suburbDetailsMapboxFormat.name] ]
-      this.map.setFilter('place-label-focus', filter('=='))
-      this.map.setFilter('suburb-fill-focus', filter('=='))
-      this.map.setFilter('suburb-outline-focus', filter('=='))
+      const filter = (combination, comparison) => [ combination, [comparison, 'STE_NAME16', this.suburbDetailsMapboxFormat.state], [comparison, 'SSC_NAME16', this.suburbDetailsMapboxFormat.name] ]
+      this.map.setFilter('place-label-focus', filter('all', '=='))
+      this.map.setFilter('suburb-fill-focus', filter('any', '!='))
+      this.map.setFilter('suburb-outline-focus', filter('all', '=='))
       this.map.fitBounds(boundingBox, { padding: 100, maxZoom: 13, duration: 2000 })
     }
   }
