@@ -52,9 +52,9 @@ export default {
       let page = get(rootGetters, 'suburbs/selectedSuburb.properties.page', 1)
       if (isNextPageRequest) page++
       const itemsPrev = get(rootGetters, 'suburbs/selectedSuburb.properties.items', [])
-      const itemsNext = await propertiesService.findAll({ ...getters.dao, page })
+      const { listings: itemsNext, count } = await propertiesService.findAll({ ...getters.dao, page })
       const items = [...itemsPrev, ...itemsNext]
-      const value = { filter, page, items }
+      const value = { filter, page, items, count }
       commit('suburbs/editSuburb', { index, key: 'properties', value }, { root: true })
       if (!isNextPageRequest) commit('setLoading', false)
     }
