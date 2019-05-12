@@ -7,7 +7,14 @@
         :property="property"
         :key="index"
       />
-      <BasePropertyCardPlaceholder v-for="n in (3 - properties.length % 3) + 3" :key="'placeholder' + n"/>
+      <template v-if="!hasReachedLastPage">
+        <BasePropertyCardPlaceholder
+          v-init-auto-paginate-listener="n === 1"
+          ref="base-property-card-placeholder"
+          v-for="n in (3 - properties.length % 3) + 3"
+          :key="'placeholder' + n"
+        />
+      </template>
     </div>
     <BaseLabel text="No properties found" v-else/>
   </div>
@@ -18,6 +25,7 @@ import BaseLoader from '@/components/BaseLoader/BaseLoader'
 import BasePropertyCard from '@/components/BasePropertyCard/BasePropertyCard'
 import BasePropertyCardPlaceholder from '@/components/BasePropertyCardPlaceholder/BasePropertyCardPlaceholder'
 import BaseLabel from '@/components/BaseLabel/BaseLabel'
+import get from 'lodash/get'
 import { mapState, mapGetters } from 'vuex'
 export default {
   components: {
@@ -32,7 +40,28 @@ export default {
     }),
     ...mapGetters('suburbs/properties', [
       'properties'
-    ])
+    ]),
+    ...mapGetters('suburbs', [
+      'selectedSuburb'
+    ]),
+    hasReachedLastPage () {
+      return get(this.selectedSuburb, 'properties.hasReachedLastPage', false)
+    }
+  },
+  directives: {
+    initAutoPaginateListener: {
+      inserted (el, binding, vnode) {
+        const isFirst = binding.value
+        if (!isFirst) return
+        el.observer = new IntersectionObserver(([entry]) => {
+          if (entry.isIntersecting) setTimeout(() => vnode.context.$store.dispatch('suburbs/properties/updateData', true), 1000)
+        })
+        el.observer.observe(el)
+      },
+      unbind (el) {
+        if (el.observer) el.observer.disconnect()
+      }
+    }
   }
 }
 </script>
