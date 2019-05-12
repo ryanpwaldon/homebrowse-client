@@ -56,7 +56,7 @@
       @select="updateFilter({ key: 'sortKey', value: $event })"
       :selected="sortKey"
       :options="[
-        { value: 'updated', display: 'Date updated' },
+        { value: 'updated', display: 'Updated' },
         { value: 'price', display: 'Price' }
       ]"
     />
@@ -65,8 +65,8 @@
       @select="updateFilter({ key: 'sortDirection', value: $event })"
       :selected="sortDirection"
       :options="[
-        { value: 'ascending', display: 'Ascending' },
-        { value: 'descending', display: 'Descending' }
+        { value: 'ascending', display: 'Asc' },
+        { value: 'descending', display: 'Desc' }
       ]"
     />
   </div>
