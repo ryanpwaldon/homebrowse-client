@@ -7,7 +7,7 @@
         :property="property"
         :key="index"
       />
-      <div class="load-more" @click="$store.dispatch('suburbs/properties/updateData', true)">Load more...</div>
+      <BasePropertyCardPlaceholder v-for="n in (3 - properties.length % 3) + 3" :key="'placeholder' + n"/>
     </div>
     <BaseLabel text="No properties found" v-else/>
   </div>
@@ -16,12 +16,14 @@
 <script>
 import BaseLoader from '@/components/BaseLoader/BaseLoader'
 import BasePropertyCard from '@/components/BasePropertyCard/BasePropertyCard'
+import BasePropertyCardPlaceholder from '@/components/BasePropertyCardPlaceholder/BasePropertyCardPlaceholder'
 import BaseLabel from '@/components/BaseLabel/BaseLabel'
 import { mapState, mapGetters } from 'vuex'
 export default {
   components: {
     BaseLoader,
     BasePropertyCard,
+    BasePropertyCardPlaceholder,
     BaseLabel
   },
   computed: {
