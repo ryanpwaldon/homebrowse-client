@@ -48,10 +48,10 @@ export default {
   padding: var(--spacing-2);
   display: flex;
   font-size: 14px;
-  font-weight: bolder;
+  font-weight: var(--font-weight-bold);
 }
 .features {
-  color: var(--color-gray);
+  color: var(--color-gray-1);
   text-align: left;
   flex-shrink: 0;
 }
