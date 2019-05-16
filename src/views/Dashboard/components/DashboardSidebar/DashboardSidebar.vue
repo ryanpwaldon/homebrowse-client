@@ -18,8 +18,6 @@ export default {
 
 <style lang="scss" scoped>
 .dashboard-sidebar {
-  height: 100%;
-  padding: var(--spacing-1) var(--spacing-2) var(--spacing-2);
-  background: var(--color-gray-5);
+  padding: var(--spacing-1) 0 var(--spacing-1) var(--spacing-1);
 }
 </style>

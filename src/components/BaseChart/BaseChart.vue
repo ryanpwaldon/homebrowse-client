@@ -118,7 +118,8 @@ export default {
 .chart {
   width: 100%;
   border-radius: var(--border-radius-1);
-  background: var(--color-gray-5);
+  box-shadow: var(--box-shadow-1);
+  background: var(--color-white-1);
 }
 .chart-labels-container {
   position: absolute;

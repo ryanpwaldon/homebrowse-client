@@ -1,45 +1,72 @@
 <template>
   <div class="base-property-card-placeholder">
-    <BaseLoader/>
-    <div class="placeholder-image"/>
-    <div class="content"><div/></div>
+    <div class="placeholder-image">
+      <div/>
+    </div>
+    <div class="content">
+      <div/>&nbsp;<div/>
+    </div>
   </div>
 </template>
 
 <script>
-import BaseLoader from '@/components/BaseLoader/BaseLoader'
 export default {
-  components: {
-    BaseLoader
-  }
 }
 </script>
 
 <style lang="scss" scoped>
 .base-property-card-placeholder {
-  background: var(--color-gray-5);
+  background: var(--color-white-1);
   border-radius: var(--border-radius-1);
+  box-shadow: var(--box-shadow-1);
   position: relative;
   overflow: hidden;
   width: 100%;
 }
-.base-loader {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-}
 .placeholder-image {
   width: 100%;
   padding-top: calc(100% / 3 * 2);
+  position: relative;
   height: 0;
+  div {
+    position: absolute;
+    top: calc(var(--spacing-2) / 2);
+    left: calc(var(--spacing-2) / 2);
+    width: calc(100% - var(--spacing-2));
+    height: calc(100% - var(--spacing-4));
+    border-radius: var(--border-radius-1);
+    background: var(--color-gray-5);
+  }
 }
 .content {
   display: flex;
   font-size: 14px;
-  padding: var(--spacing-2);
+  justify-content: space-between;
+  font-weight: var(--font-weight-bold);
+  padding: var(--spacing-2) var(--spacing-4);
+  div {
+    height: 1em;
+    border-radius: 100px;
+    background: var(--color-gray-5);
+    width: calc(100% - var(--spacing-4));
+  }
 }
-.content div {
-  height: 1em;
+.base-property-card-placeholder:after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.8) 50%, rgba(255, 255, 255, 0) 100%);
+  animation-name: shimmer;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  animation-timing-function: lienar;
+  will-change: transform;
+}
+@keyframes shimmer {
+  0% { transform: translate3d(-100%, 0, 0) }
+  100% { transform: translate3d(100%, 0, 0) }
 }
 </style>

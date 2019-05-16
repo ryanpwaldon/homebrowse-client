@@ -28,8 +28,8 @@ export default {
 
 <style lang="scss" scoped>
 .base-property-card {
-  background: var(--color-white);
-  box-shadow: var(--box-shadow-3);
+  background: var(--color-white-1);
+  box-shadow: var(--box-shadow-1);
   border-radius: var(--border-radius-1);
   width: 100%;
   overflow: hidden;

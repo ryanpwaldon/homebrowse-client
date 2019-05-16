@@ -11,7 +11,7 @@
         <BasePropertyCardPlaceholder
           v-init-auto-paginate-listener="n === 1"
           ref="base-property-card-placeholder"
-          v-for="n in (3 - properties.length % 3) + 3"
+          v-for="n in (3 - properties.length % 3) + (properties.length % 3 === 0 ? 0 : 3)"
           :key="'placeholder' + n"
         />
       </template>
@@ -70,7 +70,7 @@ export default {
 .properties-container {
   width: 100%;
   display: grid;
-  grid-gap: var(--spacing-1);
+  grid-gap: var(--spacing-2);
   grid-template-columns: repeat(3, 1fr);
   align-items: flex-start;
   position: relative;

@@ -42,14 +42,20 @@ export default {
   width: 100%;
   height: 100%;
   display: flex;
+  background: var(--color-gray-5);
+  overflow: hidden;
+}
+.dashboard-search {
+  flex: 1;
 }
 .dashboard-sidebar {
   width: 210px;
-  flex-shrink: 0;
 }
-.dashboard-search,
-.dashboard-content,
-.dashboard-map {
+.dashboard-content {
+  min-width: 560px;
   flex: 1;
+}
+.dashboard-map {
+  flex: 1.1;
 }
 </style>

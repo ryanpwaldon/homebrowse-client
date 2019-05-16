@@ -16,13 +16,9 @@ export default {
 
 <style lang="scss" scoped>
 .base-layout {
-  display: flex;
   width: 100%;
   height: 100%;
-  flex-direction: column;
-}
-.base-nav-primary {
-  flex-shrink: 0;
-  flex-grow: 0;
+  display: grid;
+  grid-template-rows: min-content minmax(0, 1fr);
 }
 </style>

@@ -43,8 +43,9 @@ export default {
 }
 .statistic-container {
   margin-bottom: var(--spacing-1);
-  border-radius: var(--border-radius-2);
-  background: var(--color-gray-5);
+  border-radius: var(--border-radius-1);
+  background: var(--color-white-1);
+  box-shadow: var(--box-shadow-1);
   padding: var(--spacing-2);
   text-align: right;
 }
