@@ -3,7 +3,6 @@
     <div class="input-container">
       <img class="icon" src="@/assets/img/search-tall.svg">
       <input
-        class="input"
         ref="input"
         @input="onInput"
         :placeholder="placeholder"
@@ -94,8 +93,9 @@ export default {
   height: 1em;
   margin-right: var(--spacing-4);
 }
-.input {
+input {
   font-size: inherit;
+  color: var(--color-black-2);
   width: 100%;
 }
 .suggestions-container {

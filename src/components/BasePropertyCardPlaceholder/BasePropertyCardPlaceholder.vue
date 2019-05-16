@@ -35,7 +35,7 @@ export default {
     width: calc(100% - var(--spacing-2));
     height: calc(100% - var(--spacing-4));
     border-radius: var(--border-radius-1);
-    background: var(--color-gray-5);
+    background: var(--color-gray-6);
   }
 }
 .content {
@@ -47,8 +47,8 @@ export default {
   div {
     height: 1em;
     border-radius: 100px;
-    background: var(--color-gray-5);
-    width: calc(100% - var(--spacing-4));
+    background: var(--color-gray-6);
+    width: calc(50% - var(--spacing-5));
   }
 }
 .base-property-card-placeholder:after {
