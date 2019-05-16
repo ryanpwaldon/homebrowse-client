@@ -59,7 +59,6 @@ export default {
       })
       this.map.on('style.load', () => {
         this.map.setLayoutProperty('place-label-focus', 'visibility', 'none')
-        this.map.setLayoutProperty('suburb-fill-focus', 'visibility', 'none')
         this.map.setLayoutProperty('suburb-outline-focus', 'visibility', 'none')
         this.map.setPaintProperty('suburb-fill-focus', 'fill-color', 'rgba(0, 0, 0, 0.05)')
       })
@@ -111,8 +110,10 @@ export default {
 .base-map {
   width: 100%;
   height: 100%;
-  box-shadow: var(--box-shadow-1);
-  background: var(--color-light-gray-2);
+  border: var(--border-1);
+  // box-shadow: var(--box-shadow-1);
+  border-radius: var(--border-radius-1);
+  background: var(--color-white-1);
 }
 </style>
 

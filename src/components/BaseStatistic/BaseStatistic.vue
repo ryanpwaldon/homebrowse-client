@@ -51,7 +51,7 @@ export default {
 }
 .statistic {
   font-size: 24px;
-  color: var(--color-black);
+  color: var(--color-black-2);
   font-weight: var(--font-weight-bold);
 }
 </style>

@@ -69,6 +69,7 @@ export default {
   left: calc(-1 * var(--spacing-4));
   background: var(--color-transparent);
   transition: background-color 120ms ease-in-out;
+  color: var(--color-black-2);
   border-radius: var(--border-radius-2);
   padding: 0 var(--spacing-4);
   text-align-last: right;

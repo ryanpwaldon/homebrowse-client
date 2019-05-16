@@ -21,7 +21,7 @@ export default {
 .base-button-submit {
   color: var(--color-white);
   font-weight: var(--font-weight-regular);
-  background: var(--color-black);
+  background: var(--color-black-2);
   border-radius: var(--border-radius-3);
   padding: var(--spacing-4) var(--spacing-5);
   font-size: 14px;

@@ -14,4 +14,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.dashboard-map {
+  padding: var(--spacing-1) var(--spacing-1) var(--spacing-1) 0;
+}
 </style>

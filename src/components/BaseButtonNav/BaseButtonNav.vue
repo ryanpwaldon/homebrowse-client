@@ -49,6 +49,6 @@ export default {
   transition: background-color 120ms ease-in-out;
 }
 .selected::after {
-  background: var(--color-black-1);
+  background: var(--color-black-2);
 }
 </style>

@@ -37,7 +37,7 @@ export default {
 label {
   font-size: 14px;
   margin-bottom: var(--spacing-5);
-  color: var(--color-black);
+  color: var(--color-black-2);
   display: block;
 }
 input {
@@ -52,6 +52,6 @@ input {
   font-size: 14px;
 }
 input:focus {
-  border-color: var(--color-black);
+  border-color: var(--color-black-2);
 }
 </style>

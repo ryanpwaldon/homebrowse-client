@@ -38,7 +38,7 @@ export default {
   justify-content: space-between;
 }
 .base-button.selected {
-  color: var(--color-black);
+  color: var(--color-black-2);
 }
 .base-button::before {
   content: '';
