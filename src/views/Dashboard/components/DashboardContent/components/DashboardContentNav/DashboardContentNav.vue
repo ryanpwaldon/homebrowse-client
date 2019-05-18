@@ -1,41 +1,70 @@
 <template>
   <div class="dashboard-content-nav">
-    <BaseButtonNav
-      text="Properties"
-      :selected="selectedDashboardSubview === 'properties'"
-      @click.native="updateSelectedDashboardSubview('properties')"
-    />
-    <BaseButtonNav
-      text="Statistics"
-      :selected="selectedDashboardSubview === 'statistics'"
-      @click.native="updateSelectedDashboardSubview('statistics')"
-    />
+    <div class="section">
+      <BaseButtonNav
+        text="Properties"
+        :selected="selectedDashboardSubview === 'properties'"
+        @click.native="updateSelectedDashboardSubview('properties')"
+      />
+      <BaseButtonNav
+        text="Statistics"
+        :selected="selectedDashboardSubview === 'statistics'"
+        @click.native="updateSelectedDashboardSubview('statistics')"
+      />
+    </div>
+    <div class="section" v-if="selectedDashboardSubview === 'properties'">
+      <BaseFieldSelect
+        label="Sort"
+        @select="updateFilter({ key: 'sort', value: $event })"
+        :selected="sort"
+        :options="[
+          { value: 'updatedDescending', display: 'Updated recently' },
+          { value: 'priceAscending', display: 'Price low to high' },
+          { value: 'priceDescending', display: 'Price high to low' }
+        ]"
+      />
+    </div>
   </div>
 </template>
 
 <script>
 import BaseButtonNav from '@/components/BaseButtonNav/BaseButtonNav'
+import BaseFieldSelect from '@/components/BaseFieldSelect/BaseFieldSelect'
 import { mapState, mapActions } from 'vuex'
 export default {
   components: {
-    BaseButtonNav
+    BaseButtonNav,
+    BaseFieldSelect
   },
-  computed: mapState('ui', [
-    'selectedDashboardSubview'
-  ]),
-  methods: mapActions('ui', [
-    'updateSelectedDashboardSubview'
-  ])
+  computed: {
+    ...mapState('ui', [
+      'selectedDashboardSubview'
+    ]),
+    ...mapState('suburbs/properties', {
+      sort: state => state.filter.sort
+    })
+  },
+  methods: {
+    ...mapActions('ui', [
+      'updateSelectedDashboardSubview'
+    ]),
+    ...mapActions('suburbs/properties', [
+      'updateFilter'
+    ])
+  }
 }
 </script>
 
 <style lang="scss" scoped>
 .dashboard-content-nav {
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   border-bottom: var(--border-1);
   padding-bottom: var(--spacing-2);
   margin-bottom: var(--spacing-1);
+}
+.section {
+  display: flex;
 }
 .base-button-nav {
   margin-right: var(--spacing-2);

@@ -11,8 +11,7 @@ export default {
       bathrooms: '',
       carspaces: '',
       propertyType: 'buy',
-      sortKey: 'updated',
-      sortDirection: 'descending'
+      sort: 'updatedDescending'
     },
     loading: false
   },

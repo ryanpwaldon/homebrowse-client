@@ -51,24 +51,6 @@
         { value: '5+', display: '5+' }
       ]"
     />
-    <BaseFieldSelectStretch
-      label="Sort by"
-      @select="updateFilter({ key: 'sortKey', value: $event })"
-      :selected="sortKey"
-      :options="[
-        { value: 'updated', display: 'Updated' },
-        { value: 'price', display: 'Price' }
-      ]"
-    />
-    <BaseFieldSelectStretch
-      label="Sort direction"
-      @select="updateFilter({ key: 'sortDirection', value: $event })"
-      :selected="sortDirection"
-      :options="[
-        { value: 'ascending', display: 'Asc' },
-        { value: 'descending', display: 'Desc' }
-      ]"
-    />
   </div>
 </template>
 
@@ -83,9 +65,7 @@ export default {
     propertyType: state => state.filter.propertyType,
     bedrooms: state => state.filter.bedrooms,
     bathrooms: state => state.filter.bathrooms,
-    carspaces: state => state.filter.carspaces,
-    sortKey: state => state.filter.sortKey,
-    sortDirection: state => state.filter.sortDirection
+    carspaces: state => state.filter.carspaces
   }),
   methods: mapActions('suburbs/properties', [
     'updateFilter'
