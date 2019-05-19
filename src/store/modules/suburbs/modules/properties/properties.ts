@@ -10,7 +10,7 @@ export default {
       bedrooms: '',
       bathrooms: '',
       carspaces: '',
-      propertyType: 'buy',
+      listingType: 'buy',
       sort: 'updatedDescending'
     },
     loading: false

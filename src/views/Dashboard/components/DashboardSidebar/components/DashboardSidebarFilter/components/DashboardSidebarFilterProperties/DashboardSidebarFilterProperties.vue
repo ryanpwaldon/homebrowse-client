@@ -2,8 +2,8 @@
   <div class="dashboard-sidebar-filter-properties">
     <BaseFieldSelectStretch
       label="Status"
-      @select="updateFilter({ key: 'propertyType', value: $event })"
-      :selected="propertyType"
+      @select="updateFilter({ key: 'listingType', value: $event })"
+      :selected="listingType"
       :options="[
         { value: 'buy', display: 'For sale' },
         { value: 'rent', display: 'For rent' },
@@ -62,7 +62,7 @@ export default {
     BaseFieldSelectStretch
   },
   computed: mapState('suburbs/properties', {
-    propertyType: state => state.filter.propertyType,
+    listingType: state => state.filter.listingType,
     bedrooms: state => state.filter.bedrooms,
     bathrooms: state => state.filter.bathrooms,
     carspaces: state => state.filter.carspaces
