@@ -1,11 +1,15 @@
 <template>
   <div class="dashboard">
-    <template v-if="suburbs.length">
-      <DashboardSidebar/>
-      <DashboardContent/>
-    </template>
-    <DashboardSearch v-else/>
-    <DashboardMap/>
+    <div class="main-container">
+      <DashboardSearch v-if="!suburbs.length"/>
+      <template v-else>
+        <DashboardSidebar/>
+        <DashboardContent/>
+      </template>
+    </div>
+    <div class="map-container">
+      <DashboardMap/>
+    </div>
     <BaseSearchModal/>
   </div>
 </template>
@@ -26,9 +30,6 @@ export default {
     DashboardMap,
     BaseSearchModal
   },
-  created () {
-    if (!this.suburbs.length) this.$router.push('/dashboard')
-  },
   computed: {
     ...mapState('suburbs', [
       'suburbs'
@@ -45,17 +46,16 @@ export default {
   background: var(--color-gray-5);
   overflow: hidden;
 }
-.dashboard-search {
-  flex: 1;
-}
-.dashboard-sidebar {
-  width: 210px;
-}
-.dashboard-content {
-  min-width: 560px;
-  flex: 1;
-}
-.dashboard-map {
+.main-container {
   flex: 1.1;
+  min-width: 560px;
+  display: flex;
+  .dashboard-sidebar { width: 210px }
+  .dashboard-content { flex: 1 }
+}
+.map-container {
+  flex: 1;
+  display: flex;
+  .dashboard-map { flex: 1 }
 }
 </style>
