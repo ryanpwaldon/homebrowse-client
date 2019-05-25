@@ -1,15 +1,11 @@
 <template>
   <div class="dashboard">
-    <div class="main-container">
-      <DashboardSearch v-if="!suburbs.length"/>
-      <template v-else>
-        <DashboardSidebar/>
-        <DashboardContent/>
-      </template>
-    </div>
-    <div class="map-container">
-      <DashboardMap/>
-    </div>
+    <template v-if="suburbs.length">
+      <DashboardSidebar/>
+      <DashboardContent/>
+    </template>
+    <DashboardSearch v-else/>
+    <DashboardMap/>
     <BaseSearchModal/>
   </div>
 </template>
@@ -43,19 +39,12 @@ export default {
   width: 100%;
   height: 100%;
   display: flex;
+  overflow: auto;
   background: var(--color-gray-5);
-  overflow: hidden;
-}
-.main-container {
-  flex: 1.1;
-  min-width: 560px;
-  display: flex;
-  .dashboard-sidebar { width: 210px }
-  .dashboard-content { flex: 1 }
-}
-.map-container {
   flex: 1;
-  display: flex;
-  .dashboard-map { flex: 1 }
+  .dashboard-search { flex: 1 }
+  .dashboard-sidebar { width: 260px }
+  .dashboard-content { flex: 1 }
+  .dashboard-map { width: 50% }
 }
 </style>

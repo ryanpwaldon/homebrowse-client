@@ -15,6 +15,9 @@ export default {
 
 <style lang="scss" scoped>
 .dashboard-map {
-  padding: var(--spacing-1) var(--spacing-1) var(--spacing-1) 0;
+  padding: var(--spacing-1);
+  position: sticky;
+  height: 100%;
+  top: 0;
 }
 </style>

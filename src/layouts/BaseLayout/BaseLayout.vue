@@ -18,7 +18,7 @@ export default {
 .base-layout {
   width: 100%;
   height: 100%;
-  display: grid;
-  grid-template-rows: min-content minmax(0, 1fr);
+  display: flex;
+  flex-direction: column;
 }
 </style>

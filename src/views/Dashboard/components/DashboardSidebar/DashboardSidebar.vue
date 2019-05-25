@@ -18,6 +18,9 @@ export default {
 
 <style lang="scss" scoped>
 .dashboard-sidebar {
-  padding: var(--spacing-1) 0 var(--spacing-1) var(--spacing-1);
+  top: 0;
+  height: 100%;
+  position: sticky;
+  padding: var(--spacing-1);
 }
 </style>

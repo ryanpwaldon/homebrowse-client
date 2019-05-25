@@ -38,8 +38,8 @@ export default {
 
 <style lang="scss" scoped>
 .dashboard-content {
-  padding: var(--spacing-1);
-  overflow: auto;
+  align-self: flex-start;
+  padding: var(--spacing-1) 0;
 }
 .title-container {
   margin-bottom: var(--spacing-1);
