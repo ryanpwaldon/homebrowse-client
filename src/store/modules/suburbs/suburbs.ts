@@ -2,6 +2,7 @@ import properties from './modules/properties/properties'
 import statistics from './modules/statistics/statistics'
 import map from './modules/map/map'
 import vueSetDeep from '@/utils/vueSetDeep'
+import router from '@/router'
 
 export default {
   namespaced: true,
@@ -35,14 +36,15 @@ export default {
   },
   actions: {
     updateSelectedDashboardSubviewData ({ dispatch, rootState }) {
-      dispatch(`${rootState.ui.selectedDashboardSubview}/updateData`)
+      dispatch(`${rootState.ui.suburbRouteLastVisitedTabName}/updateData`)
     },
     updateSelectedSuburbIndex ({ commit, dispatch }, index) {
+      router.push('/dashboard/suburb')
       commit('setSelectedSuburbIndex', index)
       dispatch('updateSelectedDashboardSubviewData')
     },
-    addSuburb ({ commit, dispatch }, suburbDetails) {
-      const insertionIndex = 0
+    addSuburb ({ state, commit, dispatch }, suburbDetails) {
+      const insertionIndex = state.suburbs.length
       const suburb = { details: suburbDetails }
       commit('setSuburb', { insertionIndex, suburb })
       dispatch('updateSelectedSuburbIndex', insertionIndex)

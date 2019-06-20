@@ -37,7 +37,7 @@ export default {
       )
     },
     properties (_, __, ___, rootGetters) {
-      return get(rootGetters, 'suburbs/selectedSuburb.properties.items', null)
+      return get(rootGetters, 'suburbs/selectedSuburb.properties.items', [])
     }
   },
   actions: {

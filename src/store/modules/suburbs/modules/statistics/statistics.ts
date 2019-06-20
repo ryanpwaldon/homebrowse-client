@@ -35,6 +35,8 @@ export default {
     },
     chartDataSoldMedianPrice (_, __, ___, rootGetters) {
       const series = get(rootGetters, 'suburbs/selectedSuburb.statistics.items.series', [])
+      // return series.map(series => ({ time: series.date, value: series.medianSoldPrice })) // tradingview format
+      // chartjs format
       return {
         labels: series.map(series => series.date),
         data: series.map(series => series.medianSoldPrice)

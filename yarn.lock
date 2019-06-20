@@ -5101,6 +5101,11 @@ levn@^0.3.0, levn@~0.3.0:
     prelude-ls "~1.1.2"
     type-check "~0.3.2"
 
+lightweight-charts@^1.0.0-rc.3:
+  version "1.0.0-rc.3"
+  resolved "https://registry.yarnpkg.com/lightweight-charts/-/lightweight-charts-1.0.0-rc.3.tgz#6b4c2738e6970fa6eedf4182ee6bf15a9a7a3f73"
+  integrity sha512-upHziJDkpP14lAnLdYWh2hSn3HFHNNcWr+CqJ7QNoSDlCZjye4W45iM1ekupbZBasFYaNKkvF5V3eLPcFIcYQw==
+
 load-google-maps-api@^1.3.2:
   version "1.3.2"
   resolved "https://registry.yarnpkg.com/load-google-maps-api/-/load-google-maps-api-1.3.2.tgz#ae1b0052b9ddf8f5a93486836a9d2b145b9d2205"
@@ -8513,6 +8518,11 @@ vue@^2.6.6:
   version "2.6.9"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.6.9.tgz#415c1cc1a5ed00c8f0acdd0a948139d12b7ea6b3"
   integrity sha512-t1+tvH8hybPM86oNne3ZozCD02zj/VoZIiojOBPJLjwBn7hxYU5e1gBObFpq8ts1NEn1VhPf/hVXBDAJ3X5ljg==
+
+vuex-router-sync@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/vuex-router-sync/-/vuex-router-sync-5.0.0.tgz#1a225c17a1dd9e2f74af0a1b2c62072e9492b305"
+  integrity sha512-Mry2sO4kiAG64714X1CFpTA/shUH1DmkZ26DFDtwoM/yyx6OtMrc+MxrU+7vvbNLO9LSpgwkiJ8W+rlmRtsM+w==
 
 vuex@^3.0.1:
   version "3.1.0"

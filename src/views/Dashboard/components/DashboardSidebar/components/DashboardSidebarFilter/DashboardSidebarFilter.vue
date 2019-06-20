@@ -21,13 +21,13 @@ export default {
   },
   computed: {
     ...mapState('ui', [
-      'selectedDashboardSubview'
+      'suburbRouteLastVisitedTabName'
     ]),
     ...mapGetters('suburbs', [
       'selectedSuburb'
     ]),
     filter () {
-      switch (this.selectedDashboardSubview) {
+      switch (this.suburbRouteLastVisitedTabName) {
         case 'properties': return DashboardSidebarFilterProperties
         case 'statistics': return DashboardSidebarFilterStatistics
         default: return DashboardSidebarFilterProperties

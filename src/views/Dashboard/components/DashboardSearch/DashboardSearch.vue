@@ -15,7 +15,6 @@ export default {
   },
   methods: {
     async onSuburbSelected (suburb) {
-      this.$router.push('/dashboard/properties')
       this.$store.dispatch('suburbs/addSuburb', await suburb)
     }
   }

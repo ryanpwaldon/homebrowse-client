@@ -40,6 +40,7 @@ export default {
   height: 100%;
   display: flex;
   overflow: auto;
+  justify-content: space-between;
   background: var(--color-gray-5);
   flex: 1;
   .dashboard-search { flex: 1 }

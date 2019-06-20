@@ -1,17 +1,14 @@
 <template>
   <div class="dashboard-sidebar">
     <DashboardSidebarSuburbs/>
-    <DashboardSidebarFilter/>
   </div>
 </template>
 
 <script>
 import DashboardSidebarSuburbs from './components/DashboardSidebarSuburbs/DashboardSidebarSuburbs'
-import DashboardSidebarFilter from './components/DashboardSidebarFilter/DashboardSidebarFilter'
 export default {
   components: {
-    DashboardSidebarSuburbs,
-    DashboardSidebarFilter
+    DashboardSidebarSuburbs
   }
 }
 </script>
