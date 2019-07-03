@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import store from './store/store'
+import store from '@/store/store'
 
 Vue.use(Router)
 
@@ -9,29 +9,33 @@ export default new Router({
   base: process.env.BASE_URL,
   routes: [
     {
-      path: '/dashboard',
-      name: 'dashboard',
-      component: () => import('@/views/Dashboard/Dashboard.vue'),
+      path: '/workspace',
+      name: 'workspace',
+      component: () => import('@/views/Workspace/Workspace.vue'),
       children: [
         {
           path: 'suburb',
-          component: () => import('@/views/Dashboard/views/Suburb/Suburb.vue'),
+          component: () => import('@/views/Workspace/views/Suburb/Suburb.vue'),
           children: [
             {
               path: '',
-              redirect: () => store.state.ui.suburbRouteLastVisitedTabName
+              redirect: 'properties'
             },
             {
               path: 'properties',
               name: 'properties',
-              component: () => import('@/views/Dashboard/views/Suburb/views/Properties/Properties.vue')
+              component: () => import('@/views/Workspace/views/Suburb/views/Properties/Properties.vue')
             },
             {
               path: 'statistics',
               name: 'statistics',
-              component: () => import('@/views/Dashboard/views/Suburb/views/Statistics/Statistics.vue')
+              component: () => import('@/views/Workspace/views/Suburb/views/Statistics/Statistics.vue')
             }
           ]
+        },
+        {
+          path: 'property',
+          component: () => import('@/views/Workspace/views/Property/Property.vue')
         }
       ]
     },
@@ -42,7 +46,7 @@ export default new Router({
     },
     {
       path: '*',
-      redirect: '/dashboard'
+      redirect: '/workspace'
     }
   ]
 })

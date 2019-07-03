@@ -3,8 +3,8 @@
     <div class="section">
       <BaseLogo/>
       <BaseButtonNav
-        text="Dashboard"
-        link="/dashboard"
+        text="Workspace"
+        link="/workspace"
       />
     </div>
     <div class="section">

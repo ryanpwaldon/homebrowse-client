@@ -44,7 +44,7 @@ export default {
   justify-content: space-between;
   font-weight: var(--font-weight-bold);
   padding: var(--spacing-2) var(--spacing-4);
-  div {
+  & > div {
     height: 1em;
     border-radius: 100px;
     background: var(--color-gray-6);

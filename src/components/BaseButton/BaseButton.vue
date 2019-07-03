@@ -3,7 +3,7 @@
     class="base-button"
     :class="{ selected }">
     <div class="text">{{ text }}</div>
-    <div class="options">
+    <div class="options" v-if="$slots.default">
       <slot/>
     </div>
   </div>
@@ -52,12 +52,17 @@ export default {
   transition: background-color 120ms ease-in-out;
   z-index: -1;
 }
+.text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .base-button:hover {
   &::before { background: var(--color-hover) }
   .options { opacity: 1 }
 }
-
 .options {
+  margin-left: var(--spacing-4);
   transition: opacity 120ms ease-in-out;
   opacity: 0;
 }
