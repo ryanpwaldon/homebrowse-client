@@ -2,8 +2,8 @@
   <div class="property" v-if="item">
     <div class="content">
       <div class="title-container">
-        <div class="title">{{ item.name }}</div>
-        <div class="subtitle">{{ item.state }} {{ item.postcode }}</div>
+        <div class="title">{{ item.displayAddress }}</div>
+        <div class="subtitle">{{ item.suburb }} {{ item.state }} {{ item.postcode }}</div>
       </div>
       <router-view/>
     </div>

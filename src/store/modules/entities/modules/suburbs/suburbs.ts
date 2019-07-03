@@ -10,9 +10,6 @@ export default {
   getters: {
     orderedItems (state) {
       return state.ids.map(id => state.items[id])
-    },
-    selectedItem (state) {
-      return state.items[state.selectedId]
     }
   },
   mutations: {

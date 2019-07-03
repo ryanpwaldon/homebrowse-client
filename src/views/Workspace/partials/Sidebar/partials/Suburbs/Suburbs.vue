@@ -4,7 +4,7 @@
     <template v-for="item in orderedItems">
       <BaseButton
         @click.native="onClick(item.id)"
-        :selected="item.id === selectedId"
+        :selected="item.id === selectedId && $route.fullPath.includes('/workspace/suburb')"
         :text="item.name"
         :key="item.id">
         <ButtonOption

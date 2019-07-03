@@ -1,15 +1,15 @@
 <template>
   <div>
     <BaseLabel text="Properties"/>
-    <template v-for="item in orderedItems">
+    <template v-for="item in items">
       <BaseButton
         @click.native="onClick(item.id)"
-        :selected="item.id === selectedId"
-        :text="item.name"
+        :selected="item.id === selectedId && $route.fullPath.includes('/workspace/property')"
+        :text="item.displayAddress"
         :key="item.id">
         <ButtonOption
           :icon="require('@/assets/img/close.svg')"
-          @click.native="$store.dispatch('entities/properties/deleteItem', item.id)"
+          @click.native="$store.dispatch('entities/properties/deleteId', item.id)"
         />
       </BaseButton>
     </template>
@@ -29,12 +29,10 @@ export default {
     ButtonOption
   },
   computed: {
-    ...mapState('entities/properties', [
-      'selectedId'
-    ]),
-    ...mapGetters('entities/properties', [
-      'orderedItems'
-    ])
+    ...mapState('entities/properties', {
+      selectedId: state => state.selectedId,
+      items: state => state.ids.map(id => state.items[id])
+    })
   },
   methods: {
     onClick (id) {

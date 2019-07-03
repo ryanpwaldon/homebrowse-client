@@ -1,16 +1,17 @@
 <template>
   <div class="properties">
     <BaseLoader v-if="loading"/>
-    <div class="properties-container" v-else-if="properties.length">
+    <div class="properties-container" v-else-if="items.length">
       <BasePropertyCard
-        v-for="(property, index) in properties"
-        :property="property"
+        @click.native="onClick(item.id)"
+        v-for="(item, index) in items"
+        :property="item"
         :key="index"
       />
       <BasePropertyCardPlaceholder
         v-init-auto-paginate-listener="n === 1"
         ref="base-property-card-placeholder"
-        v-for="n in (3 - properties.length % 3) + (properties.length % 3 === 0 ? 0 : 3)"
+        v-for="n in (3 - items.length % 3) + (items.length % 3 === 0 ? 0 : 3)"
         :key="'placeholder' + n"
         :style="{opacity: hasReachedLastPage ? 0 : 1}"
       />
@@ -34,24 +35,33 @@ export default {
     BaseLabel
   },
   computed: {
-    ...mapState('entities/suburbs', [
-      'selectedId'
-    ]),
-    ...mapState('entities/listings', [
-      'loading'
-    ]),
-    properties () {
-      return this.$store.state.entities.listings.collections[this.selectedId].map(id => this.$store.state.entities.listings.items[id])
+    ...mapState('entities/suburbs', {
+      selectedSuburbId: state => state.selectedId
+    }),
+    ...mapState('entities/properties', {
+      loading: state => state.loading,
+      lists: state => state.lists,
+      properties: state => state.items,
+      pages: state => state.pages
+    }),
+    items () {
+      return this.lists[this.selectedSuburbId].map(id => this.properties[id])
     },
     hasReachedLastPage () {
-      return this.$store.state.entities.listings.pages[this.selectedId] === -1
+      return this.pages[this.selectedSuburbId] === -1
+    }
+  },
+  methods: {
+    onClick (id) {
+      this.$store.dispatch('entities/properties/addId', id)
+      this.$router.push('/workspace/property')
     }
   },
   watch: {
-    selectedId: {
+    selectedSuburbId: {
       immediate: true,
-      handler: function (selectedId) {
-        this.$store.dispatch('entities/listings/fetchItems', { id: selectedId })
+      handler: function (selectedSuburbId) {
+        this.$store.dispatch('entities/properties/fetchItems', { id: selectedSuburbId })
       }
     }
   },
@@ -62,7 +72,7 @@ export default {
         if (!isFirst) return
         el.observer = new IntersectionObserver(([entry]) => {
           if (vnode.context.hasReachedLastPage) return el.observer.disconnect()
-          if (entry.isIntersecting) setTimeout(() => vnode.context.$store.dispatch('entities/listings/fetchItems', { id: vnode.context.selectedId, nextPage: true }), 1000)
+          if (entry.isIntersecting) setTimeout(() => vnode.context.$store.dispatch('entities/properties/fetchItems', { id: vnode.context.selectedSuburbId, nextPage: true }), 1000)
         })
         el.observer.observe(el)
       },

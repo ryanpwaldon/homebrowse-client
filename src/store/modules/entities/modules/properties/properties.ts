@@ -1,36 +1,42 @@
-import shortId from 'shortid'
+import Vue from 'vue'
+import isEqual from 'lodash/isEqual'
+import propertiesService from '@/services/api/propertiesService/propertiesService'
 
 export default {
   namespaced: true,
   state: {
     selectedId: null,
-    items: {
-      1: {
-        id: 1,
-        name: 'Unit 11 / 42 Greek Street'
-      },
-      2: {
-        id: 2,
-        name: '22 Madilta Avenue'
-      }
+    items: {},
+    ids: [],
+    filters: {},
+    lists: {},
+    pages: {},
+    rootFilter: {
+      bedrooms: '',
+      bathrooms: '',
+      carspaces: '',
+      listingType: 'buy',
+      sort: 'updatedDescending'
     },
-    ids: [1, 2]
-  },
-  getters: {
-    orderedItems (state) {
-      return state.ids.map(id => state.items[id])
-    }
+    loading: false
   },
   mutations: {
-    addItem (state, item) {
-      state.items[item.id] = item
+    setItems (state, items) {
+      items.forEach(item => Vue.set(state.items, item.id, item))
     },
-    addId (state, id) {
-      state.ids = [ ...state.ids, id ]
+    setPage (state, { id, page }) {
+      Vue.set(state.pages, id, page)
     },
-    deleteId (state, id) {
-      const ids = [ ...state.ids ]
-      ids.splice(ids.indexOf(id), 1)
+    setFilter (state, { id, rootFilter }) {
+      Vue.set(state.filters, id, rootFilter)
+    },
+    setList (state, { id, ids }) {
+      Vue.set(state.lists, id, ids)
+    },
+    setLoading (state, status) {
+      state.loading = status
+    },
+    setIds (state, ids) {
       state.ids = ids
     },
     setSelectedId (state, id) {
@@ -38,18 +44,45 @@ export default {
     }
   },
   actions: {
-    addItem ({ commit }, item) {
-      item.id = shortId.generate()
-      commit('addItem', item)
-      commit('addId', item.id)
-      commit('setSelectedId', item.id)
+    async fetchItems ({ state, commit, rootState }, { id, nextPage }) {
+      // check filter / rootFilter equality
+      // if equal prevent re-fetch
+      if (isEqual(state.filters[id], state.rootFilter) && !nextPage) return
+      if (!nextPage) commit('setLoading', true)
+      const rootFilter = state.rootFilter
+      commit('setFilter', { id, rootFilter })
+      const suburb = rootState.entities.suburbs.items[id]
+      const page = Number(state.pages[id] + 1) || 1
+      commit('setPage', { id, page })
+      const dao = getDao(rootFilter, suburb, page)
+      const items = (await propertiesService.findAll(dao)).data
+      if (!items.length) commit('setPage', { id, page: -1 })
+      commit('setItems', items)
+      const ids = [ ...(state.lists[id] || []), ...items.map(item => item.id) ]
+      commit('setList', { id, ids })
+      if (!nextPage) commit('setLoading', false)
     },
-    deleteItem ({ state, commit }, id) {
+    addId ({ state, commit }, id) {
+      const ids = [ ...state.ids, id ]
+      commit('setIds', ids)
+      commit('setSelectedId', id)
+    },
+    deleteId ({ state, commit }, id) {
       if (id === state.selectedId) {
         const index = state.ids.indexOf(id)
         commit('setSelectedId', state.ids[index + 1] || state.ids[index - 1] || null)
       }
-      commit('deleteId', id)
+      const ids = [ ...state.ids ]
+      ids.splice(ids.indexOf(id), 1)
+      commit('setIds', ids)
     }
   }
 }
+
+const getDao = (filter, suburb, page) => ({
+  ...filter,
+  name: suburb.name,
+  state: suburb.stateShort,
+  postcode: suburb.postcode,
+  page
+})

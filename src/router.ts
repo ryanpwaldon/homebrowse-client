@@ -35,7 +35,18 @@ export default new Router({
         },
         {
           path: 'property',
-          component: () => import('@/views/Workspace/views/Property/Property.vue')
+          component: () => import('@/views/Workspace/views/Property/Property.vue'),
+          children: [
+            {
+              path: '',
+              redirect: 'detail'
+            },
+            {
+              path: 'detail',
+              name: 'detail',
+              component: () => import('@/views/Workspace/views/Property/views/Detail/Detail.vue')
+            }
+          ]
         }
       ]
     },
