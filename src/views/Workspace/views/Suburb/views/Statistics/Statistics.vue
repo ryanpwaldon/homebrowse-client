@@ -1,30 +1,14 @@
 <template>
   <div class="statistics">
     <BaseLoader v-if="loading"/>
-    <div class="content" v-else>
+    <div class="content" v-show="!loading">
       <div class="statistics-container">
-        <BaseStatistic
-          title="Sale price"
-          subtitle="1Y Median"
-          :value="statisticSoldMedianPrice"
-          format="price"
-        />
-        <BaseStatistic
-          title="Rental price"
-          subtitle="1Y Median"
-          :value="statisticRentMedianPrice"
-          format="price"
-        />
-        <BaseStatistic
-          title="Rental Yield"
-          subtitle="1Y Median"
-          :value="statisticRentalYield"
-          format="percentage"
-        />
       </div>
       <BaseChart
+        v-if="medianSoldPrice.length"
         title="Median price"
-        :data="chartDataSoldMedianPrice"
+        :data="medianSoldPrice"
+        :selected-id="selectedId"
       />
     </div>
   </div>
@@ -32,31 +16,32 @@
 
 <script>
 import BaseLoader from '@/components/BaseLoader/BaseLoader'
-import BaseStatistic from '@/components/BaseStatistic/BaseStatistic'
 import BaseChart from '@/components/BaseChart/BaseChart'
 import { mapGetters, mapState } from 'vuex'
-import router from '@/router'
 export default {
   components: {
     BaseLoader,
-    BaseStatistic,
     BaseChart
   },
   mounted () {
-    this.$store.dispatch('suburbs/statistics/updateData')
-    this.$store.commit('ui/setSuburbRouteLastVisitedTabName', 'statistics')
   },
   computed: {
-    ...mapState('suburbs/statistics', {
-      loading: state => state.loading
-    }),
-    ...mapGetters('suburbs/statistics', [
-      'statisticSoldMedianPrice',
-      'statisticRentMedianPrice',
-      'chartDataSoldMedianPrice'
+    ...mapState('entities/suburbs', [
+      'selectedId'
     ]),
-    statisticRentalYield () {
-      return (this.statisticRentMedianPrice * 52) / this.statisticSoldMedianPrice
+    ...mapState('entities/statistics', [
+      'loading'
+    ]),
+    ...mapGetters('entities/statistics', [
+      'medianSoldPrice'
+    ])
+  },
+  watch: {
+    selectedId: {
+      immediate: true,
+      handler: function () {
+        this.$store.dispatch('entities/statistics/fetchItems')
+      }
     }
   }
 }

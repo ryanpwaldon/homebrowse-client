@@ -1,7 +1,7 @@
 <template>
-  <div class="properties">
+  <div>
     <BaseLoader v-if="loading"/>
-    <div class="properties-container" v-else-if="items.length">
+    <div class="content" v-else-if="items.length">
       <BasePropertyCard
         @click.native="onClick(item.id)"
         v-for="(item, index) in items"
@@ -34,6 +34,8 @@ export default {
     BasePropertyCardPlaceholder,
     BaseLabel
   },
+  mounted () {
+  },
   computed: {
     ...mapState('entities/suburbs', {
       selectedSuburbId: state => state.selectedId
@@ -54,7 +56,7 @@ export default {
   methods: {
     onClick (id) {
       this.$store.dispatch('entities/properties/addId', id)
-      this.$router.push('/workspace/property')
+      if (!this.$route.fullPath.includes('/workspace/property')) this.$router.push('/workspace/property')
     }
   },
   watch: {
@@ -85,7 +87,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.properties-container {
+.content {
   width: 100%;
   display: grid;
   grid-gap: var(--spacing-2);

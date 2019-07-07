@@ -4,14 +4,6 @@
     <div class="card">
       <div class="chart-container">
         <canvas class="chart" ref="chart"/>
-        <div class="tooltip-container" :style="{left: tooltip.x + 'px'}">
-          <div class="tooltip" :style="{top: tooltip.y + 'px'}">
-            <BaseLabel :text="tooltip.title"/>
-            <div class="x-value"><span class="symbol">$</span>{{ tooltip.xValue | formatNumber('priceNoSymbol') }}</div>
-            <div class="y-value">{{ tooltip.yValue }}</div>
-          </div>
-          <div class="vertical-line"><div class="circle" :style="{top: tooltip.y + 'px'}"/></div>
-        </div>
       </div>
       <div class="y-labels">
         <BaseLabel v-for="(label, index) in yLabels" :text="label | formatNumber('price')" :key="index"/>
@@ -37,19 +29,17 @@ export default {
       type: String,
       required: true
     },
-    selectedId: {
-      type: String,
-      required: true
-    },
     data: {
       type: Array,
       required: true
     }
   },
   mounted () {
+    console.log('Chart mounted')
     this.chart = new Chart(this.$refs['chart'], {
       plugins: [{
-        beforeDatasetUpdate: chart => {
+        afterDatasetsUpdate: chart => {
+          console.log('After data sets update')
           this.yLabels = chart.scales['y-axis-0'].ticks
           this.xLabels = chart.scales['x-axis-0'].ticks.slice(1)
         }
@@ -60,7 +50,6 @@ export default {
         datasets: this.createDatasets(this.data)
       },
       options: {
-        animation: { duration: 0 },
         scales: {
           yAxes: [{ ticks: { display: false, stepSize: 100000, maxTicksLimit: 10 }, gridLines: { drawTicks: false, display: false, drawBorder: false } }],
           xAxes: [{ ticks: { display: false }, gridLines: { drawTicks: false, display: false, drawBorder: false } }]
@@ -70,16 +59,7 @@ export default {
         tooltips: {
           intersect: false,
           enabled: false,
-          custom: tooltip => {
-            if (!tooltip.dataPoints) return
-            this.tooltip = {
-              title: this.data[tooltip.dataPoints[0].datasetIndex].name,
-              xValue: tooltip.dataPoints[0].value,
-              yValue: tooltip.dataPoints[0].label,
-              x: tooltip.dataPoints[0].x,
-              y: tooltip.dataPoints[0].y
-            }
-          }
+          axis: 'x'
         }
       }
     })
@@ -88,35 +68,24 @@ export default {
     return {
       chart: null,
       yLabels: [],
-      xLabels: [],
-      tooltip: {
-        title: '',
-        xValue: '',
-        yValue: '',
-        x: '',
-        y: ''
-      }
+      xLabels: []
     }
   },
   watch: {
     data (data) {
+      console.log('Data watcher')
       this.chart.data.datasets = this.createDatasets(data)
-      this.chart.update()
-    },
-    selectedId (id) {
-      this.chart.data.datasets = this.createDatasets(this.data)
       this.chart.update()
     }
   },
   methods: {
     createDatasets (data) {
       return data.map(item => ({
-        id: data.id,
         spanGaps: true,
         data: item.values,
         lineTension: 0.3,
         fill: false,
-        borderColor: item.id === this.selectedId ? '#4B96E8' : '#d5eafd',
+        borderColor: '#4B96E8',
         pointRadius: 0,
         borderWidth: 2
       }))
@@ -146,11 +115,6 @@ export default {
 .chart-container {
   width: 100%;
   min-width: 0;
-  position: relative;
-  cursor: crosshair;
-  &:hover .tooltip-container {
-    opacity: 1;
-  }
 }
 .x-labels,
 .y-labels {
@@ -182,68 +146,5 @@ export default {
 .space {
   grid-area: d;
   border-top: var(--border-1);
-}
-.tooltip-container {
-  transition:
-    left 0.2s ease-out,
-    opacity 0.2s ease-out;
-  opacity: 0;
-  top: 0;
-  height: 100%;
-  position: absolute;
-  padding: 0 var(--spacing-4);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  transform: translateX(-50%);
-  z-index: 1;
-  pointer-events: none;
-}
-.tooltip {
-  transition: top 0.2s ease-out;
-  min-width: 110px;
-  display: flex;
-  position: absolute;
-  left: 50%;
-  transform: translate(-50%, -100%) translateY(calc(-1 * var(--spacing-2)));
-  background: var(--color-black-1);
-  border-radius: var(--border-radius-1);
-  font-weight: var(--font-weight-bold);
-  color: var(--color-gray-1);
-  padding: var(--spacing-3) var(--spacing-4);
-  flex-direction: column;
-  text-align: center;
-  text-transform: uppercase;
-  .base-label {
-    margin-bottom: var(--spacing-4);
-  }
-}
-.x-value {
-  font-size: 24px;
-  color: var(--color-white-1);
-  margin-bottom: var(--spacing-4);
-}
-.symbol {
-  font-size: 14px;
-  color: var(--color-gray-1);
-}
-.y-value {
-  font-size: 14px;
-}
-.vertical-line {
-  height: 100%;
-  width: 1px;
-  background: var(--color-gray-2);
-}
-.circle {
-  transition: top 0.2s ease-out;
-  left: 50%;
-  position: absolute;
-  transform: translate(-50%, -50%);
-  border-radius: 100px;
-  width: 10px;
-  height: 10px;
-  background: var(--color-red-1);
 }
 </style>

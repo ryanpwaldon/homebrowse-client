@@ -46,7 +46,7 @@ export default {
     submit () {
       const item = this.suggestions[this.focusIndex]
       if (!item) return
-      this.$router.push('/workspace/suburb')
+      if (!this.$route.fullPath.includes('/workspace/suburb')) this.$router.push('/workspace/suburb')
       this.$store.commit('ui/setSearchModalStatus', false)
       this.$store.dispatch('entities/suburbs/addItem', item)
     },

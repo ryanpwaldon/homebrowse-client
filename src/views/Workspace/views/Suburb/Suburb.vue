@@ -5,16 +5,28 @@
         <div class="title">{{ item.name }}</div>
         <div class="subtitle">{{ item.stateShort }} {{ item.postcode }}</div>
       </div>
-      <router-view :key="$route.fullPath"/>
+      <BaseNav
+        :items="[
+          { text: 'Properties', link: '/workspace/suburb/properties' },
+          { text: 'Statistics', link: '/workspace/suburb/statistics' }
+        ]"
+      />
+      <router-view/>
     </div>
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
-import store from '@/store/store'
+import BaseNav from '@/components/BaseNav/BaseNav'
 export default {
+  components: {
+    BaseNav
+  },
+  mounted () {
+  },
   computed: mapState('entities/suburbs', {
+    selectedId: state => state.selectedId,
     item: state => state.items[state.selectedId]
   }),
   watch: {

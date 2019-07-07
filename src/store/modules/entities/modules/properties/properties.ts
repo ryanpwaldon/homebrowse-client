@@ -45,9 +45,7 @@ export default {
   },
   actions: {
     async fetchItems ({ state, commit, rootState }, { id, nextPage }) {
-      // check filter / rootFilter equality
-      // if equal prevent re-fetch
-      if (isEqual(state.filters[id], state.rootFilter) && !nextPage) return
+      if (isEqual(state.filters[id], state.rootFilter) && !nextPage) return // check filter / rootFilter equality, if equal prevent re-fetch
       if (!nextPage) commit('setLoading', true)
       const rootFilter = state.rootFilter
       commit('setFilter', { id, rootFilter })
@@ -55,7 +53,7 @@ export default {
       const page = Number(state.pages[id] + 1) || 1
       commit('setPage', { id, page })
       const dao = getDao(rootFilter, suburb, page)
-      const items = (await propertiesService.findAll(dao)).data
+      const items = await propertiesService.findAll(dao)
       if (!items.length) commit('setPage', { id, page: -1 })
       commit('setItems', items)
       const ids = [ ...(state.lists[id] || []), ...items.map(item => item.id) ]

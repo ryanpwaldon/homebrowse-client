@@ -1,7 +1,7 @@
 <template>
   <div>
     <BaseLabel text="Suburbs"/>
-    <template v-for="item in orderedItems">
+    <template v-for="item in itemsById">
       <BaseButton
         @click.native="onClick(item.id)"
         :selected="item.id === selectedId && $route.fullPath.includes('/workspace/suburb')"
@@ -33,13 +33,13 @@ export default {
       'selectedId'
     ]),
     ...mapGetters('entities/suburbs', [
-      'orderedItems'
+      'itemsById'
     ])
   },
   methods: {
     onClick (id) {
       this.$store.commit('entities/suburbs/setSelectedId', id)
-      this.$router.push('/workspace/suburb')
+      if (!this.$route.fullPath.includes('/workspace/suburb')) this.$router.push('/workspace/suburb')
     }
   }
 }

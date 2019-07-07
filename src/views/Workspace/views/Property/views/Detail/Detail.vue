@@ -18,22 +18,22 @@ export default {
     BaseGallery
   },
   computed: {
-    ...mapState('entities/properties', {
-      selectedPropertyId: state => state.selectedId
-    }),
+    ...mapState('entities/properties', [
+      'selectedId'
+    ]),
     ...mapState('entities/propertiesDetail', [
       'items',
       'loading'
     ]),
     item () {
-      return this.items[this.selectedPropertyId]
+      return this.items[this.selectedId]
     }
   },
   watch: {
-    selectedPropertyId: {
+    selectedId: {
       immediate: true,
-      handler: function (selectedPropertyId) {
-        this.$store.dispatch('entities/propertiesDetail/fetchItem', { id: selectedPropertyId })
+      handler: function (selectedId) {
+        this.$store.dispatch('entities/propertiesDetail/fetchItem', { id: selectedId })
       }
     }
   }

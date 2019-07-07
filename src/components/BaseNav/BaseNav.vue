@@ -1,5 +1,5 @@
 <template>
-  <div class="base-nav-secondary">
+  <div class="base-nav">
     <BaseButtonNav
       v-for="(item, index) in items"
       :key="index"
@@ -25,7 +25,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.base-nav-secondary {
+.base-nav {
   display: flex;
   justify-content: flex-start;
   border-bottom: var(--border-1);

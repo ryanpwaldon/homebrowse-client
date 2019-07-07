@@ -8,7 +8,7 @@ export default {
     ids: []
   },
   getters: {
-    orderedItems (state) {
+    itemsById (state) {
       return state.ids.map(id => state.items[id])
     }
   },
