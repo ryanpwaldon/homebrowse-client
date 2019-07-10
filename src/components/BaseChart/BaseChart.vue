@@ -52,6 +52,7 @@ export default {
         beforeDatasetUpdate: chart => {
           this.yLabels = chart.scales['y-axis-0'].ticks
           this.xLabels = chart.scales['x-axis-0'].ticks.slice(1)
+          chart.resize()
         }
       }],
       type: 'line',
@@ -65,7 +66,7 @@ export default {
           yAxes: [{ ticks: { display: false, stepSize: 100000, maxTicksLimit: 10 }, gridLines: { drawTicks: false, display: false, drawBorder: false } }],
           xAxes: [{ ticks: { display: false }, gridLines: { drawTicks: false, display: false, drawBorder: false } }]
         },
-        layout: { padding: { top: 0, right: 0, bottom: 0, left: 0 } },
+        layout: { padding: { top: 20, right: 0, bottom: 20, left: 0 } },
         legend: { display: false },
         tooltips: {
           intersect: false,
