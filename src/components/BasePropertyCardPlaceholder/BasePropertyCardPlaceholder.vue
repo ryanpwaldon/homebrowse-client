@@ -38,7 +38,7 @@ export default {
     background: var(--color-gray-6);
   }
 }
-.content {
+.base-property-card-placeholder .content {
   display: flex;
   font-size: 14px;
   justify-content: space-between;

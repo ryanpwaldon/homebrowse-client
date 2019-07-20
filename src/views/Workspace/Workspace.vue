@@ -2,6 +2,7 @@
   <div class="workspace">
     <Sidebar/>
     <Content/>
+    <Map/>
     <BaseModalOverlay
       :condition="this.$store.state.ui.searchModalStatus"
       @close="() => this.$store.commit('ui/setSearchModalStatus', false)">
@@ -11,14 +12,15 @@
 </template>
 
 <script>
+import Map from './partials/Map/Map'
 import Sidebar from './partials/Sidebar/Sidebar'
 import Content from './partials/Content/Content'
-import Map from './partials/Map/Map'
 import BaseModalOverlay from '@/components/BaseModalOverlay/BaseModalOverlay'
 import BaseSearch from '@/components/BaseSearch/BaseSearch'
 export default {
   name: 'workspace',
   components: {
+    Map,
     Sidebar,
     Content,
     BaseModalOverlay,
@@ -38,9 +40,8 @@ export default {
   justify-content: space-between;
   background: var(--color-gray-5);
   flex: 1;
-  .search { flex: 1 }
   .sidebar { width: 260px }
   .content { flex: 1 }
-  .map { width: 50% }
+  .map { flex: 1}
 }
 </style>

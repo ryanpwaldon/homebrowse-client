@@ -30,6 +30,9 @@ export default {
     setFilter (state, { id, rootFilter }) {
       Vue.set(state.filters, id, rootFilter)
     },
+    setRootFilter (state, { key, value }) {
+      Vue.set(state.rootFilter, key, value)
+    },
     setList (state, { id, ids }) {
       Vue.set(state.lists, id, ids)
     },
@@ -44,21 +47,28 @@ export default {
     }
   },
   actions: {
-    async fetchItems ({ state, commit, rootState }, { id, nextPage }) {
-      if (isEqual(state.filters[id], state.rootFilter) && !nextPage) return // check filter / rootFilter equality, if equal prevent re-fetch
-      if (!nextPage) commit('setLoading', true)
-      const rootFilter = state.rootFilter
-      commit('setFilter', { id, rootFilter })
-      const suburb = rootState.entities.suburbs.items[id]
-      const page = Number(state.pages[id] + 1) || 1
-      commit('setPage', { id, page })
-      const dao = getDao(rootFilter, suburb, page)
+    async fetchItems ({ state, commit, rootState }, id) {
+      // check filter === rootFilter
+      if (isEqual(state.filters[id], state.rootFilter)) return
+      commit('setLoading', true)
+      commit('setFilter', { id, rootFilter: { ...state.rootFilter } })
+      commit('setPage', { id, page: 1 })
+      const dao = getDao(state.filters[id], rootState.entities.suburbs.items[id], state.pages[id])
+      const items = await propertiesService.findAll(dao)
+      if (!items.length) commit('setPage', { id, page: -1 })
+      commit('setItems', items)
+      const ids = items.map(item => item.id)
+      commit('setList', { id, ids })
+      commit('setLoading', false)
+    },
+    async fetchItemsNextPage ({ state, commit, rootState }, id) {
+      commit('setPage', { id, page: state.pages[id] + 1 })
+      const dao = getDao(state.filters[id], rootState.entities.suburbs.items[id], state.pages[id])
       const items = await propertiesService.findAll(dao)
       if (!items.length) commit('setPage', { id, page: -1 })
       commit('setItems', items)
       const ids = [ ...(state.lists[id] || []), ...items.map(item => item.id) ]
       commit('setList', { id, ids })
-      if (!nextPage) commit('setLoading', false)
     },
     addId ({ state, commit }, id) {
       const ids = [ ...state.ids, id ]
@@ -73,6 +83,10 @@ export default {
       const ids = [ ...state.ids ]
       ids.splice(ids.indexOf(id), 1)
       commit('setIds', ids)
+    },
+    updateRootFilter ({ commit, dispatch, rootState }, { key, value }) {
+      commit('setRootFilter', { key, value })
+      dispatch('fetchItems', rootState.entities.suburbs.selectedId)
     }
   }
 }

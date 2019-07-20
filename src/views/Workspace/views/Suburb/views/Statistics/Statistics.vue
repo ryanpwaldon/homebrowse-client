@@ -1,5 +1,6 @@
 <template>
   <div class="statistics">
+    <Filters/>
     <BaseLoader v-if="loading"/>
     <div class="content" v-show="!loading">
       <div class="statistics-container">
@@ -15,11 +16,13 @@
 </template>
 
 <script>
+import Filters from './partials/Filters/Filters'
 import BaseLoader from '@/components/BaseLoader/BaseLoader'
 import BaseChart from '@/components/BaseChart/BaseChart'
 import { mapGetters, mapState } from 'vuex'
 export default {
   components: {
+    Filters,
     BaseLoader,
     BaseChart
   },

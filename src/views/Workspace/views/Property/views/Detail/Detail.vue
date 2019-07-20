@@ -3,7 +3,9 @@
     <BaseLoader v-if="loading"/>
     <div class="container" v-else>
       <BaseGallery :images="item.images"/>
-      {{ item.description }}
+      <div class="description">
+        {{ item.description }}
+      </div>
     </div>
   </div>
 </template>
@@ -43,5 +45,8 @@ export default {
 <style lang="scss" scoped>
 .base-gallery {
   margin-bottom: var(--spacing-1);
+}
+.description {
+  color: var(--color-gray-1);
 }
 </style>

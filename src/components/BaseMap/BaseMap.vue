@@ -5,7 +5,7 @@
 <script>
 import mapboxgl from 'mapbox-gl'
 import ResizeObserver from 'resize-observer-polyfill'
-import { mapGetters } from 'vuex'
+import { mapState } from 'vuex'
 export default {
   mounted () {
     this.initMap()
@@ -14,38 +14,14 @@ export default {
   beforeDestroy () {
     this.removeParentResizeListener()
   },
-  data () {
-    return {
-      hoveredItem: null,
-      stateMap: {
-        NSW: 'New South Wales',
-        QLD: 'Queensland',
-        VIC: 'Victoria',
-        TAS: 'Tasmania',
-        NT: 'Northern Territory',
-        SA: 'South Australia',
-        WA: 'Western Australia',
-        ACT: 'Australian Capital Territory'
-      }
-    }
-  },
   computed: {
-    ...mapGetters('suburbs', [
-      'selectedSuburb'
-    ]),
-    ...mapGetters('suburbs/map', [
-      'boundingBox'
-    ]),
-    suburbDetailsMapboxFormat () {
-      return {
-        name: this.selectedSuburb.details.name,
-        state: this.stateMap[this.selectedSuburb.details.state]
-      }
-    }
+    ...mapState('entities/suburbs', {
+      suburb: state => state.items[state.selectedId]
+    })
   },
   watch: {
-    boundingBox (boundingBox) {
-      if (boundingBox) this.updateBoundingBox(boundingBox)
+    suburb (suburb) {
+      this.updateBoundingBox(suburb)
     }
   },
   methods: {
@@ -57,50 +33,29 @@ export default {
         center: new mapboxgl.LngLat(151.209900, -33.865143),
         zoom: 13
       })
-      this.map.on('style.load', () => {
+    },
+    updateBoundingBox (suburb) {
+      if (!suburb) {
         this.map.setLayoutProperty('place-label-focus', 'visibility', 'none')
         this.map.setLayoutProperty('suburb-outline-focus', 'visibility', 'none')
-        this.map.setPaintProperty('suburb-fill-focus', 'fill-color', 'rgba(0, 0, 0, 0.05)')
-      })
-      this.map.on('load', () => {
-        this.addSuburbHoverListeners()
-      })
-    },
-    removeParentResizeListener () {
-      this.resizeObserver.disconnect()
+        this.map.setLayoutProperty('suburb-fill-focus', 'visibility', 'none')
+        return
+      }
+      const filter = (combination, comparison) => [ combination, [comparison, 'STE_NAME16', suburb.stateLong], [comparison, 'SSC_NAME16', suburb.name] ]
+      this.map.setFilter('place-label-focus', filter('all', '=='))
+      this.map.setFilter('suburb-fill-focus', filter('any', '!='))
+      this.map.setFilter('suburb-outline-focus', filter('all', '=='))
+      this.map.fitBounds(suburb.boundingBox, { padding: 100, maxZoom: 13, duration: 2000 })
+      this.map.setLayoutProperty('place-label-focus', 'visibility', 'visible')
+      this.map.setLayoutProperty('suburb-outline-focus', 'visibility', 'visible')
+      this.map.setLayoutProperty('suburb-fill-focus', 'visibility', 'visible')
     },
     addParentResizeListener () {
       this.resizeObserver = new ResizeObserver(([entry]) => this.map.resize())
       this.resizeObserver.observe(this.$refs['base-map'])
     },
-    addSuburbHoverListeners () {
-      this.map.setPaintProperty('australian-suburbs-fill', 'fill-color', '#007aff')
-      this.map.setPaintProperty('australian-suburbs-fill', 'fill-opacity', [ 'case', ['boolean', ['feature-state', 'hover'], false], 0.1, 0 ])
-      this.map.on('mousemove', 'australian-suburbs-fill', e => {
-        if (e.features.length > 0) {
-          if (this.hoveredItem) {
-            this.map.setFeatureState({ source: 'composite', sourceLayer: 'Australian_Suburbs-a88yh2', id: this.hoveredItem }, { hover: false })
-          }
-          this.hoveredItem = e.features[0].id
-          this.map.setFeatureState({ source: 'composite', sourceLayer: 'Australian_Suburbs-a88yh2', id: this.hoveredItem }, { hover: true })
-        }
-      })
-      this.map.on('mouseleave', 'australian-suburbs-fill', () => {
-        if (this.hoveredItem) {
-          this.map.setFeatureState({ source: 'composite', sourceLayer: 'Australian_Suburbs-a88yh2', id: this.hoveredItem }, { hover: false })
-        }
-        this.hoveredItem = null
-      })
-    },
-    updateBoundingBox (boundingBox) {
-      this.map.setLayoutProperty('suburb-fill-focus', 'visibility', 'visible')
-      this.map.setLayoutProperty('place-label-focus', 'visibility', 'visible')
-      this.map.setLayoutProperty('suburb-outline-focus', 'visibility', 'visible')
-      const filter = (combination, comparison) => [ combination, [comparison, 'STE_NAME16', this.suburbDetailsMapboxFormat.state], [comparison, 'SSC_NAME16', this.suburbDetailsMapboxFormat.name] ]
-      this.map.setFilter('place-label-focus', filter('all', '=='))
-      this.map.setFilter('suburb-fill-focus', filter('any', '!='))
-      this.map.setFilter('suburb-outline-focus', filter('all', '=='))
-      this.map.fitBounds(boundingBox, { padding: 100, maxZoom: 13, duration: 2000 })
+    removeParentResizeListener () {
+      this.resizeObserver.disconnect()
     }
   }
 }
@@ -111,7 +66,6 @@ export default {
   width: 100%;
   height: 100%;
   border: var(--border-1);
-  // box-shadow: var(--box-shadow-1);
   border-radius: var(--border-radius-1);
   background: var(--color-white-1);
 }

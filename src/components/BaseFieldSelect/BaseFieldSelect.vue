@@ -1,7 +1,8 @@
 <template>
   <div class="base-field-select">
     <div class="label">
-      {{ options.find(item => item.value === selected).display }}
+      <img class="icon" :src="icon" v-if="icon">
+      <div class="text" v-if="displayText">{{ displayText }}</div>
       <img class="expand-icon" src="@/assets/img/expand-vertical.svg">
     </div>
     <select
@@ -22,9 +23,9 @@
 <script>
 export default {
   props: {
-    label: {
+    icon: {
       type: String,
-      required: true
+      required: false
     },
     options: {
       type: Array,
@@ -33,6 +34,12 @@ export default {
     selected: {
       type: String,
       required: true
+    }
+  },
+  computed: {
+    displayText () {
+      const selected = this.options.find(item => item.value === this.selected)
+      return selected.hidden ? false : selected.display
     }
   }
 }
@@ -48,17 +55,28 @@ export default {
   color: var(--color-black-2);
   font-weight: var(--font-weight-medium);
   font-size: 14px;
+  height: calc(var(--spacing-5) * 2 + 1em);
+  padding: 0 var(--spacing-4);
+  background: var(--color-white-1);
+  border-radius: var(--border-radius-2);
+  box-shadow: var(--box-shadow-1);
+  .icon {
+    height: 1.3em;
+    margin-right: var(--spacing-5);
+  }
+  .text {
+    margin-right: var(--spacing-5);
+  }
   .expand-icon {
     height: 0.9em;
-    margin-left: var(--spacing-5);
   }
 }
 .select {
   position: absolute;
-  width: calc(100% + var(--spacing-4) * 2);
-  height: calc(100% + var(--spacing-5) * 2);
-  top: calc(-1 * var(--spacing-5));
-  left: calc(-1 * var(--spacing-4));
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
   transition: background-color 120ms ease-in-out;
   border-radius: var(--border-radius-2);
   color: var(--color-transparent);

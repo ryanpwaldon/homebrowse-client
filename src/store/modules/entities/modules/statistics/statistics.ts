@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import statisticsService from '@/services/api/statisticsService/statisticsService'
 
 export default {
@@ -5,8 +6,8 @@ export default {
   state: {
     items: {},
     rootFilter: {
+      propertyCategory: 'house',
       bedrooms: '',
-      propertyCategory: '',
       periods: 10
     },
     loading: true
@@ -33,6 +34,9 @@ export default {
     },
     setLoading (state, status) {
       state.loading = status
+    },
+    setRootFilter (state, { key, value }) {
+      Vue.set(state.rootFilter, key, value)
     }
   },
   actions: {
@@ -44,7 +48,7 @@ export default {
       let items = await Promise.all(suburbs.reduce((acc, suburb) => {
         if (!state.items[suburb.id]) {
           ids.push(suburb.id)
-          const dao = getDao(suburb)
+          const dao = getDao(suburb, state.rootFilter)
           acc.push(statisticsService.findStatistics(dao))
         }
         return acc
@@ -56,12 +60,34 @@ export default {
       items = { ...state.items, ...items }
       commit('setItems', items)
       commit('setLoading', false)
+    },
+    async updateItems ({ state, commit, rootState }) {
+      commit('setLoading', true)
+      const ids = []
+      let items = await Promise.all(Object.keys(state.items).reduce((acc: any[], id) => {
+        ids.push(id)
+        const dao = getDao(rootState.entities.suburbs.items[id], state.rootFilter)
+        acc.push(statisticsService.findStatistics(dao))
+        return acc
+      }, []))
+      items = ids.reduce((acc, id, index) => {
+        acc[id] = items[index]
+        return acc
+      }, {})
+      commit('setItems', items)
+      commit('setLoading', false)
+    },
+    updateRootFilter ({ commit, dispatch }, { key, value }) {
+      commit('setRootFilter', { key, value })
+      dispatch('updateItems', true)
     }
   }
 }
 
-const getDao = suburb => ({
+const getDao = (suburb, filter) => ({
   name: suburb.name,
   state: suburb.stateShort,
-  postcode: suburb.postcode
+  postcode: suburb.postcode,
+  propertyCategory: filter.propertyCategory,
+  bedrooms: filter.bedrooms
 })

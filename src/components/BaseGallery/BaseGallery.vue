@@ -5,8 +5,10 @@
         <div class="image" :style="{backgroundImage: `url(${path})`}"/>
       </div>
     </div>
-    <div class="button left" @click="updateGallery(selectedImageIndex - 1)">←</div>
-    <div class="button right" @click="updateGallery(selectedImageIndex + 1)">→</div>
+    <template v-if="images.length > 1">
+      <div class="button left" @click="updateGallery(selectedImageIndex - 1)">←</div>
+      <div class="button right" @click="updateGallery(selectedImageIndex + 1)">→</div>
+    </template>
   </div>
 </template>
 

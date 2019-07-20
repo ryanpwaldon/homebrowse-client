@@ -1,10 +1,18 @@
 <template>
   <div class="property" v-if="item">
     <div class="content">
-      <div class="title-container">
-        <div class="title">{{ item.displayAddress }}</div>
-        <div class="subtitle">{{ item.suburb }} {{ item.state }} {{ item.postcode }}</div>
+      <div class="header">
+        <div class="title-container">
+          <div class="title">{{ item.displayAddress }}</div>
+          <div class="subtitle">{{ item.suburb }} {{ item.state }} {{ item.postcode }}</div>
+        </div>
+        <div class="price">{{ item.price }}</div>
       </div>
+      <BaseNav
+        :items="[
+          { text: 'Detail', link: '/workspace/property/detail' }
+        ]"
+      />
       <router-view/>
     </div>
   </div>
@@ -13,7 +21,11 @@
 <script>
 import { mapState } from 'vuex'
 import store from '@/store/store'
+import BaseNav from '@/components/BaseNav/BaseNav'
 export default {
+  components: {
+    BaseNav
+  },
   computed: mapState('entities/properties', {
     item: state => state.items[state.selectedId]
   }),
@@ -34,23 +46,32 @@ export default {
 <style lang="scss" scoped>
 .property {
   align-self: flex-start;
-  padding: var(--spacing-1) 0;
 }
 .content {
   max-width: 700px;
   margin: 0 auto;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
 }
 .title-container {
   margin-bottom: var(--spacing-1);
 }
 .title {
   font-size: 24px;
-  color: var(--color-black-2);
+  color: var(--color-gray-1);
   font-weight: var(--font-weight-bold);
 }
 .subtitle {
   font-size: 14px;
   color: var(--color-gray-1);
+  font-weight: var(--font-weight-bold);
+}
+.price {
+  font-size: 24px;
+  color: var(--color-black-2);
   font-weight: var(--font-weight-bold);
 }
 </style>

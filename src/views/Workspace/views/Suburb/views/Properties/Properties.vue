@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Filters/>
     <BaseLoader v-if="loading"/>
     <div class="content" v-else-if="items.length">
       <BasePropertyCard
@@ -25,6 +26,7 @@ import BaseLoader from '@/components/BaseLoader/BaseLoader'
 import BasePropertyCard from '@/components/BasePropertyCard/BasePropertyCard'
 import BasePropertyCardPlaceholder from '@/components/BasePropertyCardPlaceholder/BasePropertyCardPlaceholder'
 import BaseLabel from '@/components/BaseLabel/BaseLabel'
+import Filters from './partials/Filters/Filters'
 import { mapState, mapGetters } from 'vuex'
 import router from '@/router'
 export default {
@@ -32,7 +34,8 @@ export default {
     BaseLoader,
     BasePropertyCard,
     BasePropertyCardPlaceholder,
-    BaseLabel
+    BaseLabel,
+    Filters
   },
   mounted () {
   },
@@ -63,7 +66,7 @@ export default {
     selectedSuburbId: {
       immediate: true,
       handler: function (selectedSuburbId) {
-        this.$store.dispatch('entities/properties/fetchItems', { id: selectedSuburbId })
+        this.$store.dispatch('entities/properties/fetchItems', selectedSuburbId)
       }
     }
   },
@@ -74,7 +77,7 @@ export default {
         if (!isFirst) return
         el.observer = new IntersectionObserver(([entry]) => {
           if (vnode.context.hasReachedLastPage) return el.observer.disconnect()
-          if (entry.isIntersecting) setTimeout(() => vnode.context.$store.dispatch('entities/properties/fetchItems', { id: vnode.context.selectedSuburbId, nextPage: true }), 1000)
+          if (entry.isIntersecting) setTimeout(() => vnode.context.$store.dispatch('entities/properties/fetchItemsNextPage', vnode.context.selectedSuburbId), 1000)
         })
         el.observer.observe(el)
       },

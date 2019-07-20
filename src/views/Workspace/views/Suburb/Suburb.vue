@@ -23,8 +23,6 @@ export default {
   components: {
     BaseNav
   },
-  mounted () {
-  },
   computed: mapState('entities/suburbs', {
     selectedId: state => state.selectedId,
     item: state => state.items[state.selectedId]
@@ -46,7 +44,6 @@ export default {
 <style lang="scss" scoped>
 .suburb {
   align-self: flex-start;
-  padding: var(--spacing-1) 0;
 }
 .content {
   max-width: 700px;
