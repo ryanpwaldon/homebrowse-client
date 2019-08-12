@@ -1,5 +1,5 @@
 <template>
-  <div class="base-layout">
+  <div class="app-layout">
     <BaseNavPrimary/>
     <slot/>
   </div>
@@ -15,7 +15,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.base-layout {
+.app-layout {
   width: 100%;
   height: 100%;
   display: flex;

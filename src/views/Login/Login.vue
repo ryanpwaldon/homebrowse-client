@@ -1,25 +1,66 @@
 <template>
   <div class="login">
     <form @submit.prevent="onSubmit">
-      <img class="logo" src="@/assets/img/logo-letter.svg">
-      <BaseFieldEmail label="Email"/>
-      <BaseFieldPassword label="Password"/>
+      <img class="logo" src="@/assets/img/logo-circle.svg">
+      <BaseFieldInput
+        class="email"
+        label="Email"
+        :value="email"
+        type="email"
+        placeholder="bruce@wayne.com"
+        :required="true"
+        @input="email = $event"
+      />
+      <BaseFieldInput
+        class="password"
+        label="Password"
+        :value="password"
+        type="password"
+        placeholder="At least 8 characters"
+        :required="true"
+        @input="password = $event"
+      />
       <div class="forgot-password">I forgot my password</div>
-      <BaseButtonSubmit text="Login to Homebrowse"/>
+      <BaseButtonSubmit
+        text="Login to Homebrowse"
+        :loading="loading"
+      />
+      <transition name="fade">
+        <div class="auth-error" v-if="loginFailed">
+          Your login info isn't right. Try again, or reset your password if it slipped your mind.
+        </div>
+      </transition>
     </form>
   </div>
 </template>
 
 <script>
-import BaseFieldEmail from '@/components/BaseFieldEmail/BaseFieldEmail'
-import BaseFieldPassword from '@/components/BaseFieldPassword/BaseFieldPassword'
+import BaseFieldInput from '@/components/BaseFieldInput/BaseFieldInput'
 import BaseButtonSubmit from '@/components/BaseButtonSubmit/BaseButtonSubmit'
+import { mapState } from 'vuex'
 export default {
   name: 'login',
   components: {
-    BaseFieldEmail,
-    BaseFieldPassword,
+    BaseFieldInput,
     BaseButtonSubmit
+  },
+  data () {
+    return {
+      email: '',
+      password: '',
+      loading: false
+    }
+  },
+  computed: mapState('user', [
+    'loginFailed'
+  ]),
+  methods: {
+    async onSubmit () {
+      this.loading = true
+      const accessToken = await this.$store.dispatch('user/login', { email: this.email, password: this.password })
+      if (accessToken) this.$router.push('/')
+      this.loading = false
+    }
   }
 }
 </script>
@@ -31,7 +72,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
+  background: var(--color-gray-5);
 }
 form {
   width: 256px;
@@ -40,14 +81,14 @@ form {
 .logo {
   position: absolute;
   transform: translate(-50%, -100%);
-  top: calc(-1 * var(--spacing--1));
-  width: 25px;
+  top: calc(-1 * var(--spacing-1));
+  width: 40px;
   left: 50%;
 }
-.base-field-email {
+.email {
   margin-bottom: var(--spacing-2);
 }
-.base-field-password {
+.password {
   margin-bottom: var(--spacing-5);
 }
 .forgot-password {
@@ -57,5 +98,15 @@ form {
   margin-bottom: calc(var(--spacing-2) + 5px);
   display: inline-block;
   cursor: pointer;
+}
+.auth-error {
+  position: absolute;
+  width: 100%;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: var(--spacing-2);
+  color: var(--color-red-2);
+  line-height: 1.2em;
 }
 </style>

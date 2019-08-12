@@ -69,10 +69,7 @@ export default {
   border-radius: var(--border-radius-1);
   background: var(--color-white-1);
 }
-</style>
-
-<style>
-.mapboxgl-canvas:focus {
+::v-deep .mapboxgl-canvas:focus {
   outline: 0;
 }
 </style>

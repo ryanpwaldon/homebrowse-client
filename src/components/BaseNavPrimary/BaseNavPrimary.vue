@@ -9,8 +9,7 @@
     </div>
     <div class="section">
       <BaseButtonNav
-        text="Login"
-        link="/login"
+        text="Logout"
       />
     </div>
   </div>
@@ -33,7 +32,7 @@ export default {
   display: flex;
   justify-content: space-between;
   border-bottom: var(--border-1);
-  padding: var(--spacing-2);
+  padding: var(--spacing-2) var(--spacing-1);
 }
 .section {
   display: grid;

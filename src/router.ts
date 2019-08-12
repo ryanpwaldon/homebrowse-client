@@ -1,9 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import { APP } from '@/components/BaseLayout/layout.types'
+import store from '@/store/store'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
@@ -11,6 +13,7 @@ export default new Router({
       path: '/workspace',
       name: 'workspace',
       component: () => import('@/views/Workspace/Workspace.vue'),
+      meta: { layout: APP },
       children: [
         {
           path: 'suburb',
@@ -60,3 +63,14 @@ export default new Router({
     }
   ]
 })
+
+let firstLoad = true
+router.beforeEach(async (to, _, next) => {
+  if (firstLoad && store.state.user.accessToken) await store.dispatch('user/checkAuthStatus')
+  firstLoad = false
+  !store.state.user.accessToken
+    ? to.path === '/login' ? next() : next('/login')
+    : to.path === '/login' ? next('/') : next()
+})
+
+export default router

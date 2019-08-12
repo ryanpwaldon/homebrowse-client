@@ -1,36 +1,61 @@
 <template>
-  <input
-    class="base-field-input"
-    ref="base-field-input"
-    :placeholder="placeholder"
-    :value="value"
-    @input="$emit('input', $event.target.value)"
-    type="text">
+  <div class="base-field-input">
+    <label v-if="label">{{ label }}</label>
+    <input
+      @input="$emit('input', $event.target.value)"
+      :placeholder="placeholder"
+      :required="required"
+      :value="value"
+      :type="type">
+  </div>
 </template>
 
 <script>
 export default {
   props: {
-    value: {
+    label: {
       type: String,
-      required: true
+      required: false
+    },
+    type: {
+      type: String,
+      default: 'text'
     },
     placeholder: {
       type: String,
       default: ''
+    },
+    required: {
+      type: Boolean,
+      default: true
+    },
+    value: {
+      type: String,
+      required: true
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.base-field-input {
-  background: var(--color-white);
-  border-radius: var(--border-radius-1);
-  font-weight: var(--font-weight-semibold);
-  box-shadow: var(--box-shadow-1);
-  padding: var(--spacing-2);
-  font-size: 18px;
+label {
+  font-size: 14px;
+  margin-bottom: var(--spacing-5);
+  color: var(--color-black-2);
+  display: block;
+}
+input {
+  width: 100%;
+  background: var(--color-white-1);
+  border-radius: var(--border-radius-2);
+  font-weight: var(--font-weight-regular);
+  padding: var(--spacing-4);
+  transition: border-color 120ms ease-in 0s;
+  border: var(--border-1);
   line-height: normal;
+  font-size: 14px;
+}
+input:focus {
+  border-color: var(--color-black-2);
 }
 </style>
