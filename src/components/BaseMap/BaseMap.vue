@@ -14,14 +14,36 @@ export default {
   beforeDestroy () {
     this.removeParentResizeListener()
   },
+  data () {
+    return {
+      map: null,
+      markers: []
+    }
+  },
   computed: {
     ...mapState('entities/suburbs', {
       suburb: state => state.items[state.selectedId]
-    })
+    }),
+    ...mapState('entities/properties', {
+      properties: state => state.items
+    }),
+    ...mapState('ui', {
+      propertiesInViewById: state => state.propertiesInViewById
+    }),
+    propertiesInViewLngLats () {
+      const propertiesInViewById = this.propertiesInViewById
+      return propertiesInViewById.map(id => ({
+        lng: this.properties[id].lng,
+        lat: this.properties[id].lat
+      }))
+    }
   },
   watch: {
     suburb (suburb) {
       this.updateBoundingBox(suburb)
+    },
+    propertiesInViewLngLats (lngLats) {
+      this.updateMarkers(lngLats)
     }
   },
   methods: {
@@ -49,6 +71,11 @@ export default {
       this.map.setLayoutProperty('place-label-focus', 'visibility', 'visible')
       this.map.setLayoutProperty('suburb-outline-focus', 'visibility', 'visible')
       this.map.setLayoutProperty('suburb-fill-focus', 'visibility', 'visible')
+    },
+    updateMarkers (lngLats) {
+      this.markers.forEach(marker => marker.remove())
+      this.markers = []
+      this.markers = lngLats.map(lngLat => new mapboxgl.Marker().setLngLat(lngLat).addTo(this.map))
     },
     addParentResizeListener () {
       this.resizeObserver = new ResizeObserver(([entry]) => this.map.resize())

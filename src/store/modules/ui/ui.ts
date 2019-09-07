@@ -2,7 +2,8 @@ export default {
   namespaced: true,
   state: {
     searchModalStatus: false,
-    selectedPlaceId: null
+    selectedPlaceId: null,
+    propertiesInViewById: []
   },
   mutations: {
     setSearchModalStatus (state, status) {
@@ -10,6 +11,9 @@ export default {
     },
     setSelectedPlaceId (state, status) {
       state.searchModalStatus = status
+    },
+    setPropertiesInViewById (state, ids) {
+      state.propertiesInViewById = ids
     }
   }
 }

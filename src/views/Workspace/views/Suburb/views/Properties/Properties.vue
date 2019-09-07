@@ -4,10 +4,12 @@
     <BaseLoader v-if="loading"/>
     <div class="content" v-else-if="items.length">
       <BasePropertyCard
+        ref="base-property-card"
         @click.native="onClick(item.id)"
         v-for="(item, index) in items"
         :property="item"
         :key="index"
+        :data-id="item.id"
       />
       <BasePropertyCardPlaceholder
         v-init-auto-paginate-listener="n === 1"
@@ -28,6 +30,7 @@ import BasePropertyCardPlaceholder from '@/components/BasePropertyCardPlaceholde
 import BaseLabel from '@/components/BaseLabel/BaseLabel'
 import Filters from './partials/Filters/Filters'
 import { mapState, mapGetters } from 'vuex'
+import remove from 'lodash/remove'
 import router from '@/router'
 export default {
   components: {
@@ -38,6 +41,19 @@ export default {
     Filters
   },
   mounted () {
+    this.$watch('items', this.resetIntersectionObserver)
+  },
+  data () {
+    return {
+      propertiesInViewById: [],
+      io: new IntersectionObserver(entries => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) this.propertiesInViewById.push(entry.target.dataset.id)
+          else remove(this.propertiesInViewById, id => entry.target.dataset.id === id)
+        }
+        this.$store.commit('ui/setPropertiesInViewById', [ ...this.propertiesInViewById ])
+      })
+    }
   },
   computed: {
     ...mapState('entities/suburbs', {
@@ -50,6 +66,7 @@ export default {
       pages: state => state.pages
     }),
     items () {
+      if (!this.lists[this.selectedSuburbId]) return
       return this.lists[this.selectedSuburbId].map(id => this.properties[id])
     },
     hasReachedLastPage () {
@@ -60,6 +77,11 @@ export default {
     onClick (id) {
       this.$store.dispatch('entities/properties/addId', id)
       if (!this.$route.fullPath.includes('/workspace/property')) this.$router.push('/workspace/property')
+    },
+    resetIntersectionObserver () {
+      this.io.disconnect()
+      this.propertiesInViewById = []
+      this.$refs['base-property-card'].forEach(item => this.io.observe(item.$el))
     }
   },
   watch: {
