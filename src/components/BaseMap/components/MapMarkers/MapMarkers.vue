@@ -12,9 +12,6 @@ export default {
       default: false
     }
   },
-  mounted () {
-    console.log(this.markerDataArr)
-  },
   beforeDestroy () {
     Object.keys(this.markers).forEach(key => this.marker[key].remove())
   },
