@@ -1,5 +1,7 @@
 <template>
-  <div class="base-map" ref="base-map"/>
+  <div class="base-map" ref="base-map">
+    <slot/>
+  </div>
 </template>
 
 <script>
@@ -16,8 +18,7 @@ export default {
   },
   data () {
     return {
-      map: null,
-      markers: []
+      map: null
     }
   },
   computed: {
@@ -26,24 +27,11 @@ export default {
     }),
     ...mapState('entities/properties', {
       properties: state => state.items
-    }),
-    ...mapState('ui', {
-      propertiesInViewById: state => state.propertiesInViewById
-    }),
-    propertiesInViewLngLats () {
-      const propertiesInViewById = this.propertiesInViewById
-      return propertiesInViewById.map(id => ({
-        lng: this.properties[id].lng,
-        lat: this.properties[id].lat
-      }))
-    }
+    })
   },
   watch: {
     suburb (suburb) {
       this.updateBoundingBox(suburb)
-    },
-    propertiesInViewLngLats (lngLats) {
-      this.updateMarkers(lngLats)
     }
   },
   methods: {
@@ -71,11 +59,6 @@ export default {
       this.map.setLayoutProperty('place-label-focus', 'visibility', 'visible')
       this.map.setLayoutProperty('suburb-outline-focus', 'visibility', 'visible')
       this.map.setLayoutProperty('suburb-fill-focus', 'visibility', 'visible')
-    },
-    updateMarkers (lngLats) {
-      this.markers.forEach(marker => marker.remove())
-      this.markers = []
-      this.markers = lngLats.map(lngLat => new mapboxgl.Marker().setLngLat(lngLat).addTo(this.map))
     },
     addParentResizeListener () {
       this.resizeObserver = new ResizeObserver(([entry]) => this.map.resize())

@@ -5,6 +5,8 @@
     <div class="content" v-else-if="items.length">
       <BasePropertyCard
         ref="base-property-card"
+        @mouseover.native="$store.commit('ui/setPropertyHoveredId', item.id)"
+        @mouseleave.native="$store.commit('ui/setPropertyHoveredId', null)"
         @click.native="onClick(item.id)"
         v-for="(item, index) in items"
         :property="item"
@@ -41,7 +43,10 @@ export default {
     Filters
   },
   mounted () {
-    this.$watch('items', this.resetIntersectionObserver)
+    this.$watch('items', this.resetIntersectionObserver, { immediate: true })
+  },
+  beforeDestroy () {
+    this.$store.commit('ui/setPropertyHoveredId', null)
   },
   data () {
     return {
@@ -81,7 +86,8 @@ export default {
     resetIntersectionObserver () {
       this.io.disconnect()
       this.propertiesInViewById = []
-      this.$refs['base-property-card'].forEach(item => this.io.observe(item.$el))
+      const propertyCards = this.$refs['base-property-card'] || []
+      propertyCards.forEach(item => this.io.observe(item.$el))
     }
   },
   watch: {

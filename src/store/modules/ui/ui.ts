@@ -2,18 +2,18 @@ export default {
   namespaced: true,
   state: {
     searchModalStatus: false,
-    selectedPlaceId: null,
-    propertiesInViewById: []
+    propertiesInViewById: [],
+    propertyHoveredId: null
   },
   mutations: {
     setSearchModalStatus (state, status) {
       state.searchModalStatus = status
     },
-    setSelectedPlaceId (state, status) {
-      state.searchModalStatus = status
-    },
     setPropertiesInViewById (state, ids) {
       state.propertiesInViewById = ids
+    },
+    setPropertyHoveredId (state, id) {
+      state.propertyHoveredId = id
     }
   }
 }

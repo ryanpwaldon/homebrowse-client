@@ -26,6 +26,9 @@ export default {
   components: {
     BaseNav
   },
+  beforeDestroy () {
+    this.$store.commit('entities/properties/setSelectedId', null)
+  },
   computed: mapState('entities/properties', {
     item: state => state.items[state.selectedId]
   }),
