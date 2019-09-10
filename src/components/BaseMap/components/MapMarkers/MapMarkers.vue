@@ -20,11 +20,6 @@ export default {
       markers: {}
     }
   },
-  computed: {
-    map () {
-      return this.$parent.map
-    }
-  },
   watch: {
     markerDataArr (newArr, prevArr) {
       this.addMarkers(differenceBy(newArr, prevArr, 'id'))
@@ -37,7 +32,7 @@ export default {
         if (!markerData) return
         this.markers[markerData.id] = new mapboxgl.Marker({
           color: this.primary ? 'var(--color-red-1)' : 'var(--color-gray-1)'
-        }).setLngLat(markerData.lngLat).addTo(this.map)
+        }).setLngLat(markerData.lngLat).addTo(this.$parent.map)
       })
     },
     removeMarkers (markerDataArr) {
