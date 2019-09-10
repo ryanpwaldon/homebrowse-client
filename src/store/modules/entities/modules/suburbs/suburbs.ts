@@ -29,7 +29,9 @@ export default {
     }
   },
   actions: {
-    addItem ({ commit }, item) {
+    addItem ({ state, commit }, item) {
+      const existingItem: any = Object.values(state.items).find((i: any) => i.name === item.name && i.postcode === item.postcode && i.stateLong === item.stateLong)
+      if (existingItem) return commit('setSelectedId', existingItem.id)
       item.id = shortId.generate()
       commit('addItem', item)
       commit('addId', item.id)

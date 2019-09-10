@@ -71,6 +71,7 @@ export default {
       commit('setList', { id, ids })
     },
     addId ({ state, commit }, id) {
+      if (state.ids.includes(id)) return commit('setSelectedId', id)
       const ids = [ ...state.ids, id ]
       commit('setIds', ids)
       commit('setSelectedId', id)
