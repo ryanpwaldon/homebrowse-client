@@ -7,6 +7,7 @@
       <MapFilter layer="suburb-outline-focus" :expression="expressionIncludeSuburb"/>
       <MapFilter layer="place-label-focus" :expression="expressionIncludeSuburb"/>
       <MapFilter layer="suburb-fill-default" :expression="expressionExcludeSuburb"/>
+      <MapHover layer="suburb-fill-default"/>
       <MapPosition :lng-lat="suburb && suburb.boundingBox"/>
     </BaseMap>
   </div>
@@ -17,13 +18,15 @@ import BaseMap from '@/components/BaseMap/BaseMap'
 import MapMarkers from '@/components/BaseMap/components/MapMarkers/MapMarkers'
 import MapFilter from '@/components/BaseMap/components/MapFilter/MapFilter'
 import MapPosition from '@/components/BaseMap/components/MapPosition/MapPosition'
+import MapHover from '@/components/BaseMap/components/MapHover/MapHover'
 import { mapState } from 'vuex'
 export default {
   components: {
     BaseMap,
     MapMarkers,
     MapFilter,
-    MapPosition
+    MapPosition,
+    MapHover
   },
   computed: {
     ...mapState('entities/suburbs', {

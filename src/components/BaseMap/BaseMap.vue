@@ -1,6 +1,6 @@
 <template>
   <div class="base-map">
-    <slot/>
+    <slot v-if="map"/>
   </div>
 </template>
 
