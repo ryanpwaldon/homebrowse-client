@@ -103,10 +103,20 @@ export default {
       inserted (el, binding, vnode) {
         const isFirst = binding.value
         if (!isFirst) return
-        el.observer = new IntersectionObserver(([entry]) => {
+        const observerCallback = ([entry]) => {
           if (vnode.context.hasReachedLastPage) return el.observer.disconnect()
-          if (entry.isIntersecting) setTimeout(() => vnode.context.$store.dispatch('entities/properties/fetchItemsNextPage', vnode.context.selectedSuburbId), 1000)
-        })
+          if (el.isFetching === true) return
+          if (entry.isIntersecting) {
+            el.isFetching = true
+            setTimeout(async () => {
+              await vnode.context.$store.dispatch('entities/properties/fetchItemsNextPage', vnode.context.selectedSuburbId)
+              el.isFetching = false
+              el.observer.unobserve(el)
+              el.observer.observe(el)
+            }, 0)
+          }
+        }
+        el.observer = new IntersectionObserver(observerCallback)
         el.observer.observe(el)
       },
       unbind (el) {
