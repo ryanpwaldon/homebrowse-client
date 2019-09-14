@@ -28,8 +28,6 @@ export default {
 .base-description-expandable {
   font-size: 14px;
   color: var(--color-black-2);
-  border-left: var(--border-1);
-  padding-left: var(--spacing-2);
   display: flex;
   flex-direction: column;
   align-items: flex-start;
