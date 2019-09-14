@@ -49,7 +49,7 @@ export default {
     }),
     listingTypeFormatted () {
       if (this.item.listingType === 'buy') return 'For sale'
-      if (this.item.listingType === 'sale') return 'For rent'
+      if (this.item.listingType === 'rent') return 'For rent'
       if (this.item.listingType === 'sold') return 'Sold'
       return ''
     }

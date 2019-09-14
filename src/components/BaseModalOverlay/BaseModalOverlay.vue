@@ -6,8 +6,8 @@
     <div
       class="base-modal-overlay"
       v-if="condition"
-      @click="close()"
       @keyup.escape="close()">
+      <div class="slot-underlay" @click="close()"/>
       <div ref="content">
         <slot/>
       </div>
@@ -68,5 +68,13 @@ export default {
   justify-content: center;
   background: var(--color-overlay);
   z-index: 2;
+  will-change: opacity;
+}
+.slot-underlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
-  <div class="base-image-gallery">
-    <div class="swiper-main-container" @click="fullScreenState = true">
+  <div class="base-image-gallery-full-screen">
+    <div class="swiper-main-container" @click.stop>
       <div class="swiper-main" ref="swiper-main">
         <div class="swiper-wrapper">
           <div class="swiper-slide" v-for="(image, i) in images" :key="i">
@@ -9,11 +9,11 @@
         </div>
       </div>
       <template v-if="images.length > 1">
-        <div class="button left" @click.stop="swiperMain.slidePrev()">←</div>
-        <div class="button right" @click.stop="swiperMain.slideNext()">→</div>
+        <div class="button left" @click="swiperMain.slidePrev()">←</div>
+        <div class="button right" @click="swiperMain.slideNext()">→</div>
       </template>
     </div>
-    <div class="swiper-thumbs" ref="swiper-thumbs">
+    <div class="swiper-thumbs" ref="swiper-thumbs" @click.stop>
       <div class="swiper-wrapper">
         <div class="swiper-slide" v-for="(image, i) in images" :key="i">
           <div class="thumbnail-image-container">
@@ -22,45 +22,42 @@
         </div>
       </div>
     </div>
-    <BaseModalOverlay :condition="fullScreenState" @close="fullScreenState = false">
-      <ImageGalleryFullScreen v-if="swiperMain" :initial-slide="swiperMain.realIndex" :images="images"/>
-    </BaseModalOverlay>
   </div>
 </template>
 
 <script>
 import Swiper from 'swiper'
-import BaseModalOverlay from '@/components/BaseModalOverlay/BaseModalOverlay'
-import ImageGalleryFullScreen from './partials/ImageGalleryFullScreen/ImageGalleryFullScreen'
 import 'swiper/dist/css/swiper.css'
 export default {
-  components: {
-    BaseModalOverlay,
-    ImageGalleryFullScreen
-  },
   props: {
     images: {
       type: Array,
       required: true
+    },
+    initialSlide: {
+      type: Number,
+      default: 0
     }
   },
   mounted () {
     this.initSwiper()
   },
   data: () => ({
-    swiperMain: null,
-    fullScreenState: false
+    swiperMain: null
   }),
   methods: {
     initSwiper () {
       this.swiperMain = new Swiper(this.$refs['swiper-main'], {
         effect: 'fade',
+        fadeEffect: {
+          crossFade: true
+        },
+        initialSlide: this.initialSlide,
         loop: true,
-        fadeEffect: { crossFade: true },
         thumbs: {
           swiper: {
             el: this.$refs['swiper-thumbs'],
-            slidesPerView: 5,
+            slidesPerView: 10,
             allowTouchMove: true,
             spaceBetween: 10
           }
@@ -72,20 +69,24 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.base-image-gallery {
-  width: 100%;
-  height: 100%;
+.base-image-gallery-full-screen {
+  width: 120vh;
+  position: relative;
+  height: calc(100vh - var(--spacing-1) * 4);
+  max-width: calc(100vw - var(--spacing-1) * 4);
   display: flex;
   flex-direction: column;
+  background: var(--color-black-1);
+  padding: var(--spacing-2);
+  border-radius: var( --border-radius-1);
+  overflow: hidden;
   &:hover .button { opacity: 1; }
 }
 .swiper-main-container {
   position: relative;
   width: 100%;
-  padding-top: calc(100% / 2);
-  height: 0;
+  height: 100%;
   margin-bottom: var(--spacing-2);
-  cursor: zoom-in;
 }
 .swiper-main {
   position: absolute;
@@ -100,9 +101,9 @@ export default {
 .image {
   width: 100%;
   height: 100%;
-  background-size: cover;
+  background-size: contain;
   background-position: center center;
-  background-color: var(--color-white-1);
+  background-repeat: no-repeat;
 }
 .button {
   position: absolute;
@@ -134,11 +135,12 @@ export default {
   position: relative;
   width: 100%;
   overflow: hidden;
+  flex-shrink: 0;
 }
 .thumbnail-image-container {
   position: relative;
   width: 100%;
-  padding-top: calc(100% / 2);
+  padding-top: calc(100% / 1.5);
   height: 0;
 }
 .thumbnail-image {
@@ -150,8 +152,8 @@ export default {
   background-size: cover;
   background-position: center center;
   background-color: var(--color-white-1);
-  border-radius: var(--border-radius-2);
   background-repeat: no-repeat;
+  border-radius: var(--border-radius-2);
   overflow: hidden;
   cursor: pointer;
 }
@@ -168,6 +170,6 @@ export default {
   transition: border-color .2s;
 }
 .swiper-thumbs .swiper-slide-thumb-active .thumbnail-image::after {
-  border-color: var(--color-black-1);
+  border-color: var(--color-white-1);
 }
 </style>
