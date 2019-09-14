@@ -25,6 +25,7 @@
     "register-service-worker": "^1.6.2",
     "resize-observer-polyfill": "^1.5.1",
     "shortid": "^2.2.14",
+    "swiper": "^4.5.0",
     "vue": "^2.6.6",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1",

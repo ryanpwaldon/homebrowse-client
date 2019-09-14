@@ -2,22 +2,25 @@
   <div>
     <BaseLoader v-if="loading"/>
     <div class="container" v-else>
-      <BaseGallery :images="item.images"/>
-      <div class="description">
-        {{ item.description }}
-      </div>
+      <BaseImageGallery :images="item.images"/>
+      <BaseLabel class="title" text="Description"/>
+      <BaseDescriptionExpandable :text="item.description"/>
     </div>
   </div>
 </template>
 
 <script>
 import BaseLoader from '@/components/BaseLoader/BaseLoader'
-import BaseGallery from '@/components/BaseGallery/BaseGallery'
+import BaseImageGallery from '@/components/BaseImageGallery/BaseImageGallery'
+import BaseDescriptionExpandable from '@/components/BaseDescriptionExpandable/BaseDescriptionExpandable'
+import BaseLabel from '@/components/BaseLabel/BaseLabel'
 import { mapState } from 'vuex'
 export default {
   components: {
+    BaseLabel,
     BaseLoader,
-    BaseGallery
+    BaseImageGallery,
+    BaseDescriptionExpandable
   },
   computed: {
     ...mapState('entities/properties', [
@@ -43,14 +46,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.base-gallery {
+.base-image-gallery {
   margin-bottom: var(--spacing-1);
 }
-.description {
-  color: var(--color-gray-1);
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 4;
-  -webkit-box-orient: vertical;
+.title {
+  margin-bottom: var(--spacing-2);
 }
 </style>
