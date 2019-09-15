@@ -57,11 +57,12 @@ export default {
         effect: 'fade',
         loop: true,
         fadeEffect: { crossFade: true },
+        allowTouchMove: false,
         thumbs: {
           swiper: {
             el: this.$refs['swiper-thumbs'],
             slidesPerView: 5,
-            allowTouchMove: true,
+            allowTouchMove: false,
             spaceBetween: 10
           }
         }

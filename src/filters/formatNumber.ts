@@ -15,9 +15,9 @@ Vue.filter('formatNumber', (number, format) => {
 
 const formatPrice = (number, displaySymbol) => {
   const symbol = displaySymbol ? '$' : ''
-  if (number > 1000000) return numeral(number).format(`${symbol}0.0a`)
-  if (number > 100000) return numeral(number).format(`${symbol}0a`)
-  if (number > 1000) return numeral(number).format(`${symbol}0.00a`)
+  if (number >= 1000000) return numeral(number).format(`${symbol}0.[0]a`)
+  if (number >= 100000) return numeral(number).format(`${symbol}0a`)
+  if (number >= 1000) return numeral(number).format(`${symbol}0.[00]a`)
   return numeral(number).format(`${symbol}0`)
 }
 
