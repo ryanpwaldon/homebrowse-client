@@ -35,6 +35,7 @@ export default {
   padding: var(--spacing-1);
   background: var(--color-white-1);
   border-right: var(--border-1);
+  overflow: auto;
 }
 .search-button {
   color: var(--color-blue-1);

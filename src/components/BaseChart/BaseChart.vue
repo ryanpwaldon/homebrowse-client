@@ -1,20 +1,20 @@
 <template>
   <div class="base-chart">
-    <BaseLabel :text="title"/>
+    <BaseLabel class="title" :text="title"/>
     <div class="card">
       <div class="chart-container">
         <canvas class="chart" ref="chart"/>
         <div class="tooltip-container" :style="{left: tooltip.x + 'px'}">
           <div class="tooltip" :style="{top: tooltip.y + 'px'}">
             <BaseLabel :text="tooltip.title"/>
-            <div class="x-value"><span class="symbol">$</span>{{ tooltip.xValue | formatNumber('priceNoSymbol') }}</div>
+            <div class="x-value">{{ tooltip.xValue | formatNumber(format) }}</div>
             <div class="y-value">{{ tooltip.yValue }}</div>
           </div>
           <div class="vertical-line"><div class="circle" :style="{top: tooltip.y + 'px'}"/></div>
         </div>
       </div>
       <div class="y-labels">
-        <BaseLabel v-for="(label, index) in yLabels" :text="label | formatNumber('price')" :key="index"/>
+        <BaseLabel v-for="(label, index) in yLabels" :text="label | formatNumber(format)" :key="index"/>
       </div>
       <div class="x-labels">
         <BaseLabel v-for="(label, index) in xLabels" :text="label" :key="index"/>
@@ -41,6 +41,10 @@ export default {
       type: String,
       required: true
     },
+    format: {
+      type: String,
+      required: true
+    },
     data: {
       type: Array,
       required: true
@@ -63,7 +67,7 @@ export default {
       options: {
         animation: { duration: 0 },
         scales: {
-          yAxes: [{ ticks: { display: false, stepSize: 100000, maxTicksLimit: 10 }, gridLines: { drawTicks: false, display: false, drawBorder: false } }],
+          yAxes: [{ ticks: { display: false, maxTicksLimit: 10 }, gridLines: { drawTicks: false, display: false, drawBorder: false } }],
           xAxes: [{ ticks: { display: false }, gridLines: { drawTicks: false, display: false, drawBorder: false } }]
         },
         layout: { padding: { top: 20, right: 0, bottom: 20, left: 0 } },
@@ -131,8 +135,16 @@ export default {
   width: 100%;
   position: relative;
 }
-.base-label {
-  margin-bottom: var(--spacing-4);
+.title {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: var(--spacing-2);
+  background: var(--color-white-1);
+  border-radius: var( --border-radius-1);
+  padding: var( --spacing-5);
+  z-index: 2;
+  display: none;
 }
 .card {
   display: grid;
@@ -185,9 +197,6 @@ export default {
   border-top: var(--border-1);
 }
 .tooltip-container {
-  transition:
-    left 0.2s ease-out,
-    opacity 0.2s ease-out;
   opacity: 0;
   top: 0;
   height: 100%;
@@ -198,11 +207,10 @@ export default {
   align-items: center;
   justify-content: space-between;
   transform: translateX(-50%);
-  z-index: 1;
+  z-index: 3;
   pointer-events: none;
 }
 .tooltip {
-  transition: top 0.2s ease-out;
   min-width: 110px;
   display: flex;
   position: absolute;
@@ -225,10 +233,6 @@ export default {
   color: var(--color-white-1);
   margin-bottom: var(--spacing-4);
 }
-.symbol {
-  font-size: 14px;
-  color: var(--color-gray-1);
-}
 .y-value {
   font-size: 14px;
 }
@@ -238,7 +242,6 @@ export default {
   background: var(--color-gray-2);
 }
 .circle {
-  transition: top 0.2s ease-out;
   left: 50%;
   position: absolute;
   transform: translate(-50%, -50%);

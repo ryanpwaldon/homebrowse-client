@@ -3,7 +3,7 @@
     <BaseLabel :text="title"/>
     <div class="statistic-container">
       <div class="statistic">{{ value | formatNumber(format) }}</div>
-      <BaseLabelSmall :text="subtitle"/>
+      <BaseLabelSmall :text="subtitle" v-if="subtitle"/>
     </div>
   </div>
 </template>
@@ -23,7 +23,7 @@ export default {
     },
     subtitle: {
       type: String,
-      required: true
+      required: false
     },
     value: {
       type: Number,

@@ -3,14 +3,12 @@
     <Filters/>
     <BaseLoader v-if="loading"/>
     <div class="content" v-show="!loading">
-      <div class="statistics-container">
+      <div class="statistics-container" v-if="currentPeriodStatistics">
+        <BaseStatistic title="Median Sale Price" subtitle="1 Year Median" :value="currentPeriodStatistics.medianSoldPrice" format="price"/>
+        <BaseStatistic title="Median Rent Price" subtitle="1 Year Median" :value="currentPeriodStatistics.medianRentListingPrice" format="price"/>
+        <BaseStatistic title="Median Rental Yield" :value="currentPeriodStatistics.medianRentListingPrice * 52 / currentPeriodStatistics.medianSoldPrice" format="percent"/>
       </div>
-      <BaseChart
-        v-if="medianSoldPrice.length"
-        title="Median price"
-        :data="medianSoldPrice"
-        :selected-id="selectedId"
-      />
+      <Chart/>
     </div>
   </div>
 </template>
@@ -18,29 +16,32 @@
 <script>
 import Filters from './partials/Filters/Filters'
 import BaseLoader from '@/components/BaseLoader/BaseLoader'
-import BaseChart from '@/components/BaseChart/BaseChart'
+import BaseStatistic from '@/components/BaseStatistic/BaseStatistic'
+import Chart from './partials/Chart/Chart'
 import { mapGetters, mapState } from 'vuex'
 export default {
   components: {
     Filters,
     BaseLoader,
-    BaseChart
+    BaseStatistic,
+    Chart
   },
   mounted () {
   },
   computed: {
-    ...mapState('entities/suburbs', [
-      'selectedId'
-    ]),
-    ...mapState('entities/statistics', [
-      'loading'
-    ]),
-    ...mapGetters('entities/statistics', [
-      'medianSoldPrice'
-    ])
+    ...mapState('entities/suburbs', {
+      selectedSuburbId: state => state.selectedId
+    }),
+    ...mapState('entities/statistics', {
+      statisticsItems: state => state.items,
+      loading: state => state.loading
+    }),
+    currentPeriodStatistics () {
+      return this.statisticsItems[this.selectedSuburbId] && this.statisticsItems[this.selectedSuburbId][this.statisticsItems[this.selectedSuburbId].length - 1]
+    }
   },
   watch: {
-    selectedId: {
+    selectedSuburbId: {
       immediate: true,
       handler: function () {
         this.$store.dispatch('entities/statistics/fetchItems')

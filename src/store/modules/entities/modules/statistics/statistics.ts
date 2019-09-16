@@ -12,22 +12,6 @@ export default {
     },
     loading: true
   },
-  getters: {
-    medianSoldPrice (state, _, __, rootGetters) {
-      if (!Object.keys(state.items).length) return []
-      return rootGetters['entities/suburbs/itemsById'].reduce((acc, suburb) => {
-        if (state.items[suburb.id]) {
-          acc.push({
-            id: suburb.id,
-            name: suburb.name,
-            dates: state.items[suburb.id].map(series => series.date),
-            values: state.items[suburb.id].map(series => series.medianSoldPrice)
-          })
-        }
-        return acc
-      }, [])
-    }
-  },
   mutations: {
     setItems (state, items) {
       state.items = items
