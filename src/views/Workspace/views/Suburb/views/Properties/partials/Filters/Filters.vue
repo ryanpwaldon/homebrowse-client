@@ -13,6 +13,18 @@
           ]"
         />
         <BaseFieldSelect
+          @select="$store.dispatch('entities/properties/updateRootFilter', { key: 'propertyType', value: $event })"
+          :selected="propertyType"
+          :options="[
+            { value: '', display: 'Property type' },
+            { value: 'house', display: 'Houses' },
+            { value: 'unit', display: 'Units' },
+            { value: 'townhouse', display: 'Townhouse' },
+            { value: 'land', display: 'Land' },
+            { value: 'rural', display: 'Rural' }
+          ]"
+        />
+        <BaseFieldSelect
           :icon="require('@/assets/img/bed.svg')"
           @select="$store.dispatch('entities/properties/updateRootFilter', { key: 'bedrooms', value: $event })"
           :selected="bedrooms"
@@ -85,6 +97,7 @@ export default {
   },
   computed: mapState('entities/properties', {
     listingType: state => state.rootFilter.listingType,
+    propertyType: state => state.rootFilter.propertyType,
     bedrooms: state => state.rootFilter.bedrooms,
     bathrooms: state => state.rootFilter.bathrooms,
     carspaces: state => state.rootFilter.carspaces,
