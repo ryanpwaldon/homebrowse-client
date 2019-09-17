@@ -6,7 +6,7 @@
       <div class="statistics-container" v-if="currentPeriodStatistics">
         <BaseStatistic title="Median Sale Price" subtitle="1 Year Median" :value="currentPeriodStatistics.medianSoldPrice" format="price"/>
         <BaseStatistic title="Median Rent Price" subtitle="1 Year Median" :value="currentPeriodStatistics.medianRentListingPrice" format="price"/>
-        <BaseStatistic title="Median Rental Yield" :value="currentPeriodStatistics.medianRentListingPrice * 52 / currentPeriodStatistics.medianSoldPrice" format="percent"/>
+        <BaseStatistic title="Rental Yield" :value="currentPeriodStatistics.medianRentListingPrice * 52 / currentPeriodStatistics.medianSoldPrice" format="percent"/>
       </div>
       <Chart/>
     </div>
