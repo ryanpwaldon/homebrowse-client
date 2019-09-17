@@ -29,7 +29,7 @@ export default {
   methods: {
     addMarkers (markerDataArr) {
       markerDataArr.forEach(markerData => {
-        if (!markerData) return
+        if (!markerData || !markerData.lngLat[0] || !markerData.lngLat[1]) return
         this.markers[markerData.id] = new mapboxgl.Marker({
           color: this.primary ? 'var(--color-red-1)' : 'var(--color-gray-1)'
         }).setLngLat(markerData.lngLat).addTo(this.$parent.map)
@@ -37,7 +37,7 @@ export default {
     },
     removeMarkers (markerDataArr) {
       markerDataArr.forEach(markerData => {
-        if (!markerData) return
+        if (!markerData || !markerData.lngLat[0] || !markerData.lngLat[1]) return
         this.markers[markerData.id].remove()
         delete this.markers[markerData.id]
       })
