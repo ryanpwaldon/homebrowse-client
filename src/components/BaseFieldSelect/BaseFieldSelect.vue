@@ -60,6 +60,7 @@ export default {
   background: var(--color-white-1);
   border-radius: var(--border-radius-2);
   box-shadow: var(--box-shadow-1);
+  white-space: nowrap;
   .icon {
     height: 1.3em;
     margin-right: var(--spacing-5);

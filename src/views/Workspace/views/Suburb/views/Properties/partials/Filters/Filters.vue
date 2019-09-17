@@ -116,9 +116,6 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  .base-field-select {
-    margin-right: var(--spacing-4);
-  }
 }
 .sort-container {
   display: flex;
@@ -130,5 +127,11 @@ export default {
 }
 .items {
   display: flex;
+  flex-wrap: wrap;
+  margin-bottom: calc(-1 * var(--spacing-4));
+  > * {
+    margin-right: var(--spacing-4);
+    margin-bottom: var(--spacing-4);
+  }
 }
 </style>
