@@ -11,7 +11,7 @@
         <div class="aside">
           <div class="subtitle">
             Search for Australian property<br>
-            and analyse the market – all in one tool.
+            and analyse the market – in one tool.
           </div>
           <SubscriptionForm/>
         </div>

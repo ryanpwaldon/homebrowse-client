@@ -11,7 +11,7 @@ export default {
     }
   },
   beforeDestroy () {
-    this.$parent.map.setLayoutProperty(this.label, 'visibility', 'none')
+    !this.$parent.destroyed && this.$parent.map.setLayoutProperty(this.label, 'visibility', 'none')
   },
   watch: {
     expression (expression) {

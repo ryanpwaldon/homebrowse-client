@@ -7,6 +7,7 @@
 <script>
 const layouts = {
   BLANK: () => import('./partials/BlankLayout/BlankLayout'),
+  FIXED: () => import('./partials/FixedLayout/FixedLayout'),
   APP: () => import('./partials/AppLayout/AppLayout')
 }
 export default {

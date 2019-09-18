@@ -11,6 +11,7 @@
     </div>
     <div class="section">
       <BaseButtonNav
+        @click.native="logout"
         text="Logout"
       />
     </div>
@@ -24,6 +25,12 @@ export default {
   components: {
     BaseLogo,
     BaseButtonNav
+  },
+  methods: {
+    logout () {
+      this.$store.dispatch('user/removeAccessToken')
+      this.$router.push('/')
+    }
   }
 }
 </script>

@@ -8,6 +8,7 @@
         :value="email"
         type="email"
         placeholder="bruce@wayne.com"
+        autocomplete="username"
         :required="true"
         @input="email = $event"
       />
@@ -17,6 +18,7 @@
         :value="password"
         type="password"
         placeholder="At least 8 characters"
+        autocomplete="current-password"
         :required="true"
         @input="password = $event"
       />
@@ -58,7 +60,7 @@ export default {
     async onSubmit () {
       this.loading = true
       const accessToken = await this.$store.dispatch('user/login', { email: this.email, password: this.password })
-      if (accessToken) this.$router.push('/')
+      if (accessToken) this.$router.push('/workspace')
       this.loading = false
     }
   }

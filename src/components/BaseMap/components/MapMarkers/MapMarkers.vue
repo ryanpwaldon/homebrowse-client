@@ -13,7 +13,7 @@ export default {
     }
   },
   beforeDestroy () {
-    Object.keys(this.markers).forEach(key => this.marker[key].remove())
+    !this.$parent.destroyed && Object.keys(this.markers).forEach(key => this.marker[key].remove())
   },
   data () {
     return {

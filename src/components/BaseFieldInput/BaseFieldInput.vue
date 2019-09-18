@@ -3,6 +3,7 @@
     <label v-if="label">{{ label }}</label>
     <input
       @input="$emit('input', $event.target.value)"
+      :autocomplete="autocomplete"
       :placeholder="placeholder"
       :required="required"
       :value="value"
@@ -32,6 +33,10 @@ export default {
     value: {
       type: String,
       required: true
+    },
+    autocomplete: {
+      type: String,
+      required: false
     }
   }
 }

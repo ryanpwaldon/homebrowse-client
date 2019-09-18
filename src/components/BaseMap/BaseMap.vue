@@ -24,10 +24,13 @@ export default {
   },
   beforeDestroy () {
     this.removeParentResizeListener()
+    this.destroyed = true
+    this.map.remove()
   },
   data () {
     return {
-      map: null
+      map: null,
+      destroyed: false
     }
   },
   methods: {
