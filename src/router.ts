@@ -10,6 +10,11 @@ const router = new Router({
   base: process.env.BASE_URL,
   routes: [
     {
+      path: '/',
+      name: 'home',
+      component: () => import('@/views/Home/Home.vue')
+    },
+    {
       path: '/workspace',
       name: 'workspace',
       component: () => import('@/views/Workspace/Workspace.vue'),

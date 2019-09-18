@@ -1,6 +1,7 @@
 <template>
   <button
     class="base-button-submit"
+    :class="[design]"
     type="submit">
     <BaseButtonLoader v-if="loading"/>
     <span>{{ text }}</span>
@@ -21,6 +22,10 @@ export default {
     loading: {
       type: Boolean,
       default: false
+    },
+    design: {
+      type: String,
+      default: 'default'
     }
   }
 }
@@ -39,10 +44,16 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  white-space: nowrap;
 }
 .base-button-loader {
   width: 1.2em;
   flex-shrink: 0;
   margin-right: var(--spacing-4);
+}
+.primary {
+  color: var(--color-blue-2);
+  background: var(--color-blue-4);
+  border: solid 1px var(--color-blue-3)
 }
 </style>

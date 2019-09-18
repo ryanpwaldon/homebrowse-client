@@ -1,7 +1,9 @@
 <template>
   <div class="base-nav-primary">
     <div class="section">
-      <BaseLogo/>
+      <router-link to="/">
+        <BaseLogo/>
+      </router-link>
       <BaseButtonNav
         text="Workspace"
         link="/workspace"
@@ -33,6 +35,7 @@ export default {
   justify-content: space-between;
   border-bottom: var(--border-1);
   padding: var(--spacing-2) var(--spacing-1);
+  background: var(--color-white-1);
 }
 .section {
   display: grid;
