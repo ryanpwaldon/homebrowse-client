@@ -33,7 +33,7 @@ export default {
       handler: function (item) {
         if (!item) {
           if (this.$store.state.entities.properties.ids.length) this.$router.push('/workspace/property')
-          else this.$router.push('/')
+          else this.$router.push('/workspace')
         }
       }
     }
