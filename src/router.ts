@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import { APP } from '@/components/BaseLayout/layout.types'
+import { APP, FIXED } from '@/components/BaseLayout/layout.types'
 import store from '@/store/store'
 
 Vue.use(Router)
@@ -18,7 +18,7 @@ const router = new Router({
       path: '/workspace',
       name: 'workspace',
       component: () => import('@/views/Workspace/Workspace.vue'),
-      meta: { layout: APP },
+      meta: { layout: APP, requiresAuth: true },
       children: [
         {
           path: 'suburb',
@@ -60,22 +60,28 @@ const router = new Router({
     {
       path: '/login',
       name: 'login',
-      component: () => import('@/views/Login/Login.vue')
+      component: () => import('@/views/Login/Login.vue'),
+      meta: { layout: FIXED }
     },
     {
       path: '*',
-      redirect: '/workspace'
+      redirect: '/'
     }
   ]
 })
 
 let firstLoad = true
 router.beforeEach(async (to, _, next) => {
-  if (firstLoad && store.state.user.accessToken) await store.dispatch('user/checkAuthStatus')
-  firstLoad = false
-  !store.state.user.accessToken
-    ? to.path === '/login' ? next() : next('/login')
-    : to.path === '/login' ? next('/') : next()
+  if (firstLoad) {
+    firstLoad = false
+    if (store.state.user.accessToken) await store.dispatch('user/checkAuthStatus')
+    return store.state.user.accessToken ? sendTo('/workspace') : sendTo('/')
+  } else {
+    const requiresAuth = !!to.matched.find(item => item.meta.requiresAuth)
+    if (requiresAuth) return store.state.user.accessToken ? next() : next('/')
+    else return next()
+  }
+  function sendTo (path) { return to.path === path ? next() : next(path) }
 })
 
 export default router
