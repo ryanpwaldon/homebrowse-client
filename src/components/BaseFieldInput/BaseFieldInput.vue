@@ -43,6 +43,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.base-field-input {
+  width: 100%;
+}
 label {
   font-size: 14px;
   margin-bottom: var(--spacing-5);

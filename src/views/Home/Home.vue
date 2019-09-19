@@ -66,7 +66,7 @@ export default {
   margin-right: calc(var(--spacing-1) * 2);
 }
 .aside {
-  width: 50%;
+  width: 100%;
   margin-bottom: 0.5rem;
 }
 .subtitle {

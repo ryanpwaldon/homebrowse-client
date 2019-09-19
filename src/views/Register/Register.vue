@@ -1,9 +1,19 @@
 <template>
-  <div class="login">
+  <div class="register">
     <form @submit.prevent="onSubmit">
       <img class="logo" src="@/assets/img/logo-circle.svg">
       <BaseFieldInput
-        class="email"
+        class="input"
+        label="Name"
+        :value="name"
+        type="text"
+        placeholder="Tom Hanks"
+        autocomplete="name"
+        :required="true"
+        @input="name = $event"
+      />
+      <BaseFieldInput
+        class="input"
         label="Email"
         :value="email"
         type="email"
@@ -13,23 +23,23 @@
         @input="email = $event"
       />
       <BaseFieldInput
-        class="password"
+        class="input"
         label="Password"
         :value="password"
         type="password"
         placeholder="At least 8 characters"
-        autocomplete="current-password"
+        autocomplete="new-password"
         :required="true"
         @input="password = $event"
       />
-      <div class="forgot-password">I forgot my password</div>
       <BaseButtonSubmit
-        text="Login to Homebrowse"
+        class="submit"
+        text="Sign up to Homebrowse"
         :loading="loading"
       />
       <transition name="fade">
-        <div class="auth-error" v-if="loginFailed">
-          Your login info isn't right. Try again, or reset your password if it slipped your mind.
+        <div class="auth-error" v-if="error">
+          There was an issue creating your account. Your email may already be registered in our system.
         </div>
       </transition>
     </form>
@@ -39,36 +49,50 @@
 <script>
 import BaseFieldInput from '@/components/BaseFieldInput/BaseFieldInput'
 import BaseButtonSubmit from '@/components/BaseButtonSubmit/BaseButtonSubmit'
+import userService from '@/services/api/userService/userService'
 import { mapState } from 'vuex'
 export default {
-  name: 'login',
+  name: 'register',
   components: {
     BaseFieldInput,
     BaseButtonSubmit
   },
   data () {
     return {
+      name: '',
       email: '',
       password: '',
-      loading: false
+      loading: false,
+      error: false
     }
   },
-  computed: mapState('user', [
-    'loginFailed'
-  ]),
+  computed: {
+    user () {
+      return {
+        name: this.name,
+        email: this.email,
+        password: this.password
+      }
+    }
+  },
   methods: {
     async onSubmit () {
+      this.error = false
       this.loading = true
-      const accessToken = await this.$store.dispatch('user/login', { email: this.email, password: this.password })
-      if (accessToken) this.$router.push('/workspace')
+      const accessToken = await userService.register(this.user)
+        .then(res => res.data.access_token)
+        .catch(() => (this.error = true))
       this.loading = false
+      if (this.error) return
+      this.$store.dispatch('user/updateAccessToken', accessToken)
+      this.$router.push('/workspace')
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.login {
+.register {
   width: 100%;
   height: 100%;
   display: flex;
@@ -87,19 +111,11 @@ form {
   width: 40px;
   left: 50%;
 }
-.email {
+.input {
   margin-bottom: var(--spacing-2);
 }
-.password {
-  margin-bottom: var(--spacing-5);
-}
-.forgot-password {
-  font-size: 12px;
-  color: var(--color-medium-gray);
-  text-decoration: underline;
-  margin-bottom: calc(var(--spacing-2) + 5px);
-  display: inline-block;
-  cursor: pointer;
+.submit {
+  margin-top: var(--spacing-1);
 }
 .auth-error {
   position: absolute;

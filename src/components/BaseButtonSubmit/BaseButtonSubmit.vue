@@ -4,7 +4,7 @@
     :class="[design]"
     type="submit">
     <BaseButtonLoader v-if="loading"/>
-    <span>{{ text }}</span>
+    <span :style="{opacity: loading ? 0 : 1}">{{ text }}</span>
   </button>
 </template>
 
@@ -33,6 +33,7 @@ export default {
 
 <style lang="scss" scoped>
 .base-button-submit {
+  position: relative;
   color: var(--color-white-1);
   background: var(--color-black-2);
   font-weight: var(--font-weight-regular);
@@ -48,8 +49,11 @@ export default {
 }
 .base-button-loader {
   width: 1.2em;
-  flex-shrink: 0;
-  margin-right: var(--spacing-4);
+  height: auto;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 .primary {
   color: var(--color-blue-2);

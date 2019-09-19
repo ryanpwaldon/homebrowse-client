@@ -1,10 +1,10 @@
 <template>
   <div class="base-nav">
     <div class="content">
-      <div class="section-left">
+      <div class="section">
         <slot name="section-left"/>
       </div>
-      <div class="section-right">
+      <div class="section">
         <slot name="section-right"/>
       </div>
     </div>
@@ -30,5 +30,9 @@ export default {
   max-width: 60rem;
   display: flex;
   justify-content: space-between;
+}
+.section {
+  display: flex;
+  > *:not(:last-child) { margin-right: var(--spacing-2) }
 }
 </style>

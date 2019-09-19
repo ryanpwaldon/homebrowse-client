@@ -15,6 +15,18 @@ const router = new Router({
       component: () => import('@/views/Home/Home.vue')
     },
     {
+      path: '/register',
+      name: 'register',
+      component: () => import('@/views/Register/Register.vue'),
+      meta: { layout: FIXED }
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: () => import('@/views/Login/Login.vue'),
+      meta: { layout: FIXED }
+    },
+    {
       path: '/workspace',
       name: 'workspace',
       component: () => import('@/views/Workspace/Workspace.vue'),
@@ -56,12 +68,6 @@ const router = new Router({
           ]
         }
       ]
-    },
-    {
-      path: '/login',
-      name: 'login',
-      component: () => import('@/views/Login/Login.vue'),
-      meta: { layout: FIXED }
     },
     {
       path: '*',
