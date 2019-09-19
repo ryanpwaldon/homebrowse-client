@@ -5,7 +5,6 @@
         <BaseLogo/>
       </template>
       <template #section-right>
-        <BaseButtonNav text="Sign up" link="/register"/>
         <BaseButtonNav text="Login" link="/login"/>
       </template>
     </BaseNavImproved>

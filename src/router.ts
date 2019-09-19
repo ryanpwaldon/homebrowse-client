@@ -14,12 +14,12 @@ const router = new Router({
       name: 'home',
       component: () => import('@/views/Home/Home.vue')
     },
-    // {
-    //   path: '/register',
-    //   name: 'register',
-    //   component: () => import('@/views/Register/Register.vue'),
-    //   meta: { layout: FIXED }
-    // },
+    {
+      path: '/register',
+      name: 'register',
+      component: () => import('@/views/Register/Register.vue'),
+      meta: { layout: FIXED }
+    },
     {
       path: '/login',
       name: 'login',
