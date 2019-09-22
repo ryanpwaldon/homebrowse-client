@@ -3,7 +3,6 @@
     class="base-video"
     :src="path"
     autoplay
-    playsinline
     muted
     loop
   />

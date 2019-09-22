@@ -20,5 +20,7 @@ export default {
   height: 100%;
   display: flex;
   flex-direction: column;
+  min-width: 1028px;
+  min-height: 600px;
 }
 </style>
