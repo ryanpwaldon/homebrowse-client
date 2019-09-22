@@ -79,11 +79,12 @@ export default {
     async onSubmit () {
       this.error = false
       this.loading = true
-      const accessToken = await userService.register(this.user)
-        .then(res => res.data.access_token)
+      const { user, accessToken } = await userService.register(this.user)
+        .then(res => res.data)
         .catch(() => (this.error = true))
       this.loading = false
       if (this.error) return
+      this.$ga.set({ userId: user.id })
       this.$store.dispatch('user/updateAccessToken', accessToken)
       this.$router.push('/workspace')
     }

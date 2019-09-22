@@ -6,6 +6,7 @@
       </template>
       <template #section-right>
         <BaseButtonNav text="Login" link="/login"/>
+        <BaseButtonNav class="sign-up-button" text="Sign Up" link="/register"/>
       </template>
     </BaseNavImproved>
   </div>
@@ -27,5 +28,8 @@ export default {
 <style lang="scss" scoped>
 .nav {
   width: 100%;
+}
+::v-deep .sign-up-button * {
+  color: var(--color-black-2);
 }
 </style>

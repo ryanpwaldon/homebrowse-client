@@ -1,4 +1,5 @@
 import userService from '@/services/api/userService/userService'
+import { set } from 'vue-analytics'
 
 export default {
   namespaced: true,
@@ -17,13 +18,16 @@ export default {
   actions: {
     async checkAuthStatus ({ dispatch }) {
       const { data: { userId } } = await userService.checkAuthStatus()
-      if (userId) return true
-      else dispatch('removeAccessToken')
+      if (userId) {
+        set({ userId })
+        return true
+      } else dispatch('removeAccessToken')
       return false
     },
     async login ({ commit, dispatch }, credentials) {
-      const { data: { access_token: accessToken } } = await userService.login(credentials)
+      const { data: { user, accessToken } } = await userService.login(credentials)
       if (accessToken) {
+        set({ userId: user.id })
         commit('setLoginFailed', false)
         dispatch('updateAccessToken', accessToken)
       } else {

@@ -60,7 +60,7 @@ export default {
     async onSubmit () {
       this.loading = true
       const accessToken = await this.$store.dispatch('user/login', { email: this.email, password: this.password })
-      if (accessToken) this.$router.push('/workspace')
+      if (accessToken) return this.$router.push('/workspace')
       this.loading = false
     }
   }

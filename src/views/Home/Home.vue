@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <Nav/>
+    <Nav class="nav"/>
     <div class="content">
       <div class="main">
         <div class="title">
@@ -45,6 +45,10 @@ export default {
   flex-direction: column;
   align-items: center;
   background: var(--color-gray-5);
+}
+.nav {
+  position: sticky;
+  top: 0;
 }
 .content {
   width: 100%;
