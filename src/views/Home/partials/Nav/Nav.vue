@@ -6,7 +6,7 @@
       </template>
       <template #section-right>
         <BaseButtonNav text="Login" link="/login"/>
-        <BaseButtonNav class="sign-up-button" text="Sign Up" link="/register"/>
+        <BaseButtonNav class="sign-up-button" text="Sign Up" link="/register" v-if="$store.state.ui.registrationsEnabled"/>
       </template>
     </BaseNavImproved>
   </div>
@@ -28,6 +28,7 @@ export default {
 <style lang="scss" scoped>
 .nav {
   width: 100%;
+  z-index: 1;
 }
 ::v-deep .sign-up-button * {
   color: var(--color-black-2);

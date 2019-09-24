@@ -56,8 +56,9 @@ export default {
   transform: translate(-50%, -50%);
 }
 .primary {
-  color: var(--color-blue-2);
-  background: var(--color-blue-4);
-  border: solid 1px var(--color-blue-3)
+  color: var(--color-red-2);
+  border: solid 1px var(--color-red-3);
+  background: var(--color-red-4);
+  font-weight: 500;
 }
 </style>

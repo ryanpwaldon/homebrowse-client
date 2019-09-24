@@ -14,13 +14,20 @@
               Search for Australian property<br>
               and analyse the market – in one tool.
             </div>
-            <SubscriptionForm class="subscription-form"/>
+            <template v-if="$store.state.ui.registrationsEnabled">
+              <div class="register-copy">
+                Homebrowse beta is now live
+              </div>
+              <router-link to="/register" class="register-button-container">
+                <BaseButtonSubmit class="register-button" design="primary" text="Start searching"/>
+              </router-link>
+            </template>
+            <SubscriptionForm class="subscription-form" v-else/>
           </div>
         </div>
-        <BaseVideo
-          class="video"
-          :path="require('@/assets/vid/demo.mp4')"
-        />
+        <BaseBrowser class="browser">
+          <BaseVideo class="video" :path="require('@/assets/vid/demo.mp4')"/>
+        </BaseBrowser>
       </div>
     </div>
   </div>
@@ -28,12 +35,16 @@
 
 <script>
 import BaseVideo from '@/components/BaseVideo/BaseVideo'
+import BaseBrowser from '@/components/BaseBrowser/BaseBrowser'
+import BaseButtonSubmit from '@/components/BaseButtonSubmit/BaseButtonSubmit'
 import SubscriptionForm from './partials/SubscriptionForm/SubscriptionForm'
 import Nav from './partials/Nav/Nav'
 export default {
   name: 'home',
   components: {
     BaseVideo,
+    BaseBrowser,
+    BaseButtonSubmit,
     SubscriptionForm,
     Nav
   }
@@ -85,12 +96,21 @@ export default {
   font-size: 1.5rem;
   margin-bottom: var(--spacing-2);
 }
+.register-copy {
+  color: var(--color-gray-1);
+  margin-bottom: var(--spacing-4);
+}
+.register-button-container {
+  display: inline-block;
+}
+.register-button {
+  width: auto;
+}
 .video {
-  border-radius: var(--border-radius-1);
-  box-shadow: var(--box-shadow-1);
+  border-radius: 5px;
 }
 @media (max-width: 820px) {
-  br {
+  .subtitle br {
     display: none;
   }
   .content {
@@ -115,24 +135,29 @@ export default {
     align-items: center;
     flex-direction: column;
   }
+  .subtitle {
+    margin-bottom: var(--spacing-1);
+  }
   .subscription-form {
     width: 100%;
   }
   ::v-deep .form {
     flex-direction: column;
   }
-  ::v-deep .input,
+  ::v-deep .subscription-form .input,
   ::v-deep .button {
     margin-right: 0;
     width: 100%;
   }
-  ::v-deep .input {
+  ::v-deep .subscription-form .input {
     margin-bottom: var(--spacing-4);
   }
-  .video {
-    border-radius: 0;
-    box-shadow: none;
-    border: var(--border-1);
+  .register-button-container {
+    display: block;
+    width: 100%;
+  }
+  .register-button {
+    width: 100%;
   }
 }
 </style>

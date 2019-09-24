@@ -20,6 +20,10 @@ html, body, #app {
   font-family: var(--font-1);
 }
 
+#app {
+  background: var(--color-gray-5);
+}
+
 a {
   text-decoration: unset;
   color: unset;

@@ -13,6 +13,7 @@
           class="button"
           text="Request beta access"
           :loading="loading"
+          design="primary"
         />
       </form>
       <BasePrompt

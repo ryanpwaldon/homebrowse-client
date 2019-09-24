@@ -2,6 +2,7 @@
   <video
     class="base-video"
     :src="path"
+    playsinline
     autoplay
     muted
     loop
@@ -25,5 +26,6 @@ export default {
   height: auto;
   display: block;
   background: var(--color-white-1);
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
 }
 </style>

@@ -1,6 +1,7 @@
 export default {
   namespaced: true,
   state: {
+    registrationsEnabled: true,
     searchModalStatus: false,
     propertiesInViewById: [],
     propertyHoveredId: null
