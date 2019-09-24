@@ -104,7 +104,7 @@ export default {
   display: inline-block;
 }
 .register-button {
-  width: auto;
+  width: 12rem;
 }
 .video {
   border-radius: 5px;
