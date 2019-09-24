@@ -17,7 +17,7 @@
   justify-content: center;
   background: var(--color-gray-5);
   text-align: center;
-  position: fixed;
+  position: absolute;
   z-index: 2;
   top: 0;
   left: 0;
