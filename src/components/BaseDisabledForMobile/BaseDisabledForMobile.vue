@@ -18,7 +18,7 @@
   background: var(--color-gray-5);
   text-align: center;
   position: fixed;
-  z-index: 1;
+  z-index: 2;
   top: 0;
   left: 0;
 }
@@ -43,6 +43,14 @@
 @media (min-width: 820px) {
   .base-disabled-for-mobile {
     display: none;
+  }
+}
+</style>
+
+<style lang="scss">
+@media (max-width: 820px) {
+  body {
+    overflow: hidden;
   }
 }
 </style>
