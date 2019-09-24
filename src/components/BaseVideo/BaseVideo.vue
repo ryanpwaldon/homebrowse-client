@@ -24,5 +24,6 @@ export default {
   width: 100%;
   height: auto;
   display: block;
+  background: var(--color-white-1);
 }
 </style>
