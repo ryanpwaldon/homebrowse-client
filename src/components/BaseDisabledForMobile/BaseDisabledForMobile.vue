@@ -8,6 +8,17 @@
   </div>
 </template>
 
+<script>
+export default {
+  mounted () {
+    document.body.setAttribute('class', 'body')
+  },
+  beforeDestroy () {
+    document.body.setAttribute('class', '')
+  }
+}
+</script>
+
 <style lang="scss" scoped>
 .base-disabled-for-mobile {
   width: 100%;
@@ -49,7 +60,7 @@
 
 <style lang="scss">
 @media (max-width: 820px) {
-  body {
+  .body {
     overflow: hidden;
   }
 }
