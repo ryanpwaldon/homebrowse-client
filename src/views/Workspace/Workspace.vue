@@ -8,7 +8,6 @@
       @close="() => this.$store.commit('ui/setSearchModalStatus', false)">
       <BaseSearch/>
     </BaseModalOverlay>
-    <BaseDisabledForMobile/>
   </div>
 </template>
 
@@ -18,7 +17,6 @@ import Sidebar from './partials/Sidebar/Sidebar'
 import Content from './partials/Content/Content'
 import BaseModalOverlay from '@/components/BaseModalOverlay/BaseModalOverlay'
 import BaseSearch from '@/components/BaseSearch/BaseSearch'
-import BaseDisabledForMobile from '@/components/BaseDisabledForMobile/BaseDisabledForMobile'
 export default {
   name: 'workspace',
   components: {
@@ -26,7 +24,6 @@ export default {
     Sidebar,
     Content,
     BaseModalOverlay,
-    BaseDisabledForMobile,
     BaseSearch
   },
   computed: {

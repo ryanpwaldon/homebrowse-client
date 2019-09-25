@@ -8,34 +8,21 @@
   </div>
 </template>
 
-<script>
-export default {
-  mounted () {
-    document.body.setAttribute('class', 'body')
-  },
-  beforeDestroy () {
-    document.body.setAttribute('class', '')
-  }
-}
-</script>
-
 <style lang="scss" scoped>
 .base-disabled-for-mobile {
+  position: relative;
   width: 100%;
   height: 100%;
+  text-align: center;
+  background: var(--color-gray-5);
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--color-gray-5);
-  text-align: center;
-  position: absolute;
   z-index: 2;
-  top: 0;
-  left: 0;
 }
 .container {
-  width: 256px;
   position: relative;
+  width: 256px;
 }
 .logo {
   position: absolute;
@@ -50,18 +37,5 @@ export default {
 .subtitle {
   font-weight: 600;
   text-decoration: underline;
-}
-@media (min-width: 820px) {
-  .base-disabled-for-mobile {
-    display: none;
-  }
-}
-</style>
-
-<style lang="scss">
-@media (max-width: 820px) {
-  .body {
-    overflow: hidden;
-  }
 }
 </style>

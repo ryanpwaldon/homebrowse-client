@@ -1,21 +1,31 @@
 <template>
   <div class="app-layout">
-    <BaseNavPrimary/>
-    <slot/>
+    <div class="container" v-if="$mq === 'large'">
+      <BaseNavPrimary/>
+      <slot/>
+    </div>
+    <BaseDisabledForMobile v-else/>
   </div>
 </template>
 
 <script>
 import BaseNavPrimary from '@/components/BaseNavPrimary/BaseNavPrimary'
+import BaseDisabledForMobile from '@/components/BaseDisabledForMobile/BaseDisabledForMobile'
 export default {
   components: {
-    BaseNavPrimary
+    BaseNavPrimary,
+    BaseDisabledForMobile
   }
 }
 </script>
 
 <style lang="scss" scoped>
 .app-layout {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.container {
   width: 100%;
   height: 100%;
   display: flex;
