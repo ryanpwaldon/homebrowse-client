@@ -28,7 +28,7 @@ export const api = () => {
     error => {
       if (error.response.status === 401) {
         router.push('/login')
-        store.dispatch('user/removeAccessToken')
+        store.dispatch('user/logout')
         return error.response
       } else return Promise.reject(error)
     }

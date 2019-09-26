@@ -28,7 +28,7 @@ export default {
   },
   methods: {
     logout () {
-      this.$store.dispatch('user/removeAccessToken')
+      this.$store.dispatch('user/logout')
       this.$router.push('/')
     }
   }
