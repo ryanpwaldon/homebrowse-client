@@ -22,6 +22,9 @@ export default {
     BaseImageGallery,
     BaseDescriptionExpandable
   },
+  mounted () {
+    this.$el.closest('.workspace-content').scrollTop = 0
+  },
   computed: {
     ...mapState('entities/properties', [
       'selectedId'

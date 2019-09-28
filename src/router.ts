@@ -81,8 +81,13 @@ router.beforeEach(async (to, _, next) => {
   if (firstLoad) {
     firstLoad = false
     if (store.state.user.accessToken) await store.dispatch('user/checkAuthStatus')
-    return store.state.user.accessToken ? sendTo('/workspace') : sendTo('/')
+    if (store.state.user.accessToken) return sendTo('/workspace')
+    else {
+      await router.app && (router.app as any).$intercom.boot()
+      return sendTo('/')
+    }
   } else {
+    (router.app as any).$intercom.update()
     const requiresAuth = !!to.matched.find(item => item.meta.requiresAuth)
     if (requiresAuth) return store.state.user.accessToken ? next() : next('/')
     else return next()

@@ -1,13 +1,15 @@
 <template>
   <div class="workspace">
-    <Sidebar/>
-    <Content/>
-    <Map/>
-    <BaseModalOverlay
-      :condition="this.$store.state.ui.searchModalStatus"
-      @close="() => this.$store.commit('ui/setSearchModalStatus', false)">
-      <BaseSearch/>
-    </BaseModalOverlay>
+    <div class="workspace-content">
+      <Sidebar/>
+      <Content/>
+      <Map/>
+      <BaseModalOverlay
+        :condition="this.$store.state.ui.searchModalStatus"
+        @close="() => this.$store.commit('ui/setSearchModalStatus', false)">
+        <BaseSearch/>
+      </BaseModalOverlay>
+    </div>
   </div>
 </template>
 
@@ -33,6 +35,14 @@ export default {
 
 <style lang="scss" scoped>
 .workspace {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.workspace-content {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   display: flex;

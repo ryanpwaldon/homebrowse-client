@@ -76,7 +76,7 @@ export default {
 }
 .main {
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: flex-end;
   margin-bottom: calc(var(--spacing-1) * 3);
 }
@@ -89,7 +89,6 @@ export default {
   margin-right: calc(var(--spacing-1) * 2);
 }
 .aside {
-  width: 100%;
   margin-bottom: 0.5rem;
 }
 .subtitle {

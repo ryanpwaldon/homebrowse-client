@@ -2,6 +2,10 @@
   <div class="register">
     <form @submit.prevent="onSubmit">
       <img class="logo" src="@/assets/img/logo-circle.svg">
+      <div class="title">
+        Search more efficiently<br>
+        and gain market insights.
+      </div>
       <BaseFieldInput
         class="input"
         label="Name"
@@ -110,6 +114,12 @@ form {
   top: calc(-1 * var(--spacing-1));
   width: 40px;
   left: 50%;
+}
+.title {
+  font-size: 1.1rem;
+  text-align: center;
+  margin-bottom: var(--spacing-1);
+  line-height: 1.5em;
 }
 .input {
   margin-bottom: var(--spacing-2);

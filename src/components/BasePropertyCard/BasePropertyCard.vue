@@ -42,7 +42,6 @@ export default {
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
-  filter: saturate(0.75);
 }
 .content {
   padding: var(--spacing-2);
