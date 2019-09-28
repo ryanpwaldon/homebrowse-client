@@ -1,6 +1,6 @@
 <template>
   <div class="app-layout">
-    <div class="container" v-if="$mq === 'large'">
+    <div class="container" v-if="$mq === 'lg'">
       <BaseNavPrimary/>
       <slot/>
     </div>

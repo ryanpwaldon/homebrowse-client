@@ -1,51 +1,47 @@
 <template>
-  <div class="home">
+  <div class="home" :class="[$mq]">
     <Nav class="nav"/>
     <div class="container">
       <div class="content">
-        <div class="main">
+        <div class="header">
           <div class="title">
-            All-in-one<br>
-            real estate<br>
-            platform
+            Search homes<br>
+            the easy way
           </div>
-          <div class="aside">
+          <div class="side">
             <div class="subtitle">
-              Search for Australian property<br>
-              and analyse the market – in one tool.
+              Save time and gain insights with<br>
+              the all-in-one tool for property.
             </div>
-            <template v-if="$store.state.ui.registrationsEnabled">
-              <div class="register-copy">
-                Homebrowse beta is now live
-              </div>
-              <router-link to="/register" class="register-button-container">
-                <BaseButtonSubmit class="register-button" design="primary" text="Start searching"/>
+            <div class="cta-container" v-if="$store.state.ui.registrationsEnabled">
+              <router-link class="button" to="/register">
+                <BaseButtonSubmit design="primary" text="Get free beta access"/>
               </router-link>
-            </template>
+              <div class="altcopy">
+                Limited positions remaining.<br>
+                Sign up to secure an account.
+              </div>
+            </div>
             <SubscriptionForm class="subscription-form" v-else/>
           </div>
         </div>
-        <BaseBrowser class="browser">
-          <BaseVideo class="video" :path="require('@/assets/vid/demo.mp4')"/>
-        </BaseBrowser>
+        <Demo/>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import BaseVideo from '@/components/BaseVideo/BaseVideo'
-import BaseBrowser from '@/components/BaseBrowser/BaseBrowser'
 import BaseButtonSubmit from '@/components/BaseButtonSubmit/BaseButtonSubmit'
 import SubscriptionForm from './partials/SubscriptionForm/SubscriptionForm'
 import Nav from './partials/Nav/Nav'
+import Demo from './partials/Demo/Demo'
 export default {
   name: 'home',
   components: {
-    BaseVideo,
-    BaseBrowser,
     BaseButtonSubmit,
     SubscriptionForm,
+    Demo,
     Nav
   }
 }
@@ -59,14 +55,17 @@ export default {
   align-items: center;
   background: var(--color-gray-5);
 }
+.sm br {
+  display: none;
+}
 .nav {
   position: sticky;
   top: 0;
 }
 .container {
   width: 100%;
-  padding: 0 var(--spacing-1);
   display: flex;
+  padding: 0 var(--spacing-1);
   justify-content: center;
 }
 .content {
@@ -74,89 +73,66 @@ export default {
   max-width: 60rem;
   padding: calc(var(--spacing-1) * 3) 0;
 }
-.main {
+.sm .content {
+  padding: calc(var(--spacing-1) * 1.5) 0 calc(var(--spacing-1) * 3);
+}
+.header {
   display: flex;
   justify-content: center;
-  align-items: flex-end;
+  align-items: flex-start;
   margin-bottom: calc(var(--spacing-1) * 3);
+}
+.sm .header {
+  align-items: center;
+  flex-direction: column;
+  margin-bottom: calc(var(--spacing-1) * 1.5);
+  * {
+    margin-left: 0;
+    margin-right: 0;
+    text-align: center;
+  }
 }
 .title {
   font-size: 4rem;
-  color: var(--color-black-2);
+  color: var(--color-black-1);
+  margin-right: var(--spacing-1);
   font-weight: 700;
-  line-height: 1em;
+  line-height: 1.1;
   flex-shrink: 0;
-  margin-right: calc(var(--spacing-1) * 2);
 }
-.aside {
-  margin-bottom: 0.5rem;
+.sm .title {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+.lg .side {
+  padding-top: 0.9rem;
 }
 .subtitle {
-  font-size: 1.5rem;
-  margin-bottom: var(--spacing-2);
+  font-size: 1.3rem;
+  margin-bottom: 0.9rem;
+  line-height: 1.5;
 }
-.register-copy {
+.sm .subtitle {
+  font-size: 1.2em;
+  margin-bottom: 3rem;
+}
+.cta-container {
+  display: flex;
+  align-items: center;
+}
+.sm .cta-container {
+  flex-direction: column;
+}
+.button {
+  width: auto;
+  margin-right: var(--spacing-2);
+}
+.sm .button {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+.altcopy {
   color: var(--color-gray-1);
-  margin-bottom: var(--spacing-4);
-}
-.register-button-container {
-  display: inline-block;
-}
-.register-button {
-  width: 12rem;
-}
-.video {
-  border-radius: 5px;
-}
-@media (max-width: 820px) {
-  .subtitle br {
-    display: none;
-  }
-  .content {
-    max-width: 25rem;
-    padding: calc(var(--spacing-1) * 2) 0;
-  }
-  .content * {
-    text-align: center;
-  }
-  .main {
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: calc(var(--spacing-1) * 2);
-  }
-  .title {
-    font-size: 3rem;
-    margin-right: 0;
-    margin-bottom: var(--spacing-1);
-  }
-  .aside {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-  }
-  .subtitle {
-    margin-bottom: var(--spacing-1);
-  }
-  .subscription-form {
-    width: 100%;
-  }
-  ::v-deep .form {
-    flex-direction: column;
-  }
-  ::v-deep .subscription-form .input,
-  ::v-deep .button {
-    margin-right: 0;
-    width: 100%;
-  }
-  ::v-deep .subscription-form .input {
-    margin-bottom: var(--spacing-4);
-  }
-  .register-button-container {
-    display: block;
-    width: 100%;
-  }
-  .register-button {
-    width: 100%;
-  }
+  line-height: 1.3;
 }
 </style>
