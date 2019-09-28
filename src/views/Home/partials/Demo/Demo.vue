@@ -1,5 +1,5 @@
 <template>
-  <div class="demo" v-on="$mq === 'sm' ? { click: () => $refs['video-fs'].$el.play() } : {}">
+  <div class="demo" @click="toggleFullScreen">
     <div class="header">
       <div class="label">Demo</div>
       <div class="altcopy" v-if="$mq === 'sm'">Tap for full screen →</div>
@@ -7,7 +7,7 @@
     <div class="container">
       <div class="wrapper">
         <div class="inner">
-          <BaseVideo class="video" :path="require('@/assets/vid/demo.mp4')" autoplay playsinline/>
+          <BaseVideo class="video" ref="video" :path="require('@/assets/vid/demo.mp4')" autoplay playsinline/>
           <BaseVideo class="video-fs" ref="video-fs" :path="require('@/assets/vid/demo.mp4')"/>
         </div>
       </div>
@@ -21,6 +21,16 @@ export default {
   name: 'home',
   components: {
     BaseVideo
+  },
+  methods: {
+    toggleFullScreen () {
+      if (this.$mq !== 'sm') return
+      const video = this.$refs['video'].$el
+      const videoFs = this.$refs['video-fs'].$el
+      if (video.requestFullScreen) return video.requestFullScreen()
+      else if (video.webkitRequestFullScreen) return video.webkitRequestFullScreen()
+      else videoFs.play()
+    }
   }
 }
 </script>
