@@ -10,16 +10,16 @@
           </div>
           <div class="side" :style="{width: !$store.state.ui.registrationsEnabled ? '100%' : 'auto' }">
             <div class="subtitle">
-              Save time and gain insights<br>
-              with the all-in-one tool for property.
+              Save time and gain insights with<br>
+              our all-in-one tool for Australian property.
             </div>
             <div class="cta-container" v-if="$store.state.ui.registrationsEnabled">
               <router-link class="button" to="/register">
                 <BaseButtonSubmit design="primary" text="Get free beta access"/>
               </router-link>
               <div class="altcopy">
-                Limited positions remaining.<br>
-                Sign up to secure an account.
+                Limited positions available.<br>
+                Sign up now for guaranteed access.
               </div>
             </div>
             <SubscriptionForm class="subscription-form" v-else/>
@@ -114,7 +114,7 @@ export default {
 }
 .sm .subtitle {
   font-size: 1.2em;
-  margin-bottom: 3rem;
+  margin-bottom: 1rem;
 }
 .cta-container {
   display: flex;

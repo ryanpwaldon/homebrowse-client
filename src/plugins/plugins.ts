@@ -17,3 +17,5 @@ Vue.use(VueMq, {
 })
 
 Vue.use(VueIntercom, { appId: 'wwrlllbh' })
+
+Vue.mixin({ data: () => ({ console }) })

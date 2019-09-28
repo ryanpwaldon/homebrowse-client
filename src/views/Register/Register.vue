@@ -3,7 +3,7 @@
     <form @submit.prevent="onSubmit">
       <img class="logo" src="@/assets/img/logo-circle.svg">
       <div class="title">
-        Search more efficiently<br>
+        Search efficiently<br>
         and gain market insights.
       </div>
       <BaseFieldInput

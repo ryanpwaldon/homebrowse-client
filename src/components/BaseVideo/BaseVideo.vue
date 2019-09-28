@@ -2,8 +2,9 @@
   <video
     class="base-video"
     :src="path"
-    playsinline
-    autoplay
+    :playsinline="playsinline"
+    :autoplay="autoplay"
+    :controls="controls"
     muted
     loop
   />
@@ -15,6 +16,18 @@ export default {
     path: {
       type: String,
       required: true
+    },
+    playsinline: {
+      type: Boolean,
+      default: false
+    },
+    controls: {
+      type: Boolean,
+      default: false
+    },
+    autoplay: {
+      type: Boolean,
+      default: false
     }
   }
 }
@@ -26,5 +39,6 @@ export default {
   height: auto;
   display: block;
   -webkit-mask-image: -webkit-radial-gradient(white, black);
+  &:focus { outline: none }
 }
 </style>

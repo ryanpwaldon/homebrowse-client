@@ -1,12 +1,15 @@
 <template>
-  <div class="demo">
+  <div class="demo" v-on="$mq === 'sm' ? { click: () => $refs['video-fs'].$el.play() } : {}">
     <div class="header">
       <div class="label">Demo</div>
-      <div class="altcopy" v-if="$mq === 'sm'">Swipe video →</div>
+      <div class="altcopy" v-if="$mq === 'sm'">Tap for full screen →</div>
     </div>
     <div class="container">
       <div class="wrapper">
-        <BaseVideo class="video" :path="require('@/assets/vid/demo.mp4')"/>
+        <div class="inner">
+          <BaseVideo class="video" :path="require('@/assets/vid/demo.mp4')" autoplay playsinline/>
+          <BaseVideo class="video-fs" ref="video-fs" :path="require('@/assets/vid/demo.mp4')"/>
+        </div>
       </div>
     </div>
   </div>
@@ -45,15 +48,29 @@ export default {
   overflow-x: auto;
 }
 .wrapper {
-  padding-top: var(--spacing-2);
+  position: relative;
+  margin-top: var(--spacing-2);
 }
 .sm .wrapper {
   width: 150vw;
   padding: var(--spacing-2) var(--spacing-1);
+  margin-top: 0;
+}
+.inner {
+  width: 100%;
+  position: relative;
 }
 .video {
   background: white;
-  border-radius: 5px;
   border: solid 1px var(--color-black-1);
+  border-radius: 5px;
+}
+.video-fs {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  visibility: hidden;
 }
 </style>
