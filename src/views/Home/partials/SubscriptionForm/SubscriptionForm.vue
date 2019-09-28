@@ -1,28 +1,30 @@
 <template>
-  <div class="subscription-form">
-    <transition name="fade" mode="out-in">>
-      <form class="form" @submit.prevent="submit" v-if="!submitted">
-        <BaseFieldInput
-          class="input"
-          type="email"
-          placeholder="Enter your email..."
-          :value="email"
-          @input="email = $event"
-        />
-        <BaseButtonSubmit
-          class="button"
-          text="Request beta access"
-          :loading="loading"
-          design="primary"
-        />
-      </form>
-      <BasePrompt
-        class="prompt"
-        text="You're on the list! We'll notify you when a position becomes available."
-        v-else
+  <transition name="fade" mode="out-in">>
+    <form class="form" @submit.prevent="submit" v-if="!submitted">
+      <BaseFieldInput
+        class="input"
+        type="email"
+        placeholder="Enter your email..."
+        :value="email"
+        @input="email = $event"
       />
-    </transition>
-  </div>
+      <BaseButtonSubmit
+        class="button"
+        text="Request beta access"
+        :loading="loading"
+        design="primary"
+      />
+      <div class="altcopy">
+        Limited positions available.<br>
+        Sign up early to receive access.
+      </div>
+    </form>
+    <BasePrompt
+      class="prompt"
+      text="You're on the list! We'll notify you when a position becomes available."
+      v-else
+    />
+  </transition>
 </template>
 
 <script>
@@ -55,19 +57,33 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.subscription-form {
-  display: flex;
-}
 .form {
   width: 100%;
   display: flex;
-  max-width: 30rem;
+  position: relative;
+}
+.sm .form {
+  flex-direction: column;
 }
 .input {
   margin-right: var(--spacing-4);
 }
+.sm .input {
+  margin-right: 0;
+  margin-bottom: var(--spacing-4);
+}
 .button {
   width: auto;
+}
+.altcopy {
+  line-height: 1.3;
+  color: var(--color-gray-1);
+  margin-top: var(--spacing-4);
+}
+.lg .altcopy {
+  position: absolute;
+  top: 100%;
+  left: 0;
 }
 .prompt {
   width: auto;

@@ -8,10 +8,10 @@
             Search homes<br>
             the easy way
           </div>
-          <div class="side">
+          <div class="side" :style="{width: !$store.state.ui.registrationsEnabled ? '100%' : 'auto' }">
             <div class="subtitle">
-              Save time and gain insights with<br>
-              the all-in-one tool for property.
+              Save time and gain insights<br>
+              with the all-in-one tool for property.
             </div>
             <div class="cta-container" v-if="$store.state.ui.registrationsEnabled">
               <router-link class="button" to="/register">
@@ -55,7 +55,7 @@ export default {
   align-items: center;
   background: var(--color-gray-5);
 }
-.sm br {
+.sm ::v-deep br {
   display: none;
 }
 .nav {
