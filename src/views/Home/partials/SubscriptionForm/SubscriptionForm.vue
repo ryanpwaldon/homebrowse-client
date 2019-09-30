@@ -15,13 +15,12 @@
         design="primary"
       />
       <div class="altcopy">
-        Limited positions available.<br>
-        Sign up early to receive access.
+        We'll let you know when a position becomes available.
       </div>
     </form>
     <BasePrompt
       class="prompt"
-      text="You're on the list! We'll notify you when a position becomes available."
+      text="Thanks for your interest! We'll let you know when a position becomes available."
       v-else
     />
   </transition>
