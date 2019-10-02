@@ -84,6 +84,7 @@ router.beforeEach(async (to, _, next) => {
     if (store.state.user.accessToken) return sendTo('/workspace')
     else {
       await router.app && (router.app as any).$intercom.boot()
+      if (to.path === '/register' && to.query.code === 'pBWsBcOg9Bd3hRN2') return next()
       return sendTo('/')
     }
   } else {
