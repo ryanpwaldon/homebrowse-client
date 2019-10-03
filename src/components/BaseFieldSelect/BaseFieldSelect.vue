@@ -78,9 +78,9 @@ export default {
   height: 100%;
   top: 0;
   left: 0;
+  opacity: 0;
   transition: background-color 120ms ease-in-out;
   border-radius: var(--border-radius-2);
-  color: var(--color-transparent);
   padding: 0 var(--spacing-4);
   cursor: pointer;
   z-index: 1;
