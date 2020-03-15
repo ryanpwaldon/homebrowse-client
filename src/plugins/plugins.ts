@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import router from '../router'
 import VueAnalytics from 'vue-analytics'
-import VueIntercom from 'vue-intercom'
+// import VueIntercom from 'vue-intercom'
 import VueMq from 'vue-mq'
 
 Vue.use(VueAnalytics, {
@@ -16,6 +16,6 @@ Vue.use(VueMq, {
   }
 })
 
-Vue.use(VueIntercom, { appId: 'wwrlllbh' })
+// Vue.use(VueIntercom, { appId: 'wwrlllbh' })
 
 Vue.mixin({ data: () => ({ console }) })

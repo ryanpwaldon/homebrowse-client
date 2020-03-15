@@ -33,18 +33,18 @@ export default {
     },
     updateUser ({ commit }, { userProfile: { password, ...userProfile }, accessToken }) {
       this._vm.$ga.set({ userId: userProfile.id })
-      this._vm.$intercom.boot({
-        user_id: userProfile.id,
-        name: userProfile.name,
-        email: userProfile.email
-      })
+      // this._vm.$intercom.boot({
+      //   user_id: userProfile.id,
+      //   name: userProfile.name,
+      //   email: userProfile.email
+      // })
       localStorage.setItem('accessToken', accessToken)
       commit('setUserProfile', userProfile)
       commit('setAccessToken', accessToken)
     },
     logout ({ commit }) {
-      this._vm.$intercom.shutdown()
-      this._vm.$intercom.boot()
+      // this._vm.$intercom.shutdown()
+      // this._vm.$intercom.boot()
       localStorage.removeItem('accessToken')
       commit('setUserProfile', null)
       commit('setAccessToken', null)
