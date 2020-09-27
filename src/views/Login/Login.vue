@@ -29,7 +29,7 @@
       />
       <transition name="fade">
         <div class="auth-error" v-if="loginFailed">
-          Your login info isn't right. Try again, or reset your password if it slipped your mind.
+          Your login info isn't right. Try again, or reset your password.
         </div>
       </transition>
     </form>

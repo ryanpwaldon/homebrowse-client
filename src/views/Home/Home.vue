@@ -11,7 +11,7 @@
           <div class="side" :style="{width: !$store.state.ui.registrationsEnabled ? '100%' : 'auto' }">
             <div class="subtitle">
               Save time and gain insights with<br>
-              our all-in-one tool for Australian property.
+              the all-in-one tool for Australian property.
             </div>
             <div class="cta-container" v-if="$store.state.ui.registrationsEnabled">
               <router-link class="button" to="/register">

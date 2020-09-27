@@ -14,9 +14,9 @@
         :loading="loading"
         design="primary"
       />
-      <div class="altcopy">
+      <!-- <div class="altcopy">
         We'll let you know when a position becomes available.
-      </div>
+      </div> -->
     </form>
     <BasePrompt
       class="prompt"
