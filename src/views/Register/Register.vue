@@ -2,10 +2,6 @@
   <div class="register">
     <form @submit.prevent="onSubmit">
       <img class="logo" src="@/assets/img/logo-circle.svg">
-      <div class="title">
-        Search efficiently<br>
-        and gain market insights.
-      </div>
       <BaseFieldInput
         class="input"
         label="Name"
@@ -38,7 +34,7 @@
       />
       <BaseButtonSubmit
         class="submit"
-        text="Sign up to Homebrowse"
+        text="Sign up"
         :loading="loading"
       />
       <transition name="fade">
