@@ -2,6 +2,9 @@
   "name": "hb-i",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "11.12.0"
+  },
   "scripts": {
     "now-build": "yarn build",
     "start": "node server",

@@ -6,7 +6,8 @@
           <div class="title">{{ item.displayAddress }}</div>
           <div class="subtitle">{{ item.suburb }} {{ item.state }} {{ item.postcode }}</div>
         </div>
-        <div class="price">{{ item.price }}</div>
+        <div class="price" v-if="detail && detail.price">{{ detail && detail.price | formatNumber('price') }}</div>
+        <div class="price" v-else>{{ item.price }}</div>
       </div>
       <div class="sub-header">
         <div class="features">
@@ -45,7 +46,13 @@ export default {
   },
   computed: {
     ...mapState('entities/properties', {
-      item: state => state.items[state.selectedId]
+      item: state => state.items[state.selectedId],
+      selectedId: state => state.selectedId
+    }),
+    ...mapState('entities/propertiesDetail', {
+      detail (state) {
+        return state.items[this.selectedId]
+      }
     }),
     listingTypeFormatted () {
       if (this.item.listingType === 'buy') return 'For sale'
